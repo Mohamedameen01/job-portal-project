@@ -1,9 +1,9 @@
 import express from "express";
 import { engine } from "express-handlebars";
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
-import mainRouter from "./routers/mainRouter.js";
+import mainRouter from "./modules/user/routes/mainRouter.js";
 
 const app = express();
 
@@ -18,14 +18,21 @@ app.engine(
   "hbs",
   engine({
     extname: ".hbs",
-    defaultLayout: 'index',
-    layoutsDir: __dirname + "/views/layouts/",
-    partialsDir: __dirname + "/views/partials/",
+    defaultLayout: "index",
+    layoutsDir: path.join(__dirname, "modules/user/views/layouts/"),
+    partialsDir: path.join(__dirname, "modules/user/views/partials/"),
+    helpers: {
+      uppercase: function (str) {
+        return str.toUpperCase();
+      },
+    },
   })
 );
-app.set("view engine", "hbs");
-app.set("views", "./views");
 
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "modules/user/views/"));
+
+app.use(express.json());
 app.use("/", mainRouter);
 
 // Makes the app to listen port
