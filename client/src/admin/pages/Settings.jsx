@@ -11,7 +11,7 @@ function Settings() {
     "plan settings",
   ];
   return (
-    <div className={`mx-3 ${showSideBar ? "col-span-5" : "col-span-11"}`}>
+    <div className="mx-3">
       <h1 className="text-xl">Settings</h1>
       {options.map((item) => (
         <SettingsOption title={item} />

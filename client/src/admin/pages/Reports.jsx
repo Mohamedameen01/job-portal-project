@@ -11,7 +11,7 @@ function Reports() {
     "revenue reports",
   ];
   return (
-    <div className={`mx-3 ${showSideBar ? "col-span-5" : "col-span-11"}`}>
+    <div className="mx-3">
       <h1 className="text-lg">Generate Reports</h1>
       {reportName.map((item) => (
         <ReportList title={item} />

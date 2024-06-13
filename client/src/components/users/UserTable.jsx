@@ -1,5 +1,5 @@
 import React from "react";
-import { userData } from "../utils/table-datas";
+import { userData } from "../../utils/table-datas";
 import { Link } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
 import { IoMdClose } from "react-icons/io";
@@ -7,7 +7,6 @@ import { IoMdClose } from "react-icons/io";
 function UserTable() {
   return (
     <div>
-      <h1 className="text-xl font-medium mb-3">All Jobs</h1>
       <table className="w-full text-center border-2 border-cyan-600 rounded-lg">
         <thead className="uppercase bg-[#8B93FF] text-[#FFF7FC] text-sm">
           <tr>

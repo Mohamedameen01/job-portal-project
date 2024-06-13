@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UserLayout from "./user/UserLayout";
+import UserLayout from "./home/UserLayout";
 import AdminLayout from "./admin/AdminLayout";
 import { Signin, Signup } from "./components/auth";
-import { About, AuthForm, Contact, Home } from "./user/pages";
+import { About, AuthForm, Contact, Home } from "./home/pages";
 import {
   Companies,
   Jobs,
   Reports,
+  SelectedCompany,
   Settings,
   Statistics,
   Users,
@@ -40,6 +41,7 @@ function App() {
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/reports" element={<Reports />} />
           <Route path="/admin/settings" element={<Settings />} />
+          <Route path="/admin/companies/:id" element={<SelectedCompany />} />
         </Route>
       </Routes>
     </BrowserRouter>

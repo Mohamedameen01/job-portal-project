@@ -1,6 +1,6 @@
 export const companyData = [
   { id: 1, company: "Voonix", totalJobs: 60, rating: 4.7, available: 22 },
-  { id: 2, company: "Gabcube", totalJobs: 11, rating: 1.9, available: 25 },
+  { id: 2, company: "Gabcube", totalJobs: 11, rating: 1, available: 25 },
   { id: 3, company: "Devcast", totalJobs: 200, rating: 1.4, available: 9 },
   { id: 4, company: "Zooveo", totalJobs: 105, rating: 1.4, available: 20 },
   { id: 5, company: "Snaptags", totalJobs: 65, rating: 4.5, available: 19 },

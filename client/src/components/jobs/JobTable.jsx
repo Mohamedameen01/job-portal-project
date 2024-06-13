@@ -1,11 +1,10 @@
 import React from "react";
-import { jobData } from "../utils/table-datas";
+import { jobData } from "../../utils/table-datas";
 import { Link } from "react-router-dom";
 
 function JobTable() {
   return (
     <div>
-      <h1 className="text-xl font-medium mb-3">All Jobs</h1>
       <table className="w-full text-center border-2 border-cyan-600 rounded-lg">
         <thead className="uppercase bg-[#8B93FF] text-[#FFF7FC] text-sm">
           <tr>

@@ -4,9 +4,7 @@ import { NavLink } from "react-router-dom";
 
 function AdminSideBar({ showSideBar }) {
   return (
-    <div
-      className={`sticky top-10 h-screen ${showSideBar ? "mx-auto" : "mx-3"} `}
-    >
+    <div className={showSideBar ? "mx-5" : "mx-3"}>
       {adminNavLinks?.map((item) => (
         <NavLink
           className="flex items-center gap-3 py-2 text-lg transition ease-in-out duration-300 hover:scale-105 "
