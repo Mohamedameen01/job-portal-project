@@ -12,10 +12,10 @@ function CompanyTable() {
     const stars = [];
 
     for (let i = 0; i < fullStar; i++) {
-      stars.push(<IoIosStar />);
+      stars.push(<IoIosStar key={`star${i}`} />);
     }
     if (halfStar) {
-      stars.push(<IoIosStarHalf />);
+      stars.push(<IoIosStarHalf key={`half-star`} />);
     }
 
     return <div className="flex justify-center">{stars}</div>;
@@ -23,26 +23,28 @@ function CompanyTable() {
 
   return (
     <div>
-      <table className="w-full text-center border-2 border-cyan-600 rounded-lg">
-        <thead className="bg-[#8B93FF] text-[#FFF7FC] text-sm">
+      <table className="bg-[#ffffff] w-full text-center rounded-lg">
+        <thead className="text-[#000000] border text-sm font-semibold">
           <tr>
-            <th className="py-2">COMPANY</th>
-            <th className="py-2">TOTAL JOBS</th>
-            <th className="py-2">RATING</th>
-            <th className="py-2">OPEN JOBS</th>
-            <th className="py-2"></th>
+            <td className="py-3">#</td>
+            <td className="py-3">COMPANY</td>
+            <td className="py-3">TOTAL JOBS</td>
+            <td className="py-3">RATING</td>
+            <td className="py-3">OPEN JOBS</td>
+            <td className="py-3"></td>
           </tr>
         </thead>
         <tbody>
-          {companyData?.map((data) => (
-            <tr key={data.id} className="border-b border-blue-400 px-2">
-              <td className="py-2">{data.company}</td>
-              <td className="py-2">{data.totalJobs}</td>
-              <td className="py-2">{handleRatingCount(data.rating)}</td>
-              <td className="py-2">{data.available}</td>
-              <td className=" py-2">
+          {companyData?.map((data, index) => (
+            <tr key={data.id} className="border-b px-2 capitalize text-sm">
+              <td className="py-3">{index + 1}</td>
+              <td className="py-3">{data.company}</td>
+              <td className="py-3">{data.totalJobs}</td>
+              <td className="py-3">{handleRatingCount(data.rating)}</td>
+              <td className="py-3">{data.available}</td>
+              <td className="py-3">
                 <Link
-                  to={`/admin/companies/${data.id}`}
+                  to={`/administrator/companies/${data.id}`}
                   className="bg-[#8B93FF] text-[#FFF7FC] px-3 py-1 rounded-lg"
                 >
                   Details

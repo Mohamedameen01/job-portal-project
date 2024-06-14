@@ -4,27 +4,39 @@ import { Link } from "react-router-dom";
 
 function JobTable() {
   return (
-    <div>
-      <table className="w-full text-center border-2 border-cyan-600 rounded-lg">
-        <thead className="uppercase bg-[#8B93FF] text-[#FFF7FC] text-sm">
+    <div className="flex flex-1">
+      <table className="bg-[#ffffff] w-full text-center rounded-lg">
+        <thead className="uppercase text-[#000000] border text-sm font-semibold">
           <tr>
-            <th className="py-2">job</th>
-            <th className="py-2">company</th>
-            <th className="py-2">status</th>
-            <th className="py-2">applicants</th>
-            <th className="py-2">selected</th>
-            <th className="py-2"></th>
+            <td className="py-3">#</td>
+            <td className="py-3">job</td>
+            <td className="py-3">company</td>
+            <td className="py-3">status</td>
+            <td className="py-3">applicants</td>
+            <td className="py-3">selected</td>
+            <td className="py-3"></td>
           </tr>
         </thead>
         <tbody>
-          {jobData.map((data) => (
-            <tr key={data.id} className="border-b border-blue-400 px-2">
-              <td className="py-2">{data.job}</td>
-              <td className="py-2">{data.company}</td>
-              <td className="py-2">{data.status}</td>
-              <td className="py-2">{data.applicants}</td>
-              <td className="py-2">{data.selected}</td>
-              <td className="py-2">
+          {jobData.map((data, index) => (
+            <tr key={data.id} className="border-b px-2 capitalize text-sm">
+              <td className="py-3">{index + 1}</td>
+              <td className="py-3">{data.job}</td>
+              <td className="py-3">{data.company}</td>
+              <td className="py-3">
+                <span
+                  className={`px-2 py-1 rounded-full ${
+                    data.status === "recruiting"
+                      ? "bg-green-200 text-green-900"
+                      : "bg-red-200 text-red-900"
+                  }`}
+                >
+                  {data.status}
+                </span>
+              </td>
+              <td className="py-3">{data.applicants}</td>
+              <td className="py-3">{data.selected}</td>
+              <td className="py-3">
                 <Link className="bg-[#8B93FF] text-[#FFF7FC] px-3 py-1 rounded-lg">
                   Details
                 </Link>

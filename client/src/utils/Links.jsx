@@ -7,37 +7,37 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 export const adminNavLinks = [
   {
-    path: "admin/statistics",
+    path: "administrator/statistics",
     text: "Statistics",
     icon: <FaRegChartBar />,
     url: "statistics",
   },
   {
-    path: "admin/companies",
+    path: "administrator/companies",
     text: "Companies",
     icon: <GrOrganization />,
     url: "companies",
   },
   {
-    path: "admin/jobs",
+    path: "administrator/jobs",
     text: "Jobs",
     icon: <MdOutlineWorkOutline />,
     url: "jobs",
   },
   {
-    path: "admin/users",
+    path: "administrator/users",
     text: "Users",
     icon: <FiUsers />,
     url: "users",
   },
   {
-    path: "admin/reports",
+    path: "administrator/reports",
     text: "Reports",
     icon: <TbReportSearch />,
     url: "reports",
   },
   {
-    path: "admin/settings",
+    path: "administrator/settings",
     text: "Settings",
     icon: <IoSettingsOutline />,
     url: "settings",

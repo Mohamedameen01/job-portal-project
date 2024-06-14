@@ -12,6 +12,7 @@ import SettingsOption from "./settings/SettingsOption";
 import AdminPagesHeader from "./AdminPagesHeader";
 import CompanyDetailsHeader from "./companies/CompanyDetailsHeader";
 import CompanyDetailsBody from "./companies/CompanyDetailsBody";
+import Pagination from "./Pagination";
 export {
   Header,
   JobTable,
@@ -27,4 +28,5 @@ export {
   AdminPagesHeader,
   CompanyDetailsHeader,
   CompanyDetailsBody,
+  Pagination,
 };

@@ -9,6 +9,7 @@ import {
   Jobs,
   Reports,
   SelectedCompany,
+  SelectedJob,
   Settings,
   Statistics,
   Users,
@@ -35,13 +36,17 @@ function App() {
 
         {/* This Router for Admin */}
         <Route element={<AdminLayout />}>
-          <Route path="/admin/statistics" element={<Statistics />} />
-          <Route path="/admin/companies" element={<Companies />} />
-          <Route path="/admin/jobs" element={<Jobs />} />
-          <Route path="/admin/users" element={<Users />} />
-          <Route path="/admin/reports" element={<Reports />} />
-          <Route path="/admin/settings" element={<Settings />} />
-          <Route path="/admin/companies/:id" element={<SelectedCompany />} />
+          <Route path="/administrator/statistics" element={<Statistics />} />
+          <Route path="/administrator/companies" element={<Companies />} />
+          <Route path="/administrator/jobs" element={<Jobs />} />
+          <Route path="/administrator/users" element={<Users />} />
+          <Route path="/administrator/reports" element={<Reports />} />
+          <Route path="/administrator/settings" element={<Settings />} />
+          <Route
+            path="/administrator/companies/:id"
+            element={<SelectedCompany />}
+          />
+          <Route path="/administrator/jobs/:id" element={<SelectedJob />} />
         </Route>
       </Routes>
     </BrowserRouter>

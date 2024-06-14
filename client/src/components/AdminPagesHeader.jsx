@@ -3,7 +3,7 @@ import { IoMdSearch } from "react-icons/io";
 
 function AdminPagesHeader({ title }) {
   return (
-    <div className="flex justify-between items-center my-3">
+    <div className="flex justify-between items-center my-3 bg-white p-3 rounded-md">
       <h1 className="text-xl font-medium mb-3 capitalize">{title}</h1>
       <div className="relative">
         <div className="absolute inset-y-0 inset-x-1 flex items-center text-[#00000080] pointer-events-none">

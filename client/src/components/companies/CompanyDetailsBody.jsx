@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
+import CompanyOpenJobs from "./CompanyOpenJobs";
+import { jobDetailsData } from "../../utils/table-datas";
+
 function CompanyDetailsBody() {
+  const [openJobs, setOpenJobs] = useState();
+  const [closedJobs, setClosedJobs] = useState();
+
+  useEffect(() => {
+    const fetchOpenJobs = () => {
+      const recruiting = jobDetailsData.filter(
+        (item) => item.status === "recruiting"
+      );
+
+      const expired = jobDetailsData.filter(
+        (item) => item.status !== "recruiting"
+      );
+
+      setOpenJobs(recruiting);
+      setClosedJobs(expired);
+    };
+    fetchOpenJobs();
+  }, [jobDetailsData]);
+
   return (
     <div className="grid grid-cols-3 gap-4 mt-5">
       <div className="col-span-2">
@@ -20,8 +42,9 @@ function CompanyDetailsBody() {
           was split into two operating divisions, Moody’s Investors Service, the
           rating agency, and Moody’s Analytics, with all of its other products.
         </p>
+        <CompanyOpenJobs data={openJobs} />
       </div>
-      <div className="p-4 bg-[#e3f2fd] ">
+      <div className="p-4 bg-[#e3f2fd] h-fit ">
         <div className="flex justify-between">
           <div className="flex flex-col gap-3 font-medium">
             <p>Primay industry :</p>

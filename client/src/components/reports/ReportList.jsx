@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 function ReportList({ title }) {
   return (
     <div className="bg-[#8B93FF] text-[#FFF7FC] my-3 grid grid-cols-4 items-center gap-3 py-2 rounded-md shadow-md">

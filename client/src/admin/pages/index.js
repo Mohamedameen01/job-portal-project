@@ -5,7 +5,7 @@ import Users from "./Users";
 import Reports from "./Reports";
 import Settings from "./Settings";
 import SelectedCompany from "./SelectedCompany";
-
+import SelectedJob from "./SelectedJob";
 export {
   Statistics,
   Companies,
@@ -14,4 +14,5 @@ export {
   Reports,
   Settings,
   SelectedCompany,
+  SelectedJob,
 };
