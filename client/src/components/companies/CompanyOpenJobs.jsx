@@ -12,7 +12,7 @@ function CompanyOpenJobs({ data }) {
         {data?.map((item) => (
           <div
             key={item.id}
-            className="bg-[#f7f7f8] grid grid-rows-3 gap-2  my-2 p-4 rounded-md hover:shadow-lg "
+            className="bg-[#f7f7f8] grid grid-rows-3 gap-2  my-2 p-4 rounded-md hover:shadow-md  "
           >
             <h2 className="text-lg font-medium">{item.position}</h2>
             <div className="flex gap-3 text-[#00000080] text-sm">

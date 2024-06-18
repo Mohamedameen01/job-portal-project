@@ -37,7 +37,10 @@ function JobTable() {
               <td className="py-3">{data.applicants}</td>
               <td className="py-3">{data.selected}</td>
               <td className="py-3">
-                <Link className="bg-[#8B93FF] text-[#FFF7FC] px-3 py-1 rounded-lg">
+                <Link
+                  to={`/administrator/jobs/${data.id}`}
+                  className="bg-[#8B93FF] text-[#FFF7FC] px-3 py-1 rounded-lg"
+                >
                   Details
                 </Link>
               </td>

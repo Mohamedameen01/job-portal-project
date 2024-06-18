@@ -11,7 +11,7 @@ function Header() {
           </Link>
         </div>
         <div className="flex gap-3 text-[#FFF7FC]">
-          <NavLink to={"/administrator/"}>Admin</NavLink>
+          <NavLink to={"/administrator/statistics"}>Admin</NavLink>
           <NavLink to={"/about"}>About</NavLink>
           <NavLink to={"/contact"}>Contact</NavLink>
           <NavLink to={"/signin"}>Login</NavLink>

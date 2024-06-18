@@ -24,8 +24,8 @@ function SelectedCompany() {
 
   return (
     <div className="mx-5">
-      <CompanyDetailsHeader title={companyDetails?.company} />
-      <CompanyDetailsBody />
+      <CompanyDetailsHeader companyInfo={companyDetails} />
+      <CompanyDetailsBody companyInfo={companyDetails} />
     </div>
   );
 }

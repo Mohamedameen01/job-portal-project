@@ -4,7 +4,7 @@ import { IoBagHandleOutline } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { MdOutlineLocalPhone } from "react-icons/md";
 
-function CompanyDetailsHeader({ title }) {
+function CompanyDetailsHeader({ companyInfo }) {
   return (
     <div className=" flex gap-3 p-5 capitalize bg-[#e3f2fd] rounded-md">
       <div>
@@ -17,7 +17,7 @@ function CompanyDetailsHeader({ title }) {
         />
       </div>
       <div className="grid grid-rows-3 ">
-        <h1 className="text-2xl font-semibold">{title}</h1>
+        <h1 className="text-2xl font-semibold">{companyInfo?.company}</h1>
         <div className="flex gap-3 text-[#00000080]">
           <div className="flex  items-center gap-1">
             <span>

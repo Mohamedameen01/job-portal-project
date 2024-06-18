@@ -10,6 +10,7 @@ import {
   Reports,
   SelectedCompany,
   SelectedJob,
+  SelectedUser,
   Settings,
   Statistics,
   Users,
@@ -47,6 +48,7 @@ function App() {
             element={<SelectedCompany />}
           />
           <Route path="/administrator/jobs/:id" element={<SelectedJob />} />
+          <Route path="/administrator/users/:id" element={<SelectedUser />} />
         </Route>
       </Routes>
     </BrowserRouter>

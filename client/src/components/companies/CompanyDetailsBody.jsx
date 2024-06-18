@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { FaTwitter } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-
 import CompanyOpenJobs from "./CompanyOpenJobs";
+import CompanyBoxInfo from "./CompanyBoxInfo";
+
 import { jobDetailsData } from "../../utils/table-datas";
 
-function CompanyDetailsBody() {
+function CompanyDetailsBody({ companyInfo }) {
+  console.log(companyInfo);
   const [openJobs, setOpenJobs] = useState();
-  const [closedJobs, setClosedJobs] = useState();
 
   useEffect(() => {
-    const fetchOpenJobs = () => {
+    const fetchOpenJobs = async () => {
       const recruiting = jobDetailsData.filter(
         (item) => item.status === "recruiting"
       );
-
-      const expired = jobDetailsData.filter(
-        (item) => item.status !== "recruiting"
-      );
-
       setOpenJobs(recruiting);
-      setClosedJobs(expired);
     };
     fetchOpenJobs();
   }, [jobDetailsData]);
@@ -44,34 +37,7 @@ function CompanyDetailsBody() {
         </p>
         <CompanyOpenJobs data={openJobs} />
       </div>
-      <div className="p-4 bg-[#e3f2fd] h-fit ">
-        <div className="flex justify-between">
-          <div className="flex flex-col gap-3 font-medium">
-            <p>Primay industry :</p>
-            <p>Company size :</p>
-            <p>Founded in :</p>
-            <p>Phone :</p>
-            <p>Email :</p>
-            <p>Location :</p>
-            <p>Social media :</p>
-          </div>
-          <div className="flex flex-col gap-3 ">
-            <p>Softwar</p>
-            <p>20-30</p>
-            <p>2011</p>
-            <p>1234567890</p>
-            <p>info@gmail.com</p>
-            <p>Calicut, Keral</p>
-            <p className="flex gap-2">
-              <FaTwitter />
-              <FaInstagram />
-            </p>
-          </div>
-        </div>
-        <button className="w-full mt-3 bg-[#90caf9] text-blue-500 py-3 rounded-md hover:bg-blue-600 hover:text-white">
-          www.voonix.com
-        </button>
-      </div>
+      <CompanyBoxInfo title={companyInfo?.company} />
     </div>
   );
 }

@@ -6,6 +6,8 @@ import Reports from "./Reports";
 import Settings from "./Settings";
 import SelectedCompany from "./SelectedCompany";
 import SelectedJob from "./SelectedJob";
+import SelectedUser from "./SelectedUser";
+
 export {
   Statistics,
   Companies,
@@ -15,4 +17,5 @@ export {
   Settings,
   SelectedCompany,
   SelectedJob,
+  SelectedUser,
 };
