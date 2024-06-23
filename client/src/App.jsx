@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import UserLayout from "./home/UserLayout";
 import AdminLayout from "./admin/AdminLayout";
 import { Signin, Signup } from "./components/auth";
@@ -25,14 +26,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-
-          {/* This Child Router for User Authentication */}
-          <Route element={<AuthForm />}>
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
-          </Route>
-          {/* User Authentication Router End */}
         </Route>
+
+        {/* This Child Router for User Authentication */}
+        <Route element={<AuthForm />}>
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
+        {/* User Authentication Router End */}
+
         {/* User Router End */}
 
         {/* This Router for Admin */}
