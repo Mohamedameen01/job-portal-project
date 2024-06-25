@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import { BiHide } from "react-icons/bi";
 import { BiShow } from "react-icons/bi";
-import { useForm } from "react-hook-form";
-import { employeeSignin, selectAuth } from "../../redux/authSlice";
+import { AiOutlineHome } from "react-icons/ai";
+
+import { employeeSignin } from "../../redux/authSlice";
+import GoogleSignin from "./GoogleSignin";
+import MobileSignin from "./MobileSignin";
 
 function Signin() {
   const [emailFocused, setEmailFocused] = useState(false);
@@ -30,21 +35,24 @@ function Signin() {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <div className="w-[30%] flex flex-col gap-4 bg-white p-5 rounded-lg">
-        <div className="flex flex-col items-center gap-2">
-          <h1 className="text-[#673ab7] text-2xl font-bold">
+      <div className="w-fit h-[80%] md:h-fit flex flex-col gap-4 bg-white m-3  px-5 py-5 rounded-lg shadow-md scroll-smooth overflow-y-auto">
+        <div className="relative text-center">
+          <div className="absolute -top-9 -left-8 border-1 rounded-md p-1 bg-transparent text-2xl text-cyan-500 hover:text-blue-700 hover:border-blue-500 cursor-pointer">
+            <AiOutlineHome />
+          </div>
+          <h1 className="text-[#673ab7] text-lg md:text-2xl font-bold">
             Hi, Welcome Back
           </h1>
-          <p className="text-[#0000008a] text-md font-semibold">
+          <p className="text-[#0000008a] text-sm md:text-md font-semibold my-2">
             Enter your credentials to continue
           </p>
         </div>
 
         <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-          <div className="relative flex flex-col my-4">
+          <div className="relative flex flex-col my-2">
             <input
               className={`py-2 ps-2 rounded-md ${
-                passwordFocused
+                emailFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"
               }`}
@@ -121,15 +129,15 @@ function Signin() {
             </div>
           </div>
 
-          <div className="flex justify-between">
+          <div className="grid justify-center gap-2 md:flex md:gap-1">
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 className="before:content[''] peer relative h-4 w-4 cursor-pointer  rounded-md border-3 border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-10 before:w-10 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-900  checked:bg-blue-900 checked:before:bg-gray-900 hover:before:opacity-10"
               />
-              <p className="text-sm text-slate-700">Keep me logged in</p>
+              <p className="text-sm text-slate-700">Remember me</p>
             </div>
-            <p className="capitalize text-[#673ab7] font-semibold text-sm">
+            <p className="capitalize text-[#673ab7] font-semibold text-sm cursor-pointer">
               forgot password?
             </p>
           </div>
@@ -145,6 +153,17 @@ function Signin() {
             <Link to={"/signup"}>Don't have an account?</Link>
           </p>
         </form>
+
+        <div className="flex items-center gap-2">
+          <div className="w-full border-1 border-b-black"></div>
+          <p className="text-[#0000008a] text-xs ">OR</p>
+          <div className="w-full border-1 border-b-black"></div>
+        </div>
+
+        <div className="grid justify-center md:flex gap-3 my-1">
+          <GoogleSignin />
+          <MobileSignin history={"signin"} />
+        </div>
       </div>
     </div>
   );

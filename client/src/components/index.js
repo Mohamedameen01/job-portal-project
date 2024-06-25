@@ -22,6 +22,7 @@ import UserDetailsHeader from "./users/UserDetailsHeader";
 import UserDetailsBody from "./users/UserDetailsBody";
 import UserCareerInfo from "./users/UserCareerInfo";
 import UserBoxInfo from "./users/UserBoxInfo";
+
 export {
   Header,
   JobTable,

@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { BiHide } from "react-icons/bi";
 import { BiShow } from "react-icons/bi";
+import { AiOutlineHome } from "react-icons/ai";
 
 import { employeeSignup } from "../../redux/authSlice.js";
+import GoogleSignin from "./GoogleSignin.jsx";
+import MobileSignin from "./MobileSignin.jsx";
 
 function Signup() {
   const [nameFocused, setNameFocused] = useState(false);
@@ -32,20 +36,24 @@ function Signup() {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <div className="w-[30%] flex flex-col gap-4 bg-white p-5 shadow-md rounded-lg">
-        <div className="flex flex-col items-center gap-2">
+    <div className="w-full h-full flex justify-center items-center ">
+      <div className="w-fit h-[80%] flex flex-col gap-3 bg-white mx-3 p-5 shadow-md rounded-lg scroll-smooth overflow-y-scroll">
+        <div className="relative text-center ">
+          <div className="absolute -top-9 -left-8 border-1  rounded-md p-1 bg-transparent text-2xl text-cyan-500 hover:text-blue-700 hover:border-blue-500 cursor-pointer">
+            <AiOutlineHome />
+          </div>
           <h1 className="text-[#673ab7] text-2xl font-bold">Sign up</h1>
-          <p className="text-[#0000008a] text-md font-semibold">
+          <p className="text-[#0000008a] text-md font-semibold my-2">
             Enter your credentials to continue
-          </p>
-          <p className="text-[#364152] text-md font-semibold">
-            Sign up with Email address
           </p>
         </div>
 
+        <p className="text-[#364152] text-center text-md font-semibold">
+          Sign up with Email address
+        </p>
+
         <form autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
-          <div className="relative flex flex-col my-4">
+          <div className="relative flex flex-col ">
             <input
               className={`py-2 ps-2 rounded-md ${
                 nameFocused
@@ -72,7 +80,7 @@ function Signup() {
               className={`absolute text-xs transition-all duration-300 ease-in-out ${
                 nameFocused
                   ? "-top-5 left-1 text-xs text-blue-500"
-                  : "top-2 left-2 text-slate-500"
+                  : "top-3 left-2 text-slate-500"
               }`}
               htmlFor="username"
             >
@@ -108,7 +116,7 @@ function Signup() {
               className={`absolute left-2 text-xs transition-all duration-300 ease-in-out ${
                 emailFocused
                   ? "-top-5 left-1 text-xs text-blue-500"
-                  : "top-2 text-slate-500"
+                  : "top-3 text-slate-500"
               }`}
               htmlFor="email"
             >
@@ -146,7 +154,7 @@ function Signup() {
               className={`absolute left-2 text-xs transition-all duration-300 ease-in-out ${
                 passwordFocused
                   ? "-top-5 left-1 text-xs text-blue-500"
-                  : "top-2 text-slate-500 "
+                  : "top-3 text-slate-500 "
               }`}
               htmlFor="password"
             >
@@ -195,7 +203,7 @@ function Signup() {
               className={`absolute left-2 text-xs transition-all duration-300 ease-in-out ${
                 confPasswordFocused
                   ? "-top-5 left-1 text-xs text-blue-500"
-                  : "top-2 text-slate-500 "
+                  : "top-3 text-slate-500 "
               }`}
               htmlFor="re-password"
             >
@@ -215,10 +223,21 @@ function Signup() {
             Sign up
           </button>
 
-          <p className="mt-2 subpixel-antialiased text-center text-sm font-semibold">
+          <p className="mt-1 subpixel-antialiased text-center text-sm font-semibold">
             <Link to={"/signin"}>Already have an account?</Link>
           </p>
         </form>
+
+        <div className="flex items-center gap-2">
+          <div className="w-full border-1 border-b-black"></div>
+          <p className="text-[#0000008a] text-xs ">OR</p>
+          <div className="w-full border-1 border-b-black"></div>
+        </div>
+
+        <div className="grid justify-center md:flex gap-3 my-1">
+          <GoogleSignin />
+          <MobileSignin history={"signup"} />
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import UserLayout from "./home/UserLayout";
 import AdminLayout from "./admin/AdminLayout";
-import { Signin, Signup } from "./components/auth";
+import { Signin, Signup, SmsForm } from "./components/auth";
 import { About, AuthForm, Contact, Home } from "./home/pages";
 import {
   Companies,
@@ -32,6 +32,7 @@ function App() {
         <Route element={<AuthForm />}>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/sms-form" element={<SmsForm />} />
         </Route>
         {/* User Authentication Router End */}
 
