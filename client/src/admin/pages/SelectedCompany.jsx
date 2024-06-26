@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { CompanyDetailsBody, CompanyDetailsHeader } from "../../components";
 import { useParams } from "react-router-dom";
+
 import { companyData } from "../../utils/table-datas";
+import {
+  CompanyDetailsBody,
+  CompanyDetailsHeader,
+} from "../../components/admin/companies";
 
 function SelectedCompany() {
   const { id } = useParams();

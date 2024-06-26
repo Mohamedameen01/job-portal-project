@@ -39,9 +39,9 @@ function Signup() {
     <div className="w-full h-full flex justify-center items-center ">
       <div className="w-fit h-[80%] flex flex-col gap-3 bg-white mx-3 p-5 shadow-md rounded-lg scroll-smooth overflow-y-scroll">
         <div className="relative text-center ">
-          <div className="absolute -top-9 -left-8 border-1  rounded-md p-1 bg-transparent text-2xl text-cyan-500 hover:text-blue-700 hover:border-blue-500 cursor-pointer">
+          <Link to={'/'} className="absolute -top-9 -left-8 border-1  rounded-md p-1 bg-transparent text-2xl text-cyan-500 hover:text-blue-700 hover:border-blue-500 cursor-pointer">
             <AiOutlineHome />
-          </div>
+          </Link>
           <h1 className="text-[#673ab7] text-2xl font-bold">Sign up</h1>
           <p className="text-[#0000008a] text-md font-semibold my-2">
             Enter your credentials to continue

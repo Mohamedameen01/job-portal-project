@@ -1,5 +1,5 @@
 import React from "react";
-import { jobData } from "../../utils/table-datas";
+import { jobData } from "../../../utils/table-datas";
 import { Link } from "react-router-dom";
 
 function JobTable() {

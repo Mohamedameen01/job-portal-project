@@ -1,6 +1,8 @@
 import Home from "./Home";
-import About from "./About";
-import Contact from "./Contact";
 import AuthForm from "./AuthForm";
+import FindJobs from "./FindJobs";
+import HomeCompanies from "./HomeCompanies";
+import Saved from "./Saved";
+import Notifications from "./Notifications";
 
-export { Home, About, Contact, AuthForm };
+export { Home, AuthForm, FindJobs, HomeCompanies, Saved, Notifications };

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { userData } from "../../utils/table-datas";
-
-import { UserDetailsHeader, UserDetailsBody } from "../../components";
+import {
+  UserDetailsBody,
+  UserDetailsHeader,
+} from "../../components/admin/users";
 
 function SelectedUser() {
   const { id } = useParams();

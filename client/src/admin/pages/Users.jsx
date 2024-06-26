@@ -1,6 +1,8 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
-import { AdminPagesHeader, Pagination, UserTable } from "../../components";
+import { Pagination } from "../../components";
+import { AdminPagesHeader } from "../../components/admin";
+import { UserTable } from "../../components/admin/users";
 
 function Users() {
   const { showSideBar } = useOutletContext();

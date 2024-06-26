@@ -1,8 +1,9 @@
 import React from "react";
-import { companyData } from "../../utils/table-datas";
 import { Link } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
 import { IoIosStarHalf } from "react-icons/io";
+
+import { companyData } from "../../../utils/table-datas";
 
 function CompanyTable() {
   const handleRatingCount = (count) => {

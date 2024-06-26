@@ -4,7 +4,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserLayout from "./home/UserLayout";
 import AdminLayout from "./admin/AdminLayout";
 import { Signin, Signup, SmsForm } from "./components/auth";
-import { About, AuthForm, Contact, Home } from "./home/pages";
+import {
+  Home,
+  AuthForm,
+  FindJobs,
+  HomeCompanies,
+  Saved,
+  Notifications,
+} from "./home/pages";
 import {
   Companies,
   Jobs,
@@ -23,9 +30,11 @@ function App() {
       <Routes>
         {/* This Router for User */}
         <Route element={<UserLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/" index element={<Home />} />
+          <Route path="/find-jobs" element={<FindJobs />} />
+          <Route path="/companies" element={<HomeCompanies />} />
+          <Route path="/saved-jobs" element={<Saved />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Route>
 
         {/* This Child Router for User Authentication */}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CompanyOpenJobs from "./CompanyOpenJobs";
 import CompanyBoxInfo from "./CompanyBoxInfo";
 
-import { jobDetailsData } from "../../utils/table-datas";
+import { jobDetailsData } from "../../../utils/table-datas";
 
 function CompanyDetailsBody({ companyInfo }) {
   console.log(companyInfo);

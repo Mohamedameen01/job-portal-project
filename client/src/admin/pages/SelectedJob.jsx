@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { JobDetailsBody, JobDetailsHeader } from "../../components";
 import { useParams } from "react-router-dom";
+
 import { jobData } from "../../utils/table-datas";
+import { JobDetailsHeader, JobDetailsBody } from "../../components/admin/jobs";
 
 function SelectedJob() {
   const { id } = useParams();

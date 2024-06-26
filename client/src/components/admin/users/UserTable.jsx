@@ -1,8 +1,9 @@
 import React from "react";
-import { userData } from "../../utils/table-datas";
 import { Link } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
 import { IoMdClose } from "react-icons/io";
+
+import { userData } from "../../../utils/table-datas";
 
 function UserTable() {
   console.log(userData);

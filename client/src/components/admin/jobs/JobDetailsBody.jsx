@@ -1,8 +1,8 @@
 import React from "react";
 import JobBoxInfo from "./JobBoxInfo";
 import JobRequirements from "./JobRequirements";
-import { keyResponsibilties, skills } from "../../utils/jobs-data";
 import CompanyBoxInfo from "../companies/CompanyBoxInfo";
+import { keyResponsibilties, skills } from "../../../utils/jobs-data";
 
 function JobDetailsBody({ jobInfo }) {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { adminNavLinks } from "../utils/Links";
+import { adminNavLinks } from "../../utils/Links";
 import { NavLink, useLocation } from "react-router-dom";
 
 function AdminSideBar({ showSideBar }) {

@@ -1,7 +1,11 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
-import { StatisticsStatus, StatusGraph } from "../../components";
+
 import { jobStatusData, subscriberStatusData } from "../../utils/graph-data";
+import {
+  StatisticsStatus,
+  StatusGraph,
+} from "../../components/admin/statistics";
 
 function Statistics() {
   const { showSideBar } = useOutletContext();

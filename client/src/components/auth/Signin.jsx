@@ -37,9 +37,12 @@ function Signin() {
     <div className="w-full h-full flex justify-center items-center">
       <div className="w-fit h-[80%] md:h-fit flex flex-col gap-4 bg-white m-3  px-5 py-5 rounded-lg shadow-md scroll-smooth overflow-y-auto">
         <div className="relative text-center">
-          <div className="absolute -top-9 -left-8 border-1 rounded-md p-1 bg-transparent text-2xl text-cyan-500 hover:text-blue-700 hover:border-blue-500 cursor-pointer">
+          <Link
+            to={"/"}
+            className="absolute -top-9 -left-8 border-1 rounded-md p-1 bg-transparent text-2xl text-cyan-500 hover:text-blue-700 hover:border-blue-500 cursor-pointer"
+          >
             <AiOutlineHome />
-          </div>
+          </Link>
           <h1 className="text-[#673ab7] text-lg md:text-2xl font-bold">
             Hi, Welcome Back
           </h1>
