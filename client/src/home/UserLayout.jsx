@@ -5,8 +5,8 @@ import { LargeHeader, NormalHeader } from "../components/employee";
 function UserLayout() {
   const [toggleSideBar, setToggleSideBar] = useState(true);
   return (
-    <div className="relative bg-[#f7f7f8]">
-      <div className="fixed top-0 left-0 right-0 z-10">
+    <div className="relative  bg-[#f7f7f8]">
+      <div className="fixed top-0 left-0 right-0 z-20">
         <LargeHeader />
         <NormalHeader value={toggleSideBar} setValue={setToggleSideBar} />
       </div>

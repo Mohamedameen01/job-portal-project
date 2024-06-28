@@ -7,7 +7,7 @@ import SideBar from "./SideBar";
 
 function NormalHeader({ value, setValue }) {
   return (
-    <header className=" lg:hidden">
+    <header className="lg:hidden bg-white shadow-sm">
       <nav
         className={`h-20 mx-3  ${
           value ? "flex justify-between items-center" : "hidden"

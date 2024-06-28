@@ -2,6 +2,7 @@ import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 import { LiaFileUploadSolid } from "react-icons/lia";
+
 function NormalSearchInput() {
   return (
     <div className="w-full grid justify-center lg:hidden mt-4 px-4">
