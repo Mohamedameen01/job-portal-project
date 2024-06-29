@@ -1,39 +1,50 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+
 import api from "../api";
 
 const INITIAL_STATE = {
-  employee: null,
+  user: null,
   token: null,
   loading: false,
+  success: false,
   error: null,
 };
 
+// Employee Registration Action with Email:
 export const employeeSignup = createAsyncThunk(
-  "auth/employeeSignup",
+  "employee/employeeSignup",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post("/auth/employee/signup", credentials);
+      toast.success(response.data.message);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      const msgError = error.response.data.message;
+      toast.error(msgError);
+      return rejectWithValue(msgError);
     }
   }
 );
 
+// Employee Signin Action with Email:
 export const employeeSignin = createAsyncThunk(
-  "auth/employeeSignin",
+  "employee/employeeSignin",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post("/auth/employee/signin", credentials);
+      toast.success(response.data.message);
       return response.data;
     } catch (error) {
+      const msgError = error.response.data.message;
+      toast.error(msgError);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const employeeGoogleSignin = createAsyncThunk(
-  "auth/employeeGoogleSignin",
+  "employee/employeeGoogleSignin",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post(
@@ -49,7 +60,7 @@ export const employeeGoogleSignin = createAsyncThunk(
 );
 
 export const employeeMobileVerification = createAsyncThunk(
-  "auth/employeeMobileVerification",
+  "employee/employeeMobileVerification",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post(
@@ -64,7 +75,7 @@ export const employeeMobileVerification = createAsyncThunk(
 );
 
 export const employeeMobileSignin = createAsyncThunk(
-  "auth/employeeMobileSignin",
+  "employee/employeeMobileSignin",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post(
@@ -80,9 +91,14 @@ export const employeeMobileSignin = createAsyncThunk(
   }
 );
 
-const authSlice = createSlice({
-  name: "auth",
+const employeeSlice = createSlice({
+  name: "employee",
   initialState: INITIAL_STATE,
+  reducers: {
+    resetEmployeeSuccess: (state) => {
+      state.success = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handle Employee Signup
@@ -90,13 +106,14 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(employeeSignup.fulfilled, (state, action) => {
+      .addCase(employeeSignup.fulfilled, (state) => {
         state.loading = false;
-        state.employee = action.payload.employee;
-        state.token = action.payload.token;
+        state.success = true;
+        state.error = null;
       })
       .addCase(employeeSignup.rejected, (state, action) => {
         state.loading = false;
+        state.success = false;
         state.error = action.payload;
       })
 
@@ -107,11 +124,13 @@ const authSlice = createSlice({
       })
       .addCase(employeeSignin.fulfilled, (state, action) => {
         state.loading = false;
-        state.employee = action.payload.employee;
+        state.success = true;
+        state.user = action.payload.employee;
         state.token = action.payload.token;
       })
       .addCase(employeeSignin.rejected, (state, action) => {
         state.loading = false;
+        state.success = false;
         state.error = action.payload;
       })
 
@@ -131,4 +150,5 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+export const { resetEmployeeSuccess } = employeeSlice.actions;
+export default employeeSlice.reducer;

@@ -5,6 +5,32 @@ import twilio from "twilio";
 import Employee from "../../user/models/employeeSchema.js";
 import { generateVerificationOtp } from "../../../utils/authFuncs.js";
 
+// Employee Registration with email:
+export const registerEmployee = async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    const employee = await Employee.findOne({ email });
+
+    if (employee) {
+      return res.status(400).json({ message: "Email Already Exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newEmployee = new Employee({
+      username,
+      email,
+      password: hashedPassword,
+    });
+    await newEmployee.save();
+
+    return res.status(200).json({ message: "Registration Completed" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Employee Signin with email:
 export const loginEmployee = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -21,36 +47,13 @@ export const loginEmployee = async (req, res) => {
     }
 
     const token = await jwt.sign(
-      { id: employee._id, name: employee.name },
+      { id: employee._id, name: employee.name, email: employee.email },
       process.env.JWT_CODE,
       { expiresIn: "2d" }
     );
-    res.status(201).json({ token, employee });
+    res.status(201).json({ token, employee, message: "Signed In " });
   } catch (error) {
     return res.status(500).json({ message: "Server Error" });
-  }
-};
-
-export const registerEmployee = async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-
-    const employee = await Employee.findOne({ email });
-
-    if (employee) {
-      return res.status(400).json({ message: "Email Already Exists" });
-    }
-
-    const hasedPassword = await bcrypt.hash(password, 10);
-    const newEmployee = new Employee({
-      username,
-      email,
-      password: hasedPassword,
-    });
-    await newEmployee.save();
-    return res.status(200).json({ message: "Employee Registration Completed" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
   }
 };
 

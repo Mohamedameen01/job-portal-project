@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { LargeHeader, NormalHeader } from "../components/employee";
 
-function UserLayout() {
+function EmployeeLayout() {
   const [toggleSideBar, setToggleSideBar] = useState(true);
   return (
     <div className="relative  bg-[#f7f7f8]">
@@ -17,4 +17,4 @@ function UserLayout() {
   );
 }
 
-export default UserLayout;
+export default EmployeeLayout;

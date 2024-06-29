@@ -7,7 +7,7 @@ import "react-phone-number-input/style.css";
 import {
   employeeMobileSignin,
   employeeMobileVerification,
-} from "../../redux/authSlice.js";
+} from "../../redux/employeeSlice.js";
 import { MdClose } from "react-icons/md";
 
 function SmsForm() {
@@ -23,7 +23,7 @@ function SmsForm() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.employeeAuth);
 
   const handleSendButton = () => {
     if (!value) {

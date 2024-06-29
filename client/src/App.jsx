@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import UserLayout from "./home/UserLayout";
+import EmployeeLayout from "./home/EmplyeeLayout";
+import EmployerLayout from "./home/EmplyeeLayout";
 import AdminLayout from "./admin/AdminLayout";
 import { Signin, Signup, SmsForm } from "./components/auth";
 import {
@@ -23,29 +24,40 @@ import {
   Statistics,
   Users,
 } from "./admin/pages";
+import { EmployerAuthForm } from "./employer/pages";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* This Router for User */}
-        <Route element={<UserLayout />}>
+        {/* This Router for Employee */}
+        <Route element={<EmployeeLayout />}>
           <Route path="/" index element={<Home />} />
           <Route path="/find-jobs" element={<FindJobs />} />
           <Route path="/companies" element={<HomeCompanies />} />
           <Route path="/saved-jobs" element={<Saved />} />
           <Route path="/notifications" element={<Notifications />} />
         </Route>
+        {/* Employee Router End */}
 
-        {/* This Child Router for User Authentication */}
+        {/* This Router for Employee Authentication */}
         <Route element={<AuthForm />}>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/sms-form" element={<SmsForm />} />
         </Route>
-        {/* User Authentication Router End */}
+        {/* Employee Authentication Router End */}
 
-        {/* User Router End */}
+        {/* This Router for Employer */}
+        {/* Employer Router End */}
+
+        {/* This Router for Employer Authentication */}
+        <Route element={<EmployerAuthForm />}>
+          <Route path="/employer/signin" element={<Signin />} />
+          <Route path="/employer/signup" element={<Signup />} />
+          <Route path="/employer/sms-form" element={<SmsForm />} />
+        </Route>
+        {/* Employer Authentication Router End */}
 
         {/* This Router for Admin */}
         <Route element={<AdminLayout />}>
@@ -62,6 +74,7 @@ function App() {
           <Route path="/administrator/jobs/:id" element={<SelectedJob />} />
           <Route path="/administrator/users/:id" element={<SelectedUser />} />
         </Route>
+        {/* Admin Router End */}
       </Routes>
     </BrowserRouter>
   );

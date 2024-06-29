@@ -4,7 +4,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
 import { IoLogoGoogle } from "react-icons/io";
-import { employeeGoogleSignin } from "../../redux/authSlice";
+import { employeeGoogleSignin } from "../../redux/employeeSlice";
 
 function GoogleSignin() {
   const dispatch = useDispatch();
