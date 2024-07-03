@@ -1,11 +1,22 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { IoMdClose } from "react-icons/io";
+import { CiLogout } from "react-icons/ci";
 
 import { employeeLinks } from "../../utils/Links";
+import { setUserLocalLogout } from "../../redux/authSlice";
 
 function SideBar({ value, setValue }) {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(setUserLocalLogout());
+    setValue(true);
+    navigate("/signin");
+  };
 
   return (
     <div
@@ -39,6 +50,17 @@ function SideBar({ value, setValue }) {
             <p className="capitalize antialiased text-md">{item.text}</p>
           </NavLink>
         ))}
+        <NavLink
+          className="mt-2 flex items-center gap-4 px-3 py-2 font-medium  
+            hover:scale-105 hover:translate-x-1 border-1 
+            transition ease-in-out duration-300 hover:bg-[#ede7f6] hover:text-[#673ab7] hover:font-medium rounded-md"
+          onClick={handleLogout}
+        >
+          <span className="text-lg">
+            <CiLogout />
+          </span>
+          <p className="capitalize antialiased text-md">Logout</p>
+        </NavLink>
       </div>
     </div>
   );

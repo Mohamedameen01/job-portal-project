@@ -6,6 +6,12 @@ export const employerSchema = new Schema(
     email: { type: String, unique: true },
     password: { type: String },
     phone: { type: String },
+    otp: {
+      type: String,
+    },
+    otpExpires: {
+      type: Date,
+    },
     logo: { type: String },
     companyName: { type: String },
     companyMail: { type: String },

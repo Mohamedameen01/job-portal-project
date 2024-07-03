@@ -4,24 +4,24 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoBookmarkOutline } from "react-icons/io5";
 
-function LargeHeader() {
+function LargeEmployerHeader() {
   return (
     <header className="hidden lg:block bg-[#f7f7f8] text-black shadow-md">
       <nav className="max-w-[1440px] h-20 mx-auto px-7 flex flex-1 justify-between items-center">
         <div className="flex items-center gap-5">
           <div className="antialiased tracking-wide text-xl font-bold">
-            <Link to={"/employee"}>JOB PORTAL</Link>
+            <Link to={"/"}>JOB PORTAL</Link>
           </div>
           <div className="flex gap-3">
             <Link
               className="hover:scale-105 hover:text-[#673ab7]"
-              to={"/employee/find-jobs"}
+              to={"/find-jobs"}
             >
-              Find Jobs
+              Candidates
             </Link>
             <Link
               className="hover:scale-105 hover:text-[#673ab7]"
-              to={"/employee/companies"}
+              to={"/companies"}
             >
               Company
             </Link>
@@ -29,13 +29,13 @@ function LargeHeader() {
         </div>
         <div className="flex items-center gap-3">
           <NavLink
-            to={"/employee/saved-jobs"}
+            to={"/saved-jobs"}
             className="p-1 rounded-md text-xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
           >
             <IoBookmarkOutline />
           </NavLink>
           <NavLink
-            to={"/employee/notifications"}
+            to={"/notifications"}
             className="p-1 rounded-md text-xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
           >
             <IoMdNotificationsOutline />
@@ -44,7 +44,7 @@ function LargeHeader() {
             to={"/employer"}
             className="px-3 py-[2px] border-1 border-slate-500 rounded-md tracking-wide hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
           >
-            Employer
+            Employee
           </NavLink>
 
           <NavLink
@@ -59,4 +59,4 @@ function LargeHeader() {
   );
 }
 
-export default LargeHeader;
+export default LargeEmployerHeader;

@@ -3,13 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-
-import {
-  employeeMobileSignin,
-  employeeMobileVerification,
-} from "../../redux/employeeSlice.js";
 import { MdClose } from "react-icons/md";
 
+import Loader from "../Loader.jsx";
+import { mobileVerification } from "../../redux/authSlice.js";
 function SmsForm() {
   const [value, setValue] = useState("");
   const [valueError, setValueError] = useState(null);
@@ -19,19 +16,21 @@ function SmsForm() {
 
   const [toggleMsgInput, setToggleMsgInput] = useState(false);
 
-  const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.employeeAuth);
+  const { from } = useLocation().state;
 
+  const auth = useSelector((state) => state.userAuth);
+
+  // Handle to Send Message to Phone Number for Verification.
   const handleSendButton = () => {
     if (!value) {
       return setValueError("Your mobile number is required");
     }
     setValueError(null);
 
-    dispatch(employeeMobileVerification({ phone: value }));
+    dispatch(mobileVerification({ phone: value }));
     setToggleMsgInput(true);
   };
 
@@ -40,18 +39,14 @@ function SmsForm() {
       return setInputOtpError("Please enter your otp");
     }
 
-    if (user == inputOtp) {
-      setInputOtpError(null);
-      dispatch(employeeMobileSignin({ phone: value }));
-    } else {
-      setInputOtpError("Invalid OTP. Please try again");
-    }
+    dispatch(mobileSigninn({ phone: value, inputOtp }));
   };
 
-  const handleBackButton = () => {
-    if (location.state?.from === "signup") {
+  // Handle Close Button and Navigate to previous page
+  const handleCloseButton = () => {
+    if (from === "/signup") {
       navigate("/signup");
-    } else if (location.state?.from === "signin") {
+    } else if (from === "/signin") {
       navigate("/signin");
     }
   };
@@ -60,7 +55,7 @@ function SmsForm() {
     <div className="w-full h-screen flex justify-center items-center p-3">
       <div className="relative w-fit p-5 flex flex-col justify-center items-center gap-3 bg-white rounded-md shadow-md">
         <div
-          onClick={handleBackButton}
+          onClick={handleCloseButton}
           className="absolute top-2 right-2 border-1 border-cyan-200 rounded-md p-1 bg-transparent text-2xl text-black hover:text-blue-700 hover:border-blue-500 cursor-pointer "
         >
           <MdClose />
@@ -69,18 +64,22 @@ function SmsForm() {
           Sign In with Mobile
         </h1>
         <PhoneInput
-          className="w-full py-3 px-3 rounded-md  outline outline-1 outline-cyan-500 "
+          className="w-full py-3 px-3 rounded-md outline outline-1 outline-cyan-500 "
           placeholder="Enter phone number"
           value={value}
           onChange={setValue}
         />
         {valueError && <small className="text-red-600">{valueError}</small>}
-        <button
-          onClick={handleSendButton}
-          className="w-full my-2 px-3 py-2 bg-violet-900 text-white font-semibold rounded-md cursor-pointer"
-        >
-          Send SMS
-        </button>
+        {auth.loading ? (
+          <Loader />
+        ) : (
+          <button
+            onClick={handleSendButton}
+            className="w-full my-2 px-3 py-2 bg-violet-900 text-white font-semibold rounded-md cursor-pointer"
+          >
+            Send SMS
+          </button>
+        )}
         {toggleMsgInput && (
           <div className="w-full flex flex-col gap-2">
             <input
@@ -94,12 +93,16 @@ function SmsForm() {
             {inputOtpError && (
               <small className="text-red-600">{inputOtpError}</small>
             )}
-            <button
-              onClick={handleSubmitButton}
-              className="my-2 px-3 py-2 bg-violet-900 text-white font-semibold rounded-md cursor-pointer"
-            >
-              Submit SMS
-            </button>
+            {auth.loading ? (
+              <Loader />
+            ) : (
+              <button
+                onClick={handleSubmitButton}
+                className="my-2 px-3 py-2 bg-violet-900 text-white font-semibold rounded-md cursor-pointer"
+              >
+                Submit SMS
+              </button>
+            )}
           </div>
         )}
       </div>

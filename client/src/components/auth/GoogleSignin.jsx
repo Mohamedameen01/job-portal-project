@@ -1,13 +1,18 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { IoLogoGoogle } from "react-icons/io";
-import { employeeGoogleSignin } from "../../redux/employeeSlice";
+import { googleSignin, resetAuthSuccess } from "../../redux/authSlice";
 
 function GoogleSignin() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const auth = useSelector((state) => state.userAuth);
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
@@ -17,10 +22,22 @@ function GoogleSignin() {
         })
         .then((res) => res.data);
 
-      dispatch(employeeGoogleSignin(userInfo));
+      dispatch(googleSignin(userInfo));
     },
-    onError: (error) => console.log("Google Failed", error),
+    onError: (error) => {
+      toast.error("Google Authentication Failed");
+    },
   });
+
+  useEffect(() => {
+    if (auth.success) {
+      const timer = setTimeout(() => {
+        dispatch(resetAuthSuccess());
+        // navigate("/");
+      }, 2000);
+    }
+  }, [auth, navigate]);
+
   return (
     <div
       onClick={() => googleLogin()}

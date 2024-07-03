@@ -1,11 +1,8 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-
 import { IoPersonOutline } from "react-icons/io5";
 import { CiMenuFries } from "react-icons/ci";
-import SideBar from "./SideBar";
 
-function NormalHeader({ value, setValue }) {
+function NormalEmployerHeader() {
   return (
     <header className="lg:hidden bg-white shadow-sm">
       <nav
@@ -14,7 +11,7 @@ function NormalHeader({ value, setValue }) {
         } `}
       >
         <div className="antialiased tracking-wide text-[#673ab7] text-xl font-semibold">
-          <Link to={"/employee"}>JOB PORTAL</Link>
+          <Link to={"/"}>JOB PORTAL</Link>
         </div>
         <div className="flex gap-2">
           <NavLink className="p-1 rounded-md text-xl font-bold " to={"/signin"}>
@@ -34,4 +31,4 @@ function NormalHeader({ value, setValue }) {
   );
 }
 
-export default NormalHeader;
+export default NormalEmployerHeader;

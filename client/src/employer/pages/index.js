@@ -1,3 +1,3 @@
 import EmployerAuthForm from "./EmployerAuthForm";
-
-export { EmployerAuthForm };
+import EmployerHome from "./EmployerHome";
+export { EmployerAuthForm, EmployerHome };

@@ -1,18 +1,23 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import EmployeeLayout from "./home/EmplyeeLayout";
-import EmployerLayout from "./home/EmplyeeLayout";
+import EmployeeLayout from "./employee/EmplyeeLayout";
+import EmployerLayout from "./employer/EmployerLayout";
 import AdminLayout from "./admin/AdminLayout";
-import { Signin, Signup, SmsForm } from "./components/auth";
+import {
+  InfoForm,
+  RoleSelection,
+  Signin,
+  Signup,
+  SmsForm,
+} from "./components/auth";
 import {
   Home,
-  AuthForm,
   FindJobs,
   HomeCompanies,
   Saved,
   Notifications,
-} from "./home/pages";
+} from "./employee/pages";
 import {
   Companies,
   Jobs,
@@ -24,40 +29,39 @@ import {
   Statistics,
   Users,
 } from "./admin/pages";
-import { EmployerAuthForm } from "./employer/pages";
+import { EmployerHome } from "./employer/pages";
+import { AuthForm } from "./user";
 
 function App() {
+  // const isAuthenticated = localStorage.getItem("USER_LOCAL");
   return (
     <BrowserRouter>
       <Routes>
-        {/* This Router for Employee */}
-        <Route element={<EmployeeLayout />}>
-          <Route path="/" index element={<Home />} />
-          <Route path="/find-jobs" element={<FindJobs />} />
-          <Route path="/companies" element={<HomeCompanies />} />
-          <Route path="/saved-jobs" element={<Saved />} />
-          <Route path="/notifications" element={<Notifications />} />
-        </Route>
-        {/* Employee Router End */}
-
-        {/* This Router for Employee Authentication */}
+        {/* This Router for User Authentication */}
         <Route element={<AuthForm />}>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/sms-form" element={<SmsForm />} />
+          <Route path="/info-form" element={<InfoForm />} />
+          <Route path="/role-selection" element={<RoleSelection />} />
         </Route>
-        {/* Employee Authentication Router End */}
+        {/* User Authentication Router End */}
+
+        {/* This Router for Employee */}
+        <Route element={<EmployeeLayout />}>
+          <Route path="/employee" index element={<Home />} />
+          <Route path="/employee/find-jobs" element={<FindJobs />} />
+          <Route path="/employee/companies" element={<HomeCompanies />} />
+          <Route path="/employee/saved-jobs" element={<Saved />} />
+          <Route path="/employee/notifications" element={<Notifications />} />
+        </Route>
+        {/* Employee Router End */}
 
         {/* This Router for Employer */}
-        {/* Employer Router End */}
-
-        {/* This Router for Employer Authentication */}
-        <Route element={<EmployerAuthForm />}>
-          <Route path="/employer/signin" element={<Signin />} />
-          <Route path="/employer/signup" element={<Signup />} />
-          <Route path="/employer/sms-form" element={<SmsForm />} />
+        <Route element={<EmployerLayout />}>
+          <Route path="/employer" element={<EmployerHome />} />
         </Route>
-        {/* Employer Authentication Router End */}
+        {/* Employer Router End */}
 
         {/* This Router for Admin */}
         <Route element={<AdminLayout />}>

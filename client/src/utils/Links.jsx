@@ -8,6 +8,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoBusinessOutline } from "react-icons/io5";
 
 export const adminNavLinks = [
   {
@@ -50,33 +51,39 @@ export const adminNavLinks = [
 
 export const employeeLinks = [
   {
-    path: "/",
+    path: "/employee",
     text: "home",
     icon: <AiOutlineHome />,
     url: "",
   },
   {
-    path: "/find-jobs",
+    path: "/employer",
+    text: "employer",
+    icon: <IoBusinessOutline />,
+    url: "employer",
+  },
+  {
+    path: "/employee/find-jobs",
     text: "find jobs",
     icon: <MdOutlineWorkOutline />,
-    url: "findjobs",
+    url: "employee/findjobs",
   },
   {
-    path: "/companies",
+    path: "/employee/companies",
     text: "companies",
     icon: <GrOrganization />,
-    url: "companies",
+    url: "employee/companies",
   },
   {
-    path: "/saved-jobs",
+    path: "/employee/saved-jobs",
     text: "saved",
     icon: <IoBookmarkOutline />,
-    url: "saved",
+    url: "employee/saved",
   },
   {
-    path: "/notifications",
+    path: "/employee/notifications",
     text: "notifications",
     icon: <IoMdNotificationsOutline />,
-    url: "notifications",
+    url: "employee/notifications",
   },
 ];
