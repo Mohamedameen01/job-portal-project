@@ -1,8 +1,9 @@
 import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { CiMenuFries } from "react-icons/ci";
+import { Link, NavLink } from "react-router-dom";
 
-function NormalEmployerHeader() {
+function NormalEmployerHeader({ value, setValue }) {
   return (
     <header className="lg:hidden bg-white shadow-sm">
       <nav
@@ -26,7 +27,7 @@ function NormalEmployerHeader() {
         </div>
       </nav>
 
-      <SideBar value={value} setValue={setValue} />
+      {/* <SideBar value={value} setValue={setValue} /> */}
     </header>
   );
 }

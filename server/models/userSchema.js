@@ -61,18 +61,10 @@ const userSchema = new Schema(
     },
     resume: { type: String },
     skills: [String],
-    experience: [
-      {
-        jobTitle: { type: String },
-        company: { type: String },
-        startDate: { type: Date },
-        endDate: { type: Date },
-        description: { type: String },
-      },
-    ],
     totalExperience: {
       type: String,
     },
+    highQualification: { type: String },
     education: [
       {
         institution: { type: String },
@@ -80,6 +72,7 @@ const userSchema = new Schema(
         fieldOfStudy: { type: String },
         startDate: { type: Date },
         endDate: { type: Date },
+        grade: { type: String },
       },
     ],
     certifications: [
@@ -88,9 +81,10 @@ const userSchema = new Schema(
         issuingOrganization: { type: String },
         issueDate: { type: Date },
         expirationDate: { type: Date },
+        description: { type: String },
       },
     ],
-    work: [
+    workExperience: [
       {
         jobTitle: String,
         company: String,
@@ -107,6 +101,7 @@ const userSchema = new Schema(
         endDate: Date,
         isCurrent: Boolean,
         description: String,
+        skills: [String],
       },
     ],
     socialMedia: {

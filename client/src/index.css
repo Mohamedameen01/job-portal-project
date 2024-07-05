@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.render-para {
+  font-family: "Playwrite AU QLD", sans-serif;
+}
+
+.fade-in {
+  animation: render 5s linear 1;
+}
+
+@keyframes render {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -4,7 +4,8 @@ import cors from "cors";
 
 import dbConfig from "./config/db.js";
 
-import userAuthRouter from "./modules/auth/routes/userRoutes.js";
+import userRouter from "./modules/user/routes/userRoutes.js";
+import userAuthRouter from "./modules/auth/routes/authRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,7 @@ app.use(
   })
 );
 
+app.use("/", userRouter);
 app.use("/auth", userAuthRouter);
 
 // Makes the app to listen port

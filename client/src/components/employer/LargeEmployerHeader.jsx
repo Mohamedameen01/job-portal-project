@@ -10,7 +10,7 @@ function LargeEmployerHeader() {
       <nav className="max-w-[1440px] h-20 mx-auto px-7 flex flex-1 justify-between items-center">
         <div className="flex items-center gap-5">
           <div className="antialiased tracking-wide text-xl font-bold">
-            <Link to={"/"}>JOB PORTAL</Link>
+            <Link>JOB PORTAL</Link>
           </div>
           <div className="flex gap-3">
             <Link
@@ -23,20 +23,20 @@ function LargeEmployerHeader() {
               className="hover:scale-105 hover:text-[#673ab7]"
               to={"/companies"}
             >
-              Company
+              Companies
             </Link>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <NavLink
             to={"/saved-jobs"}
-            className="p-1 rounded-md text-xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
+            className="p-1 rounded-md text-2xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
           >
             <IoBookmarkOutline />
           </NavLink>
           <NavLink
             to={"/notifications"}
-            className="p-1 rounded-md text-xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
+            className="p-1 rounded-md text-2xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
           >
             <IoMdNotificationsOutline />
           </NavLink>
@@ -48,7 +48,7 @@ function LargeEmployerHeader() {
           </NavLink>
 
           <NavLink
-            className="p-1 rounded-md text-xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
+            className="p-1 rounded-md text-2xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
             to={"/signin"}
           >
             <CgProfile />

@@ -1,7 +1,12 @@
 import React from "react";
+import { EmployerHomeBanner } from "../../components/employer";
 
 function EmployerHome() {
-  return <div>EmployerHome</div>;
+  return (
+    <div>
+      <EmployerHomeBanner />
+    </div>
+  );
 }
 
 export default EmployerHome;

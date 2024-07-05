@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import twilio from "twilio";
 
-import User from "../../user/models/userSchema.js";
+import User from "../../../models/userSchema.js";
 import { generateVerificationOtp } from "../../../utils/authFuncs.js";
 
 // Memory Store

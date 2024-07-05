@@ -16,13 +16,16 @@ import {
   setUserAuthLocal,
   signin,
 } from "../../redux/authSlice.js";
+import TitleRendering from "../TitleRendering.jsx";
 
 function Signin() {
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [togglePassword, setTogglePassword] = useState(false);
   const [diffPage, setDiffPage] = useState(false);
+  const [titleRender, setTitleRender] = useState(false);
 
+  const location = useLocation().state;
   const auth = useSelector((state) => state.userAuth);
 
   const dispatch = useDispatch();
@@ -59,6 +62,21 @@ function Signin() {
       }, 2000);
     }
   }, [auth, navigate]);
+
+  useEffect(() => {
+    if (location?.landValue) {
+      setTitleRender(true);
+
+      const timeout = setTimeout(() => {
+        setTitleRender(false);
+      }, 10000);
+      return () => clearTimeout(timeout);
+    }
+  }, [location?.landValue]);
+
+  if (titleRender) {
+    return <TitleRendering />;
+  }
 
   return (
     <div className="w-full h-full flex justify-center items-center">

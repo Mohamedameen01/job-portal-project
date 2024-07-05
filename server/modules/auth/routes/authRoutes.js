@@ -6,7 +6,7 @@ import {
   mobileSignin,
   mobileVerify,
   register,
-} from "../controllers/userController.js";
+} from "../controllers/authController.js";
 
 const router = express.Router();
 

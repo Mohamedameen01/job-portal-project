@@ -3,42 +3,69 @@ import { IoPersonOutline } from "react-icons/io5";
 
 import MultiLists from "./MultiLists";
 import { Link } from "react-router-dom";
+import { uploadImgFile } from "../../utils/uploadFuncs";
 
 function InfoForm() {
   const [inputError, setInputError] = useState("");
+  const [infoValues, setInfoValues] = useState({
+    image: "",
+    dob: "",
+    age: "",
+    gender: "",
+    hobbies: null,
+    interests: null,
+    qualification: "",
+  });
+
   const fileRef = useRef(null);
 
-  const qualification = ["sslc", "plus two", "under graduate", "post graduate"];
+  const options = ["sslc", "plus two", "under graduate", "post graduate"];
+  const gender = ["male", "female"];
   const maxSize = 5 * 1024 * 1024;
-  const handleUploadImg = (e) => {
-    const file = e.target.files[0];
 
-    if (file && file.type.startsWith("image/")) {
-      if (file.size > maxSize) {
-        console.log("Big file");
-        return setInputError("File must be less than 5 mb");
-      }
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+  const handleUploadImg = async (e) => {
+    const file = await e.target.files[0];
 
-      fileReader.onload = () => {
-        const dataUrl = fileReader.result;
-        console.log(dataUrl);
-      };
-    } else {
-      setInputError("It must be a image file");
-    }
+    uploadImgFile(file, maxSize)
+      .then((data) => {
+        setInfoValues({ ...infoValues, image: data });
+      })
+      .catch((error) => {
+        setInputError(error);
+      });
+  };
+
+  const handleUserHobbies = (values) => {
+    setInfoValues({ ...infoValues, hobbies: values });
+  };
+
+  const handleUserInterests = (values) => {
+    setInfoValues({ ...infoValues, interests: values });
+  };
+
+  const handleSubmitBtn = () => {
+    console.log(infoValues);
   };
   return (
     <div className="w-full h-full flex justify-center items-center ">
-      <div className="bg-white grid gap-3 p-5 rounded-md shadow-lg">
-        <div className="flex items-center gap-3 ">
-          <div className="p-4 text-2xl outline outline-1  rounded-full">
-            <IoPersonOutline />
+      <div className=" w-fit md:w-5/12 lg:w-4/12 xl:w-3/12 h-[85%] bg-white grid gap-3 m-2 p-4 rounded-md shadow-lg overflow-y-auto">
+        <div className="flex justify-between items-center gap-3 ">
+          <div>
+            {infoValues?.image ? (
+              <img
+                src={infoValues.image}
+                className="w-28 h-28  object-cover rounded-full"
+                alt="user-image"
+              />
+            ) : (
+              <div className="border-2 border-[#673ab7] text-[#673ab7] rounded-full p-4 text-5xl">
+                <IoPersonOutline />
+              </div>
+            )}
           </div>
           <button
             onClick={() => fileRef.current.click()}
-            className="outline outline-1 rounded-lg p-2"
+            className="text-sm lg:text-md bg-[#673ab7] text-white font-semibold px-3 py-2 outline outline-1 rounded-lg"
           >
             Upload Your Photo
             <input
@@ -49,38 +76,78 @@ function InfoForm() {
             />
           </button>
         </div>
+
         {inputError && (
           <span className="text-rose-600 text-sm">{inputError}</span>
         )}
-        <div className="flex items-center gap-3">
-          <input type="date" className="outline outline-1 p-1 rounded-lg" />
+
+        <div className="grid grid-cols-3 gap-3">
+          <input
+            type="date"
+            value={infoValues.dob}
+            onChange={(e) =>
+              setInfoValues({ ...infoValues, dob: e.target.value })
+            }
+            className="col-span-2 p-1 text-[#0000008a] outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] rounded-lg"
+          />
           <input
             type="text"
             placeholder="Age"
-            className="w-24 outline outline-1 ps-3 p-1 rounded-lg"
+            value={infoValues.age}
+            onChange={(e) =>
+              setInfoValues({ ...infoValues, age: e.target.value })
+            }
+            className="outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] ps-3 p-1 rounded-lg"
           />
         </div>
-        <MultiLists title={"Your hobbies"} />
-        <MultiLists title={"Your interest"} />
+
+        <MultiLists title={"Your hobbies"} dataToParent={handleUserHobbies} />
+        <MultiLists
+          title={"Your interest"}
+          dataToParent={handleUserInterests}
+        />
+
         <select
-          name="qualification"
-          className="border-none outline outline-1 p-1 uppercase"
+          name="gender"
+          onChange={(e) =>
+            setInfoValues({ ...infoValues, gender: e.target.value })
+          }
+          className="text-sm outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
         >
-          {qualification.map((item, index) => (
-            <option key={index} value="{item}">
+          <option>your gender</option>
+          {gender.map((item, index) => (
+            <option key={index} value={item}>
               {item}
             </option>
           ))}
         </select>
+
+        <select
+          name="qualification"
+          onChange={(e) =>
+            setInfoValues({ ...infoValues, qualification: e.target.value })
+          }
+          className="text-sm outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
+        >
+          <option>choose your qualification</option>
+          {options.map((item, index) => (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+
         <Link
           to={"/role-selection"}
-          className="text-center bg-[#673ab7] text-white text-md font-semibold p-1 rounded-lg"
+          className="flex justify-center items-center bg-[#673ab7] text-white text-md font-semibold p-1 rounded-lg"
         >
           Skip
         </Link>
+
         <Link
-          to={"/role-selection"}
-          className="text-center bg-green-600 text-white text-md font-semibold p-1 rounded-lg"
+          // to={"/role-selection"}
+          onClick={handleSubmitBtn}
+          className="flex justify-center items-center bg-green-600 text-white text-md font-semibold p-1 rounded-lg"
         >
           Submit
         </Link>

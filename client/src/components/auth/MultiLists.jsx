@@ -1,44 +1,60 @@
 import React, { useState } from "react";
 
-import { TiDeleteOutline } from "react-icons/ti";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
-function MultiLists({ title }) {
+function MultiLists({ title, dataToParent }) {
   const [inputText, setInputText] = useState("");
   const [inputList, setInputList] = useState([]);
 
   const handleAddBtn = () => {
     if (inputText.trim()) {
       setInputList([...inputList, inputText]);
+      dataToParent(inputList);
       setInputText("");
     }
   };
 
   const handleEnterBtn = (e) => {
     if (e.key === "Enter") {
-      console.log("Entereed");
       handleAddBtn();
     }
   };
+
+  const handleRemoveItem = (text) => {
+    const newLists = inputList.filter((item) => item !== text);
+    setInputList(newLists);
+  };
   return (
-    <div>
-      <div className="flex items-center gap-3">
+    <div className="grid gap-1">
+      <div className="grid grid-cols-3 gap-3">
         <input
           type="text"
           placeholder={title}
-          className="outline outline-1 ps-2 p-1 rounded-lg"
+          className="col-span-2 outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] ps-2 p-2 rounded-lg"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleEnterBtn}
         />
-        <button onClick={handleAddBtn} className="outline outline-1 p-1">
+        <button
+          onClick={handleAddBtn}
+          className=" text-center bg-[#673ab7] text-white font-semibold p-2 rounded-lg"
+        >
           Add
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-2 m-1">
+      <div className="flex flex-wrap gap-2">
         {inputList?.map((text, index) => (
-          <div key={index} className="flex items-center gap-2">
-            <p>{text}</p>
-            <span>{<TiDeleteOutline />}</span>
+          <div
+            key={index}
+            className="w-fit flex items-center gap-2 px-2 py-1 text-black bg-gray-200 rounded-full"
+          >
+            <p className="antialiased">{text}</p>
+            <span
+              className="text-red-500 text-md rounded-full cursor-pointer"
+              onClick={() => handleRemoveItem(text)}
+            >
+              {<AiOutlineCloseCircle />}
+            </span>
           </div>
         ))}
       </div>
