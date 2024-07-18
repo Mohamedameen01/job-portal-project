@@ -14,7 +14,7 @@ function EmployeeLayout() {
   }, []);
 
   return (
-    <div className="relative  bg-[#f7f7f8] antialiased">
+    <div className=" bg-[#f7f7f8] antialiased">
       {hide && (
         <div className="fixed top-0 left-0 right-0 z-20">
           <LargeHeader />
@@ -23,7 +23,7 @@ function EmployeeLayout() {
       )}
 
       <div
-        className={` ${hide ? "relative mt-[82px]" : ""} ${
+        className={` ${hide ? " relative mt-[60px] " : ""} ${
           toggleSideBar ? "" : "blur-md"
         }`}
       >

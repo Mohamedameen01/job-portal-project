@@ -33,7 +33,7 @@ function GoogleSignin() {
     if (auth.success) {
       const timer = setTimeout(() => {
         dispatch(resetAuthSuccess());
-        // navigate("/");
+        navigate("/auth/info-form");
       }, 2000);
     }
   }, [auth, navigate]);

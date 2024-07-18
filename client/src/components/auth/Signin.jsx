@@ -25,18 +25,10 @@ function Signin() {
   const [diffPage, setDiffPage] = useState(false);
   const [titleRender, setTitleRender] = useState(false);
 
-  const location = useLocation().state;
   const auth = useSelector((state) => state.userAuth);
-
+  const location = useLocation().state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    if (pathname === "/signin") {
-      setDiffPage(true);
-    }
-  }, [pathname]);
 
   const handleTogglePassword = () => {
     setTogglePassword(!togglePassword);
@@ -55,11 +47,12 @@ function Signin() {
 
   useEffect(() => {
     if (auth.success) {
+      dispatch(setUserAuthLocal());
       const timer = setTimeout(() => {
         dispatch(resetAuthSuccess());
-        dispatch(setUserAuthLocal());
-        navigate("/employee");
+        navigate("/auth/role-selection");
       }, 2000);
+      return () => clearTimeout(timer);
     }
   }, [auth, navigate]);
 
@@ -69,7 +62,7 @@ function Signin() {
 
       const timeout = setTimeout(() => {
         setTitleRender(false);
-      }, 10000);
+      }, 12000);
       return () => clearTimeout(timeout);
     }
   }, [location?.landValue]);
@@ -193,9 +186,7 @@ function Signin() {
           )}
 
           <p className="mt-2 subpixel-antialiased text-center text-sm font-semibold">
-            <Link to={diffPage ? "/signup" : "/employer/signup"}>
-              Don't have an account?
-            </Link>
+            <Link to={"/auth/signup"}>Don't have an account?</Link>
           </p>
         </form>
 

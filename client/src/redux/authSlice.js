@@ -99,7 +99,10 @@ const authSlice = createSlice({
       state.success = false;
     },
     setUserAuthLocal: (state) => {
-      localStorage.setItem("USER_LOCAL", state.token);
+      localStorage.setItem(
+        "USER_LOCAL",
+        JSON.stringify({ token: state.token })
+      );
     },
     setUserLocalLogout: (state) => {
       localStorage.removeItem("USER_LOCAL");

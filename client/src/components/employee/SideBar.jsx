@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { IoMdClose } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
@@ -15,7 +15,7 @@ function SideBar({ value, setValue }) {
   const handleLogout = () => {
     dispatch(setUserLocalLogout());
     setValue(true);
-    navigate("/signin");
+    navigate("/auth/signin");
   };
 
   return (
@@ -38,10 +38,10 @@ function SideBar({ value, setValue }) {
         </div>
         {employeeLinks?.map((item) => (
           <NavLink
-            className={` mt-2 flex items-center gap-4 px-3 py-2 font-medium  ${
+            className={` mt-2 flex items-center gap-4 px-3 py-2 font-semibold  ${
               pathname === item.path &&
               " scale-105 translate-x-1 bg-[#ede7f6] text-[#673ab7] border-1 "
-            } transition ease-in-out duration-300 hover:bg-[#ede7f6] hover:text-[#673ab7] hover:font-medium rounded-md`}
+            } transition ease-in-out duration-300 hover:bg-[#ede7f6] hover:text-[#673ab7] hover:font-semibold rounded-md`}
             to={item.path}
             key={item.text}
             onClick={() => setValue(true)}
@@ -51,9 +51,9 @@ function SideBar({ value, setValue }) {
           </NavLink>
         ))}
         <NavLink
-          className="mt-2 flex items-center gap-4 px-3 py-2 font-medium  
+          className="mt-2 flex items-center gap-4 px-3 py-2 font-semibold  
             hover:scale-105 hover:translate-x-1 border-1 
-            transition ease-in-out duration-300 hover:bg-[#ede7f6] hover:text-[#673ab7] hover:font-medium rounded-md"
+            transition ease-in-out duration-300 hover:bg-[#ede7f6] hover:text-[#673ab7] hover:font-semibold rounded-md"
           onClick={handleLogout}
         >
           <span className="text-lg">

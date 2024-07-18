@@ -17,7 +17,10 @@ function NormalHeader({ value, setValue }) {
           <Link to={"/employee"}>JOB PORTAL</Link>
         </div>
         <div className="flex gap-2">
-          <NavLink className="p-1 rounded-md text-xl font-bold " to={"/signin"}>
+          <NavLink
+            className="p-1 rounded-md text-xl font-bold "
+            to={"/auth/signin"}
+          >
             <IoPersonOutline />
           </NavLink>
           <NavLink

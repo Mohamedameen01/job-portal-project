@@ -8,8 +8,9 @@ function MultiLists({ title, dataToParent }) {
 
   const handleAddBtn = () => {
     if (inputText.trim()) {
-      setInputList([...inputList, inputText]);
-      dataToParent(inputList);
+      const newList = [...inputList, inputText];
+      setInputList(newList);
+      dataToParent(newList); // to pass updated list to parent component
       setInputText("");
     }
   };

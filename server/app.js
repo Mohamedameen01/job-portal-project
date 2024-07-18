@@ -23,7 +23,7 @@ app.use(
   })
 );
 
-app.use("/", userRouter);
+app.use("/user", userRouter);
 app.use("/auth", userAuthRouter);
 
 // Makes the app to listen port

@@ -2,7 +2,7 @@ import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 
-function LargeEmployerSearch() {
+function LargeSearch() {
   return (
     <div className="hidden lg:block">
       <form
@@ -38,4 +38,4 @@ function LargeEmployerSearch() {
   );
 }
 
-export default LargeEmployerSearch;
+export default LargeSearch;

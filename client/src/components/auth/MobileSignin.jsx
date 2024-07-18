@@ -7,7 +7,7 @@ function MobileSignin() {
   const { pathname } = useLocation();
 
   const handleMobileSignin = () => {
-    navigate("/sms-form", {
+    navigate("/auth/sms-form", {
       state: { from: pathname },
     });
   };

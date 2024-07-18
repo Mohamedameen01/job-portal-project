@@ -387,3 +387,42 @@ export const jobDetailsData = [
     location: "1 2nd Pass",
   },
 ];
+
+export const manageJobTableData = [
+  {
+    id: 1,
+    job: "Associate Professor",
+    status: "active",
+    applicants: 153,
+    selected: 4,
+    createdAt: "14-10-2023",
+    expiredAt: "01-02-2024",
+  },
+  {
+    id: 2,
+    job: "Nurse Practicioner",
+    status: "active",
+    applicants: 12,
+    selected: 9,
+    createdAt: "17-10-2023",
+    expiredAt: "10-03-2024",
+  },
+  {
+    id: 3,
+    job: "Structural Analysis Engineer",
+    status: "expired",
+    applicants: 136,
+    selected: 3,
+    createdAt: "04-07-2023",
+    expiredAt: "14-05-2024",
+  },
+  {
+    id: 4,
+    job: "Statistician I",
+    status: "active",
+    applicants: 27,
+    selected: 1,
+    createdAt: "22-11-2023",
+    expiredAt: "12-06-2024",
+  },
+];

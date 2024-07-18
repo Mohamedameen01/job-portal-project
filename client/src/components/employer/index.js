@@ -1,11 +1,13 @@
-import LargeEmployerHeader from "./LargeEmployerHeader";
-import NormalEmployerHeader from "./NormalEmployerHeader";
+import LargeHeader from "./LargeHeader";
+import NormalHeader from "./NormalHeader";
 import InformationForm from "./InformationForm";
 import EmployerHomeBanner from "./EmployerHomeBanner";
+import SideBar from "./SideBar";
 
 export {
-  LargeEmployerHeader,
-  NormalEmployerHeader,
+  LargeHeader,
+  NormalHeader,
   InformationForm,
   EmployerHomeBanner,
+  SideBar,
 };

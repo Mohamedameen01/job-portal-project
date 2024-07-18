@@ -1,9 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoPersonOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import MultiLists from "./MultiLists";
-import { Link } from "react-router-dom";
 import { uploadImgFile } from "../../utils/uploadFuncs";
+import Loader from "../Loader";
+import { resetUserSuccess, setUserInfo } from "../../redux/userSlice";
 
 function InfoForm() {
   const [inputError, setInputError] = useState("");
@@ -17,10 +20,13 @@ function InfoForm() {
     qualification: "",
   });
 
+  const { loading, success } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const fileRef = useRef(null);
+  const navigate = useNavigate();
 
   const options = ["sslc", "plus two", "under graduate", "post graduate"];
-  const gender = ["male", "female"];
+  const gender = ["male", "female", "others"];
   const maxSize = 5 * 1024 * 1024;
 
   const handleUploadImg = async (e) => {
@@ -44,8 +50,19 @@ function InfoForm() {
   };
 
   const handleSubmitBtn = () => {
-    console.log(infoValues);
+    dispatch(setUserInfo(infoValues));
   };
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        dispatch(resetUserSuccess());
+        navigate("/auth/role-selection");
+      }, [2000]);
+      return () => clearTimeout(timer);
+    }
+  }, [success, navigate]);
+
   return (
     <div className="w-full h-full flex justify-center items-center ">
       <div className=" w-fit md:w-5/12 lg:w-4/12 xl:w-3/12 h-[85%] bg-white grid gap-3 m-2 p-4 rounded-md shadow-lg overflow-y-auto">
@@ -88,7 +105,7 @@ function InfoForm() {
             onChange={(e) =>
               setInfoValues({ ...infoValues, dob: e.target.value })
             }
-            className="col-span-2 p-1 text-[#0000008a] outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] rounded-lg"
+            className="col-span-2 p-1 outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] rounded-lg"
           />
           <input
             type="text"
@@ -110,7 +127,10 @@ function InfoForm() {
         <select
           name="gender"
           onChange={(e) =>
-            setInfoValues({ ...infoValues, gender: e.target.value })
+            setInfoValues({
+              ...infoValues,
+              gender: e.target.value.toUpperCase(),
+            })
           }
           className="text-sm outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
         >
@@ -125,7 +145,10 @@ function InfoForm() {
         <select
           name="qualification"
           onChange={(e) =>
-            setInfoValues({ ...infoValues, qualification: e.target.value })
+            setInfoValues({
+              ...infoValues,
+              qualification: e.target.value.toUpperCase(),
+            })
           }
           className="text-sm outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
         >
@@ -137,20 +160,16 @@ function InfoForm() {
           ))}
         </select>
 
-        <Link
-          to={"/role-selection"}
-          className="flex justify-center items-center bg-[#673ab7] text-white text-md font-semibold p-1 rounded-lg"
-        >
-          Skip
-        </Link>
-
-        <Link
-          // to={"/role-selection"}
-          onClick={handleSubmitBtn}
-          className="flex justify-center items-center bg-green-600 text-white text-md font-semibold p-1 rounded-lg"
-        >
-          Submit
-        </Link>
+        {loading ? (
+          <Loader />
+        ) : (
+          <button
+            onClick={handleSubmitBtn}
+            className="flex justify-center items-center bg-[#673ab7] text-white text-md font-semibold p-1 rounded-lg"
+          >
+            Submit
+          </button>
+        )}
       </div>
     </div>
   );

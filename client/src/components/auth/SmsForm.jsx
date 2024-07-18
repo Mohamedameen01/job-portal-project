@@ -44,10 +44,10 @@ function SmsForm() {
 
   // Handle Close Button and Navigate to previous page
   const handleCloseButton = () => {
-    if (from === "/signup") {
-      navigate("/signup");
-    } else if (from === "/signin") {
-      navigate("/signin");
+    if (from === "/auth/signup") {
+      navigate("/auth/signup");
+    } else if (from === "/auth/signin") {
+      navigate("/auth/signin");
     }
   };
 

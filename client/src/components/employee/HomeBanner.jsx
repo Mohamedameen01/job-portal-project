@@ -7,7 +7,7 @@ import NormalSearchInput from "./NormalSearchInput";
 function HomeBanner() {
   return (
     <div
-      className="w-full h-[90vh] bg-cover bg-center"
+      className="w-full h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${banner})` }}
     >
       <div className="max-w-[1440px] h-full mx-auto px-7 flex flex-col justify-center gap-3 ">

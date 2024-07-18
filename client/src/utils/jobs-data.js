@@ -15,3 +15,63 @@ export const skills = [
   "You have some previous experience working in an agile environment – Think two-week sprints.",
   "You are familiar using Jira and Confluence in your workflow",
 ];
+
+export const notifyData = [
+  {
+    name: "Henrt Wilson",
+    position: "Product Designer",
+  },
+  {
+    name: "Raul Cosla",
+    position: "Product Manager",
+  },
+  {
+    name: "Robert Carlos",
+    position: "Technical Architech",
+  },
+  {
+    name: "Samuel John",
+    position: "Softwear Engineer",
+  },
+];
+
+export const jobTypesOption = [
+  "Healthcare & Medical",
+  "Software Development & IT",
+  "Finance & Accounting",
+  "Education & Training",
+  "Engineering & Technical",
+  "Construction & Skilled Trades",
+  "Sales, Marketing & Advertising",
+  "Customer Service & Support",
+  "Human Resources & Recruitment",
+  "Management & Executive",
+];
+
+export const employmentTypesOptions = [
+  "Full-time",
+  "Part-time",
+  "Internship",
+  "Permanent",
+  "Contract",
+  "Temporary",
+];
+
+export const qualificationOptions = [
+  "High School Diploma or Equivalent",
+  "Bachelors Degree",
+  "Masters Degree",
+  "Doctorate (Ph.D. or equivalent)",
+  "Professional Certification",
+  "Postgraduate Certificate/Diploma",
+];
+
+export const experienceOptions = ["Fresher", "0-1", "1-2", "2-4", "4-6", ">6"];
+export const locationOptions = ["On-site", "Remote", "W-F-H", "Hybrid"];
+export const manageJobsMonthOptions = [
+  "Last 6 Months",
+  "Last 12 Months",
+  "Last 16 Months",
+  "Last 24 Months",
+  "Last 5 Year",
+];

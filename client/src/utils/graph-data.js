@@ -99,3 +99,30 @@ export const subscriberStatusData = [
     total: 200,
   },
 ];
+
+export const viewsStatusData = [
+  {
+    date: "January",
+    views: 20,
+  },
+  {
+    date: "February",
+    views: 40,
+  },
+  {
+    date: "March",
+    views: 50,
+  },
+  {
+    date: "April",
+    views: 70,
+  },
+  {
+    date: "May",
+    views: 80,
+  },
+  {
+    date: "June",
+    views: 115,
+  },
+];

@@ -1,16 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import EmployeeLayout from "./employee/EmplyeeLayout";
 import EmployerLayout from "./employer/EmployerLayout";
 import AdminLayout from "./admin/AdminLayout";
-import {
-  InfoForm,
-  RoleSelection,
-  Signin,
-  Signup,
-  SmsForm,
-} from "./components/auth";
+import { Signin, Signup, SmsForm } from "./components/auth";
 import {
   Home,
   FindJobs,
@@ -30,49 +24,93 @@ import {
   Statistics,
   Users,
 } from "./admin/pages";
-import { EmployerHome, EmployerInformation } from "./employer/pages";
+import {
+  AllApplicants,
+  CompanyProfile,
+  EmployerDashboard,
+  EmployerHome,
+  EmployerInformation,
+  ManageJobs,
+  Messages,
+  Notification,
+  PostJobs,
+  ShortListed,
+} from "./employer/pages";
 import { AuthForm } from "./user";
-import { LandingPage, TitleRendering } from "./components";
+import { useDispatch } from "react-redux";
+import { InfoForm, LandingPage, RoleSelection } from "./components/user";
+import { isExpireToken } from "./utils/privateFuncs";
+import { PrivateRoutes } from "./components";
+import DashboardLayout from "./employer/DashboardLayout";
 
 function App() {
-  const isAuthenticated = localStorage.getItem("USER_LOCAL");
+  const dispatch = useDispatch();
+  const local = localStorage.getItem("USER_LOCAL");
+  const [userToken, setUserToken] = useState("");
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    if (local) {
+      const { token, role } = JSON.parse(local);
+      if (token || role) {
+        setUserToken(token || "");
+        setUserRole(role || "");
+      }
+    }
+  }, [local]);
+
+  useEffect(() => {
+    if (userToken) {
+      isExpireToken(userToken, dispatch);
+    }
+  }, [userToken]);
+
   return (
     <BrowserRouter>
+      {/* <PrivateRoutes />; */}
       <Routes>
-        <Route path="/" index element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
 
         {/* This Router for User Authentication */}
-        <Route element={<AuthForm />}>
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/sms-form" element={<SmsForm />} />
-          <Route path="/info-form" element={<InfoForm />} />
-          <Route path="/role-selection" element={<RoleSelection />} />
+        <Route path="/auth" element={<AuthForm />}>
+          <Route path="signin" element={<Signin />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="sms-form" element={<SmsForm />} />
+          <Route path="info-form" element={<InfoForm />} />
+          <Route path="role-selection" element={<RoleSelection />} />
         </Route>
         {/* User Authentication Router End */}
 
         {/* This Router for Employee */}
-        <Route element={<EmployeeLayout />}>
-          <Route path="/employee" index element={<Home />} />
-          <Route path="/employee/find-jobs" element={<FindJobs />} />
-          <Route path="/employee/companies" element={<HomeCompanies />} />
-          <Route path="/employee/saved-jobs" element={<Saved />} />
-          <Route path="/employee/notifications" element={<Notifications />} />
-          <Route
-            path="/employee/information-form"
-            element={<MultiInfoForm />}
-          />
+        <Route path="/employee" element={<EmployeeLayout />}>
+          <Route index element={<Home />} />
+          <Route path="find-jobs" element={<FindJobs />} />
+          <Route path="companies" element={<HomeCompanies />} />
+          <Route path="saved-jobs" element={<Saved />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="information-form" element={<MultiInfoForm />} />
         </Route>
         {/* Employee Router End */}
 
         {/* This Router for Employer */}
-        <Route element={<EmployerLayout />}>
-          <Route path="/employer" element={<EmployerHome />} />
-          <Route
-            path="/employer/information-form"
-            element={<EmployerInformation />}
-          />
+        <Route path="/employer" element={<EmployerLayout />}>
+          <Route index element={<EmployerHome />} />
+          <Route path="information-form" element={<EmployerInformation />} />
         </Route>
+
+        {/* Router for Employer Dashboard */}
+        <Route path="/employer/dashboard" element={<DashboardLayout />}>
+          <Route index element={<EmployerDashboard />} />
+          <Route path="company-profile" element={<CompanyProfile />} />
+          <Route path="post-job" element={<PostJobs />} />
+          <Route path="manage-jobs" element={<ManageJobs />} />
+          <Route path="all-applicants" element={<AllApplicants />} />
+          <Route path="shortlisted-resumes" element={<ShortListed />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="notifications" element={<Notification />} />
+        </Route>
+        {/* Employer Dashboard End */}
+
         {/* Employer Router End */}
 
         {/* This Router for Admin */}

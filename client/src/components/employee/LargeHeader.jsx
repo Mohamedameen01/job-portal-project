@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoBookmarkOutline } from "react-icons/io5";
-import { GoPerson } from "react-icons/go";
 
 function LargeHeader() {
   return (
@@ -41,17 +40,11 @@ function LargeHeader() {
           >
             <IoMdNotificationsOutline />
           </NavLink>
-          <NavLink
-            to={"/employer"}
-            className="px-3 py-[2px] border-1 border-slate-500 rounded-md tracking-wide hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
-          >
+          <NavLink className="px-3 py-[2px] border-1 border-slate-500 rounded-md tracking-wide hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105">
             Employer
           </NavLink>
 
-          <NavLink
-            className="p-1 rounded-md text-2xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"
-            to={"/signin"}
-          >
+          <NavLink className="p-1 rounded-md text-2xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105">
             <CgProfile />
           </NavLink>
         </div>

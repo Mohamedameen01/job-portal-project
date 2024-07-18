@@ -7,7 +7,11 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { IoBusinessOutline } from "react-icons/io5";
+import { BsPersonWorkspace } from "react-icons/bs";
+import { PiBuildingOffice } from "react-icons/pi";
+import { FaRegFileArchive } from "react-icons/fa";
+import { CiPaperplane } from "react-icons/ci";
+import { RiMessage2Line } from "react-icons/ri";
 
 import datingApp from "/assets/datingapp.jpg";
 import matrimonyApp from "/assets/matrimony.jpg";
@@ -64,7 +68,7 @@ export const employeeLinks = [
   {
     path: "/employer",
     text: "employer",
-    icon: <IoBusinessOutline />,
+    icon: <PiBuildingOffice />,
     url: "employer",
   },
   {
@@ -109,7 +113,7 @@ export const apps = [
   {
     title: "Job Portal",
     caption: "Explore job opportunities and advance your career.",
-    link: "/signin",
+    link: "/auth/signin",
     image: jobportalApp,
   },
   {
@@ -123,5 +127,86 @@ export const apps = [
     caption: "Shop the latest products and enjoy exclusive deals.",
     link: "",
     image: ecommerceApp,
+  },
+];
+
+export const employerSideBarLinks = [
+  {
+    path: "/employer",
+    text: "home",
+    icon: <AiOutlineHome />,
+    url: "",
+  },
+  {
+    path: "/employee",
+    text: "employee",
+    icon: <BsPersonWorkspace />,
+    url: "employee",
+  },
+  {
+    path: "/employer/candidates",
+    text: "candidates",
+    icon: <FiUsers />,
+    url: "employer/candidates",
+  },
+  {
+    path: "/employer/companies",
+    text: "companies",
+    icon: <GrOrganization />,
+    url: "employer/companies",
+  },
+  {
+    path: "/employer/saved-candidates",
+    text: "saved",
+    icon: <IoBookmarkOutline />,
+    url: "employer/saved",
+  },
+  {
+    path: "/employer/notifications",
+    text: "notifications",
+    icon: <IoMdNotificationsOutline />,
+    url: "employer/notifications",
+  },
+];
+export const employerDashboardLinks = [
+  {
+    path: "/employer/dashboard",
+    text: "dashboard",
+    icon: <AiOutlineHome />,
+  },
+  {
+    path: "/employer/dashboard/company-profile",
+    text: "company profile",
+    icon: <FiUsers />,
+  },
+  {
+    path: "/employer/dashboard/post-job",
+    text: "post a new job",
+    icon: <CiPaperplane />,
+  },
+  {
+    path: "/employer/dashboard/manage-jobs",
+    text: "manage-jobs",
+    icon: <MdOutlineWorkOutline />,
+  },
+  {
+    path: "/employer/dashboard/all-applicants",
+    text: "all applicants",
+    icon: <FaRegFileArchive />,
+  },
+  {
+    path: "/employer/dashboard/shortlisted-resumes",
+    text: "shortlisted resumes",
+    icon: <IoBookmarkOutline />,
+  },
+  {
+    path: "/employer/dashboard/messages",
+    text: "messages",
+    icon: <RiMessage2Line />,
+  },
+  {
+    path: "/employer/dashboard/notifications",
+    text: "notifications",
+    icon: <IoMdNotificationsOutline />,
   },
 ];

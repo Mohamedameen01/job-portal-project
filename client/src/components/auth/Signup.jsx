@@ -27,7 +27,7 @@ function Signup() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (pathname === "/signup") {
+    if (pathname === "/auth/signup") {
       setDiffPage(true);
     }
   }, [pathname]);
@@ -51,7 +51,7 @@ function Signup() {
     console.log(auth.success);
     if (auth.success) {
       const timer = setTimeout(() => {
-        navigate("/signin");
+        navigate("/auth/signin");
         dispatch(resetAuthSuccess());
       }, 2000);
     }
@@ -252,9 +252,7 @@ function Signup() {
           )}
 
           <p className="mt-1 subpixel-antialiased text-center text-sm font-semibold">
-            <Link to={diffPage ? "/signin" : "/employer/signin"}>
-              Already have an account?
-            </Link>
+            <Link to={"/auth/signin"}>Already have an account?</Link>
           </p>
         </form>
 

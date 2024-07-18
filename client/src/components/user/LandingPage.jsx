@@ -1,12 +1,12 @@
 import React from "react";
-import { apps } from "../utils/Links.jsx";
 import { useNavigate } from "react-router-dom";
+import { apps } from "../../utils/Links";
 
 function LandingPage() {
   const navigate = useNavigate();
 
   const handleNavigation = (item) => {
-    if (item.link === "/signin") {
+    if (item.link === "/auth/signin") {
       navigate(item.link, { state: { landValue: true } });
     }
   };
