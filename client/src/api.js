@@ -9,14 +9,20 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (req) => {
-    const local = JSON.parse(localStorage.getItem("USER_LOCAL"));
+    try {
+      const userLocal = JSON.parse(localStorage.getItem("USER_LOCAL"));
+      console.log("User Local", userLocal);
 
-    if (local?.token) {
-      req.headers["Authorization-User"] = `Bearer ${local?.token}`;
+      if (userLocal && userLocal.token) {
+        req.headers["Authorization-User"] = `Bearer ${userLocal.token}`;
+      }
+    } catch (error) {
+      console.log("Error Parsing Local Storage Item", error);
     }
     return req;
   },
   (error) => {
+    console.log("Interceptors Error", error);
     return Promise.reject(error);
   }
 );

@@ -4,8 +4,9 @@ import cors from "cors";
 
 import dbConfig from "./config/db.js";
 
-import userRouter from "./modules/user/routes/userRoutes.js";
-import userAuthRouter from "./modules/auth/routes/authRoutes.js";
+import userRouter from "./modules/user/routes/user.routes.js";
+import userAuthRouter from "./modules/auth/routes/auth.routes.js";
+import messageRouter from "./modules/jobmessages/routes/message.routes.js";
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use(
 
 app.use("/user", userRouter);
 app.use("/auth", userAuthRouter);
+app.use("/user/message", messageRouter);
 
 // Makes the app to listen port
 dbConfig().then(() => {

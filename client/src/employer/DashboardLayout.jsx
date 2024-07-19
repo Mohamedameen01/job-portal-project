@@ -21,12 +21,12 @@ function DashboardLayout() {
       </div>
 
       <div className="mt-20 flex">
-        <div className="xl:w-3/12 bg-white">
+        <div className="xl:w-[20%] bg-white">
           <DashboardSideBar />
         </div>
 
         <div
-          className={` overflow-y-scroll fixed transition-all ease-in-out duration-1000 ${
+          className={`overflow-y-scroll fixed transition-all ease-in-out duration-1000 ${
             sideBar ? "top-16 left-0 bottom-0 z-10 " : "-left-[115%]"
           } bg-white`}
         >

@@ -5,6 +5,7 @@ import CompanyProfileForm from "./profile/CompanyProfileForm";
 import JobPosting from "./jobPost/JobPosting";
 import JobManaging from "./manageJobs/JobManaging";
 import Applicants from "./applicants/Applicants";
+import MessageBox from "./message/MessageBox";
 
 export {
   DashboardSideBar,
@@ -14,4 +15,5 @@ export {
   JobPosting,
   JobManaging,
   Applicants,
+  MessageBox,
 };

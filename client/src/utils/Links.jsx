@@ -194,19 +194,19 @@ export const employerDashboardLinks = [
     text: "all applicants",
     icon: <FaRegFileArchive />,
   },
-  {
-    path: "/employer/dashboard/shortlisted-resumes",
-    text: "shortlisted resumes",
-    icon: <IoBookmarkOutline />,
-  },
+  // {
+  //   path: "/employer/dashboard/shortlisted-resumes",
+  //   text: "shortlisted resumes",
+  //   icon: <IoBookmarkOutline />,
+  // },
   {
     path: "/employer/dashboard/messages",
     text: "messages",
     icon: <RiMessage2Line />,
   },
-  {
-    path: "/employer/dashboard/notifications",
-    text: "notifications",
-    icon: <IoMdNotificationsOutline />,
-  },
+  // {
+  //   path: "/employer/dashboard/notifications",
+  //   text: "notifications",
+  //   icon: <IoMdNotificationsOutline />,
+  // },
 ];

@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import twilio from "twilio";
 
-import User from "../../../models/userSchema.js";
-import { generateVerificationOtp } from "../../../utils/authFuncs.js";
+import User from "../../../models/user.schema.js";
+import { generateVerificationOtp } from "../../../utils/auth.funcs.js";
 
 // Memory Store
 const otpStore = {};
@@ -28,7 +28,9 @@ export const register = async (req, res) => {
     });
     await newUser.save();
 
-    return res.status(200).json({ message: "Registration Completed" });
+    return res
+      .status(200)
+      .json({ user: newUser, message: "Registration Completed" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
