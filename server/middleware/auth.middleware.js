@@ -1,17 +1,17 @@
 import jwt from "jsonwebtoken";
+import User from "../models/user.schema.js";
 
 export const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers["authorization-user"];
 
     if (!authHeader) {
-      return req
+      return res
         .status(401)
         .json({ message: "Authoriazation header not found" });
     }
 
     const token = authHeader.split(" ")[1];
-    console.log("Token", token);
 
     if (!token) {
       return res
@@ -20,11 +20,17 @@ export const authenticate = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_CODE);
+
     if (!decoded) {
       return res.status(401).json({ message: "Can't verify token" });
     }
-    req.user = decoded;
 
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).json({ message: "Token is not valid" });

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { MdClose } from "react-icons/md";
+
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { MdClose } from "react-icons/md";
 
 import Loader from "../Loader.jsx";
 import { mobileVerification } from "../../redux/authSlice.js";
+
 function SmsForm() {
   const [value, setValue] = useState("");
   const [valueError, setValueError] = useState(null);

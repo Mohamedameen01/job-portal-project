@@ -55,9 +55,11 @@ export const login = async (req, res) => {
     const token = await jwt.sign(
       { id: user._id, name: user.username, email: user.email },
       process.env.JWT_CODE,
-      { expiresIn: "2d" }
+      { expiresIn: "7d" }
     );
-    res.status(201).json({ token, user, message: "Signed In " });
+    res
+      .status(201)
+      .json({ token, user, role: user.role, message: "Signed In " });
   } catch (error) {
     return res.status(500).json({ message: "Server Error" });
   }
@@ -127,7 +129,6 @@ export const mobileVerify = async (req, res) => {
       message: "OTP has been Sent to Your Mobile Number",
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
 };
@@ -169,7 +170,6 @@ export const mobileSignin = async (req, res) => {
       message: "Mobile Sign In Successfully Completed",
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Something Went Wrong" });
   }
 };

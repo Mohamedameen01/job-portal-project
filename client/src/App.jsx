@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import EmployeeLayout from "./employee/EmplyeeLayout";
-import EmployerLayout from "./employer/EmployerLayout";
-import AdminLayout from "./admin/AdminLayout";
+import EmployeeLayout from "./pages/job-portal/employee/EmplyeeLayout";
+import EmployerLayout from "./pages/job-portal/employer/EmployerLayout";
+import AdminLayout from "./pages/admin/AdminLayout";
 import { Signin, Signup, SmsForm } from "./components/auth";
 import {
   Home,
@@ -12,7 +13,7 @@ import {
   Saved,
   Notifications,
   MultiInfoForm,
-} from "./employee/pages";
+} from "./pages/job-portal/employee/pages";
 import {
   Companies,
   Jobs,
@@ -23,7 +24,7 @@ import {
   Settings,
   Statistics,
   Users,
-} from "./admin/pages";
+} from "./pages/admin/pages";
 import {
   AllApplicants,
   CompanyProfile,
@@ -35,13 +36,13 @@ import {
   Notification,
   PostJobs,
   ShortListed,
-} from "./employer/pages";
-import { AuthForm } from "./user";
-import { useDispatch } from "react-redux";
+} from "./pages/job-portal/employer/pages";
+import { AuthForm } from "./pages/user";
+
 import { InfoForm, LandingPage, RoleSelection } from "./components/user";
 import { isExpireToken } from "./utils/privateFuncs";
 import { PrivateRoutes } from "./components";
-import DashboardLayout from "./employer/DashboardLayout";
+import DashboardLayout from "./pages/job-portal/employer/DashboardLayout";
 
 function App() {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ function App() {
         </Route>
         {/* User Authentication Router End */}
 
-        {/* This Router for Employee */}
+        {/* This Router for Job Portal Employee */}
         <Route path="/employee" element={<EmployeeLayout />}>
           <Route index element={<Home />} />
           <Route path="find-jobs" element={<FindJobs />} />
@@ -90,15 +91,15 @@ function App() {
           <Route path="notifications" element={<Notifications />} />
           <Route path="information-form" element={<MultiInfoForm />} />
         </Route>
-        {/* Employee Router End */}
+        {/* Job Portal Employee Router End */}
 
-        {/* This Router for Employer */}
+        {/* This Router for Job Portal Employer */}
         <Route path="/employer" element={<EmployerLayout />}>
           <Route index element={<EmployerHome />} />
           <Route path="information-form" element={<EmployerInformation />} />
         </Route>
 
-        {/* Router for Employer Dashboard */}
+        {/* Router for Job Portal Employer Dashboard */}
         <Route path="/employer/dashboard" element={<DashboardLayout />}>
           <Route index element={<EmployerDashboard />} />
           <Route path="company-profile" element={<CompanyProfile />} />
@@ -109,9 +110,8 @@ function App() {
           <Route path="messages" element={<Messages />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
-        {/* Employer Dashboard End */}
-
-        {/* Employer Router End */}
+        {/* Job Portal Employer Dashboard End */}
+        {/* Job Portal Employer Router End */}
 
         {/* This Router for Admin */}
         <Route element={<AdminLayout />}>

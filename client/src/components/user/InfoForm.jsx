@@ -3,9 +3,10 @@ import { IoPersonOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import MultiLists from "./MultiLists";
-import { uploadImgFile } from "../../utils/uploadFuncs";
 import Loader from "../Loader";
+import MultiLists from "../MultiLists";
+
+import { uploadImgFile } from "../../utils/uploadFuncs";
 import { resetUserSuccess, setUserInfo } from "../../redux/userSlice";
 
 function InfoForm() {
@@ -65,7 +66,7 @@ function InfoForm() {
 
   return (
     <div className="w-full h-full flex justify-center items-center ">
-      <div className=" w-fit md:w-5/12 lg:w-4/12 xl:w-3/12 h-[85%] bg-white grid gap-3 m-2 p-4 rounded-md shadow-lg overflow-y-auto">
+      <div className=" w-fit md:w-5/12 lg:w-4/12 xl:w-3/12 h-[85%] bg-white grid gap-3 m-2 p-4 rounded-md shadow-lg overflow-y-auto custom-scrollbar">
         <div className="flex justify-between items-center gap-3 ">
           <div>
             {infoValues?.image ? (
@@ -105,7 +106,7 @@ function InfoForm() {
             onChange={(e) =>
               setInfoValues({ ...infoValues, dob: e.target.value })
             }
-            className="col-span-2 p-1 outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] rounded-lg"
+            className="col-span-2 p-1 bg-white outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] rounded-lg"
           />
           <input
             type="text"
@@ -114,14 +115,17 @@ function InfoForm() {
             onChange={(e) =>
               setInfoValues({ ...infoValues, age: e.target.value })
             }
-            className="outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] ps-3 p-1 rounded-lg"
+            className="outline outline-2 bg-white outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] ps-3 p-1 rounded-lg"
           />
         </div>
 
-        <MultiLists title={"Your hobbies"} dataToParent={handleUserHobbies} />
+        <MultiLists
+          title={"Your hobbies"}
+          handleChildValue={handleUserHobbies}
+        />
         <MultiLists
           title={"Your interest"}
-          dataToParent={handleUserInterests}
+          handleChildValue={handleUserInterests}
         />
 
         <select
@@ -132,7 +136,7 @@ function InfoForm() {
               gender: e.target.value.toUpperCase(),
             })
           }
-          className="text-sm outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
+          className="text-sm bg-white outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
         >
           <option>your gender</option>
           {gender.map((item, index) => (
@@ -150,7 +154,7 @@ function InfoForm() {
               qualification: e.target.value.toUpperCase(),
             })
           }
-          className="text-sm outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
+          className="text-sm bg-white outline outline-2 outline-[#673ab7] focus:outline foucus:outline-1 focus:outline-[#673ab7] p-2 uppercase rounded-lg"
         >
           <option>choose your qualification</option>
           {options.map((item, index) => (

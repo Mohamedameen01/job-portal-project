@@ -6,6 +6,7 @@ import api from "../api";
 const INITIAL_STATE = {
   user: null,
   token: null,
+  role: null,
   loading: false,
   success: false,
   error: null,
@@ -99,10 +100,13 @@ const authSlice = createSlice({
       state.success = false;
     },
     setUserAuthLocal: (state) => {
-      localStorage.setItem(
-        "USER_LOCAL",
-        JSON.stringify({ token: state.token })
-      );
+      if (state.role) {
+        localStorage.removeItem("USER_LOCAL");
+        localStorage.setItem(
+          "USER_LOCAL",
+          JSON.stringify({ token: state.token, role: state.role })
+        );
+      }
     },
     setUserLocalLogout: (state) => {
       localStorage.removeItem("USER_LOCAL");
@@ -137,6 +141,7 @@ const authSlice = createSlice({
         state.success = true;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.role = action.payload.role;
       })
       .addCase(signin.rejected, (state, action) => {
         state.loading = false;

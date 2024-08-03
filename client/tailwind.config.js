@@ -5,9 +5,9 @@ export default {
     extend: {
       colors: {
         customViolet: "#673ab7",
-        customBgColor: "#f7f7f8"
+        customBgColor: "#f7f7f8",
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

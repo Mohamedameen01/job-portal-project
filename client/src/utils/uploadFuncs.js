@@ -2,7 +2,7 @@ export const uploadImgFile = (file, maxSize) => {
   return new Promise((resolve, reject) => {
     if (file && file.type.startsWith("image/")) {
       if (file.size > maxSize) {
-        reject("File must be less than 5 mb");
+        reject(`File must be less than ${maxSize}mb`);
         return;
       }
       const fileReader = new FileReader();

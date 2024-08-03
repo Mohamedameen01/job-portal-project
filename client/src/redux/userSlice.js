@@ -84,6 +84,7 @@ const userSlice = createSlice({
         state.role = action.payload;
       })
       .addCase(setUserRole.rejected, (state, action) => {
+        state.loading = false;
         state.success = false;
         state.error = action.payload;
       });

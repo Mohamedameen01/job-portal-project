@@ -18,9 +18,9 @@ function RoleSelection() {
     if (success) {
       dispatch(setUserRoleLocal());
       if (role === "Employer") {
-        navigate("/employer");
+        navigate("/employer/information-form");
       } else if (role === "Employee") {
-        navigate("/employee");
+        navigate("/employee/information-form");
       }
     }
   }, [success, role, dispatch]);

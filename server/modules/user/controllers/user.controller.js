@@ -4,8 +4,9 @@ export const setUserInfoForm = async (req, res) => {
   try {
     const { image, dob, age, gender, hobbies, interests, qualification } =
       req.body;
+    const userId = req.user._id;
 
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
@@ -41,7 +42,9 @@ export const setUserInfoForm = async (req, res) => {
 
 export const setUserRoleSelection = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
@@ -52,6 +55,21 @@ export const setUserRoleSelection = async (req, res) => {
     res.status(200).json(user.role);
   } catch (error) {
     console.log(error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+export const getOtherUsers = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const otherUsers = await User.find({ _id: { $ne: userId } }).select(
+      "-password"
+    );
+
+    return res.status(200).json(otherUsers);
+  } catch (error) {
+    console.log("Error On Fetching Other Users", error.message);
     res.status(500).json({ message: "Server Error" });
   }
 };

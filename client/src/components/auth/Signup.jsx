@@ -59,7 +59,7 @@ function Signup() {
 
   return (
     <div className="w-full h-full flex justify-center items-center ">
-      <div className="w-fit h-[80%] flex flex-col gap-3 bg-white mx-3 p-5 shadow-md rounded-lg scroll-smooth overflow-y-scroll">
+      <div className="w-fit h-[80%] flex flex-col gap-3 bg-white mx-3 p-5 shadow-md rounded-lg scroll-smooth overflow-y-auto custom-scrollbar">
         <div className="relative text-center ">
           <Link
             to={"/"}
@@ -80,7 +80,7 @@ function Signup() {
         <form autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className="relative flex flex-col ">
             <input
-              className={`py-2 ps-2 rounded-md ${
+              className={`py-2 ps-2 bg-white  rounded-md ${
                 nameFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"
@@ -120,7 +120,7 @@ function Signup() {
 
           <div className="relative flex flex-col my-4">
             <input
-              className={`py-2 ps-2 rounded-md ${
+              className={`py-2 ps-2 bg-white  rounded-md ${
                 passwordFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"
@@ -154,7 +154,7 @@ function Signup() {
 
           <div className="relative flex flex-col mt-4">
             <input
-              className={`py-2 ps-2 rounded-md ${
+              className={`py-2 ps-2  bg-white rounded-md ${
                 passwordFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"
@@ -200,7 +200,7 @@ function Signup() {
 
           <div className="relative flex flex-col mt-4">
             <input
-              className={`py-2 ps-2 rounded-md ${
+              className={`py-2 ps-2 bg-white  rounded-md ${
                 confPasswordFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"

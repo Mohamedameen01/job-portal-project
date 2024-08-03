@@ -13,11 +13,11 @@ import { FaRegFileArchive } from "react-icons/fa";
 import { CiPaperplane } from "react-icons/ci";
 import { RiMessage2Line } from "react-icons/ri";
 
-import datingApp from "/assets/datingapp.jpg";
-import matrimonyApp from "/assets/matrimony.jpg";
-import jobportalApp from "/assets/jobportal.jpg";
-import studyabroadApp from "/assets/studyabroad.jpg";
-import ecommerceApp from "/assets/ecommerce.jpg";
+import datingApp from "/assets/images/datingapp.jpg";
+import matrimonyApp from "/assets/images/matrimony.jpg";
+import jobportalApp from "/assets/images/jobportal.jpg";
+import studyabroadApp from "/assets/images/studyabroad.jpg";
+import ecommerceApp from "/assets/images/ecommerce.jpg";
 
 export const adminNavLinks = [
   {
@@ -101,31 +101,26 @@ export const apps = [
   {
     title: "Dating App",
     caption: "Find your perfect match and connect with singles around you.",
-    link: "",
     image: datingApp,
   },
   {
     title: "Matrimony",
     caption: "Discover your life partner with our trusted matrimony service.",
-    link: "",
     image: matrimonyApp,
   },
   {
     title: "Job Portal",
     caption: "Explore job opportunities and advance your career.",
-    link: "/auth/signin",
     image: jobportalApp,
   },
   {
     title: "Study Abroad",
     caption: "Plan your education abroad with our comprehensive guidance.",
-    link: "",
     image: studyabroadApp,
   },
   {
     title: "E-Commerce",
     caption: "Shop the latest products and enjoy exclusive deals.",
-    link: "",
     image: ecommerceApp,
   },
 ];

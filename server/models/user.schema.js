@@ -39,6 +39,7 @@ const userSchema = new Schema(
       enum: ["Employee", "Employer", "Admin"],
     },
     highQualification: { type: String },
+    unreadMessages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
   },
   { timestamps: true }
 );

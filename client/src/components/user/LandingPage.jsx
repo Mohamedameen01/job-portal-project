@@ -6,12 +6,10 @@ function LandingPage() {
   const navigate = useNavigate();
 
   const handleNavigation = (item) => {
-    if (item.link === "/auth/signin") {
-      navigate(item.link, { state: { landValue: true } });
-    }
+    navigate("/auth/signin", { state: { title: item.title, landValue: true } });
   };
   return (
-    <div className="mt-5 my-3 mx-2 flex flex-col justify-center items-center gap-5 bg-[#f7f7f8]">
+    <div className="h-screen pt-5 mx-2 flex flex-col justify-center items-center gap-5 bg-[#f7f7f8]">
       <h1 className="antialiased text-3xl text-center font-bold">
         Welcome to Our Multi-Service Platform
       </h1>

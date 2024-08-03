@@ -10,13 +10,15 @@ import { AiOutlineHome } from "react-icons/ai";
 import GoogleSignin from "./GoogleSignin";
 import MobileSignin from "./MobileSignin";
 import Loader from "../Loader.jsx";
+import { TitleRendering } from "../user";
 
 import {
   resetAuthSuccess,
   setUserAuthLocal,
+  setUserLocalLogout,
   signin,
 } from "../../redux/authSlice.js";
-import TitleRendering from "../TitleRendering.jsx";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
 function Signin() {
   const [emailFocused, setEmailFocused] = useState(false);
@@ -26,6 +28,7 @@ function Signin() {
   const [titleRender, setTitleRender] = useState(false);
 
   const auth = useSelector((state) => state.userAuth);
+  const { userLocal } = useAuthContext();
   const location = useLocation().state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +49,9 @@ function Signin() {
   };
 
   useEffect(() => {
+    if (userLocal) {
+      dispatch(setUserLocalLogout());
+    }
     if (auth.success) {
       dispatch(setUserAuthLocal());
       const timer = setTimeout(() => {
@@ -68,7 +74,7 @@ function Signin() {
   }, [location?.landValue]);
 
   if (titleRender) {
-    return <TitleRendering />;
+    return <TitleRendering title={location?.title} />;
   }
 
   return (
@@ -92,7 +98,7 @@ function Signin() {
         <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative flex flex-col my-2">
             <input
-              className={`py-2 ps-2 rounded-md ${
+              className={`py-2 ps-2 bg-white rounded-md ${
                 emailFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"
@@ -110,7 +116,7 @@ function Signin() {
               })}
             />
             <label
-              className={`absolute left-2 text-sm transition-all duration-300 ease-in-out ${
+              className={`absolute left-2  text-sm transition-all duration-300 ease-in-out ${
                 emailFocused
                   ? "-top-5 left-1 text-xs text-blue-500"
                   : "top-2 text-slate-500"
@@ -126,7 +132,7 @@ function Signin() {
 
           <div className="relative flex flex-col mt-4 mb-3">
             <input
-              className={`py-2 ps-2 rounded-md ${
+              className={`py-2 ps-2 bg-white rounded-md ${
                 passwordFocused
                   ? "outline outline-1 outline-cyan-500"
                   : "outline outline-1 outline-blue-500"
