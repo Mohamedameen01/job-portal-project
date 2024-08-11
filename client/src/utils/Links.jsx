@@ -127,65 +127,66 @@ export const apps = [
 
 export const employerSideBarLinks = [
   {
-    path: "/employer",
+    path: "/job-portal/employer",
     text: "home",
     icon: <AiOutlineHome />,
     url: "",
   },
   {
-    path: "/employee",
+    path: "/job-portal/employee",
     text: "employee",
     icon: <BsPersonWorkspace />,
-    url: "employee",
+    url: "job-portal/employee",
   },
   {
-    path: "/employer/candidates",
+    path: "/job-portal/employer/candidates",
     text: "candidates",
     icon: <FiUsers />,
-    url: "employer/candidates",
+    url: "job-portal/employer/candidates",
   },
   {
-    path: "/employer/companies",
+    path: "/job-portal/employer/companies",
     text: "companies",
     icon: <GrOrganization />,
-    url: "employer/companies",
+    url: "job-portal/employer/companies",
   },
   {
-    path: "/employer/saved-candidates",
+    path: "/job-portal/employer/saved-candidates",
     text: "saved",
     icon: <IoBookmarkOutline />,
-    url: "employer/saved",
+    url: "job-portal/employer/saved",
   },
   {
-    path: "/employer/notifications",
+    path: "/job-portal/employer/notifications",
     text: "notifications",
     icon: <IoMdNotificationsOutline />,
-    url: "employer/notifications",
+    url: "job-portal/employer/notifications",
   },
 ];
+
 export const employerDashboardLinks = [
   {
-    path: "/employer/dashboard",
+    path: "/job-portal/employer/dashboard",
     text: "dashboard",
     icon: <AiOutlineHome />,
   },
   {
-    path: "/employer/dashboard/company-profile",
+    path: "/job-portal/employer/dashboard/company-profile",
     text: "company profile",
     icon: <FiUsers />,
   },
   {
-    path: "/employer/dashboard/post-job",
+    path: "/job-portal/employer/dashboard/post-job",
     text: "post a new job",
     icon: <CiPaperplane />,
   },
   {
-    path: "/employer/dashboard/manage-jobs",
+    path: "/job-portal/employer/dashboard/manage-jobs",
     text: "manage-jobs",
     icon: <MdOutlineWorkOutline />,
   },
   {
-    path: "/employer/dashboard/all-applicants",
+    path: "/job-portal/employer/dashboard/all-applicants",
     text: "all applicants",
     icon: <FaRegFileArchive />,
   },
@@ -195,7 +196,7 @@ export const employerDashboardLinks = [
   //   icon: <IoBookmarkOutline />,
   // },
   {
-    path: "/employer/dashboard/messages",
+    path: "/job-poral/employer/dashboard/messages",
     text: "messages",
     icon: <RiMessage2Line />,
   },
