@@ -15,6 +15,7 @@ export default {
       colors: {
         customViolet: "#673ab7",
         customBgColor: "#f7f7f8",
+        studyOrangeColor: "#fb4927",
       },
     },
   },

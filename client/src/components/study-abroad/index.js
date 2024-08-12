@@ -8,6 +8,9 @@ import StudyAppRates from "./StudyAppRates";
 import StudyCountries from "./StudyCountries";
 import StudyQuestions from "./StudyQuestions";
 import StudyFeedback from "./StudyFeedback";
+import StudyBlog from "./StudyBlog";
+import StudyInstitutions from "./StudyInstitutions";
+
 export {
   StudyHomeBanner,
   StudyFeatures,
@@ -19,4 +22,6 @@ export {
   StudyCountries,
   StudyQuestions,
   StudyFeedback,
+  StudyBlog,
+  StudyInstitutions,
 };

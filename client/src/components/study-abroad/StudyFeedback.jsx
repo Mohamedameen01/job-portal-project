@@ -15,7 +15,7 @@ function StudyFeedback() {
             </h1>
           </div>
           <div className="flex items-center gap-3 text-white">
-            <h3 className="text-5xl text-[#fb4927] font-black ">4.8</h3>
+            <h3 className="text-5xl text-studyOrangeColor font-black ">4.8</h3>
             <p className="text-sm font-bold uppercase">
               Rating from <br /> our client
             </p>

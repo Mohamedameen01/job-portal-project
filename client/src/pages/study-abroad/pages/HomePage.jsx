@@ -2,11 +2,13 @@ import React from "react";
 import {
   StudyAboutUs,
   StudyAppRates,
+  StudyBlog,
   StudyCountries,
   StudyFeatureCard,
   StudyFeatures,
   StudyFeedback,
   StudyHomeBanner,
+  StudyInstitutions,
   StudyQuestions,
   StudyServices,
   StudyVisa,
@@ -25,6 +27,8 @@ function HomePage() {
       <StudyCountries />
       <StudyQuestions />
       <StudyFeedback />
+      <StudyBlog />
+      <StudyInstitutions />
     </>
   );
 }
