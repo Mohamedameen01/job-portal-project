@@ -16,7 +16,7 @@ import { RiMessage2Line } from "react-icons/ri";
 import datingApp from "/assets/images/datingapp.jpg";
 import matrimonyApp from "/assets/images/matrimony.jpg";
 import jobportalApp from "/assets/images/jobportal.jpg";
-import studyabroadApp from "/assets/images/studyabroad.jpg";
+import studyabroadApp from "/assets/images/study-abroad/studyabroad.jpg";
 import ecommerceApp from "/assets/images/ecommerce.jpg";
 
 export const adminNavLinks = [

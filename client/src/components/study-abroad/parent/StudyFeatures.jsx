@@ -1,11 +1,11 @@
 import React from "react";
 
-import { studyFeaturesList } from "../../utils/StudyFeatursData";
+import { studyFeaturesList } from "../../../utils/StudyFeatursData";
 
 function StudyFeatures() {
   return (
     <div className="bg-white border-b-2 border-gray-300 ">
-      <div className="max-w-[1480px] mx-auto px-5 py-5 grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px] py-5 grid md:grid-cols-2 lg:grid-cols-4 gap-3">
         {studyFeaturesList.map((item, ind) => (
           <div key={ind} className="flex items-center gap-3">
             <img

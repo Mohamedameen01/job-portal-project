@@ -1,17 +1,32 @@
-import StudyHomeBanner from "./StudyHomeBanner";
-import StudyFeatures from "./StudyFeatures";
-import StudyAboutUs from "./StudyAboutUs";
-import StudyFeatureCard from "./StudyFeatureCard";
-import StudyServices from "./StudyServices";
-import StudyVisa from "./StudyVisa";
-import StudyAppRates from "./StudyAppRates";
-import StudyCountries from "./StudyCountries";
-import StudyQuestions from "./StudyQuestions";
-import StudyFeedback from "./StudyFeedback";
-import StudyBlog from "./StudyBlog";
-import StudyInstitutions from "./StudyInstitutions";
-
+import StudyNavbar from "./parent/StudyNavbar";
+import StudyHomeBanner from "./parent/StudyHomeBanner";
+import StudyFeatures from "./parent/StudyFeatures";
+import StudyAboutUs from "./parent/StudyAboutUs";
+import StudyFeatureCard from "./parent/StudyFeatureCard";
+import StudyServices from "./parent/StudyServices";
+import StudyVisa from "./parent/StudyVisa";
+import StudyAppRates from "./child/StudyAppRates";
+import StudyCountries from "./parent/StudyCountries";
+import StudyQuestions from "./parent/StudyQuestions";
+import StudyFeedback from "./parent/StudyFeedback";
+import StudyBlog from "./parent/StudyBlog";
+import StudyInstitutions from "./parent/StudyInstitutions";
+import StudyContact from "./parent/StudyContact";
+import InnerHeader from "./child/InnerHeader";
+import VisaBanner from "./child/VisaBanner";
+import VisaGuideCard from "./child/VisaGuideCard";
+import InnerContactForm from "./child/InnerContactForm";
+import InnerFooter from "./child/InnerFooter";
+import CountriesBox from "./child/CountriesBox";
+import CountryDetailsSection from "./child/CountryDetailsSection";
+import DownloadBox from "./child/DownloadBox";
+import IconBox from "./child/IconBox";
+import FeatureSection from "./child/FeatureSection";
+import TopInstituteDetails from "./child/TopInstituteDetails";
+import CountriesCaption from "./child/CountriesCaption";
+import AllCountriesList from "./child/AllCountriesList";
 export {
+  StudyNavbar,
   StudyHomeBanner,
   StudyFeatures,
   StudyAboutUs,
@@ -24,4 +39,18 @@ export {
   StudyFeedback,
   StudyBlog,
   StudyInstitutions,
+  StudyContact,
+  InnerHeader,
+  VisaBanner,
+  VisaGuideCard,
+  InnerContactForm,
+  InnerFooter,
+  CountriesBox,
+  CountryDetailsSection,
+  DownloadBox,
+  IconBox,
+  FeatureSection,
+  TopInstituteDetails,
+  CountriesCaption,
+  AllCountriesList
 };

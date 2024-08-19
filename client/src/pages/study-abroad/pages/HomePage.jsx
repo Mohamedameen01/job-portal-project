@@ -3,6 +3,7 @@ import {
   StudyAboutUs,
   StudyAppRates,
   StudyBlog,
+  StudyContact,
   StudyCountries,
   StudyFeatureCard,
   StudyFeatures,
@@ -29,6 +30,7 @@ function HomePage() {
       <StudyFeedback />
       <StudyBlog />
       <StudyInstitutions />
+      <StudyContact />
     </>
   );
 }

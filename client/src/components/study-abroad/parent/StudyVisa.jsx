@@ -1,11 +1,12 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import StudyHead from "./StudyHead";
+
+import StudyHead from "../child/StudyHead";
 
 function StudyVisa() {
   return (
     <div className="bg-gradient-to-b from-black to-white pb-4">
-      <div className="max-w-[1480px] mx-auto px-5 grid grid-cols-3">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px] grid grid-cols-3">
         <div className="hidden lg:block">
           <img
             src="https://evisa-react.xpressbuddy.com/static/media/cta_img.d9e202eadad1d83a7c3a.jpg"
@@ -26,7 +27,6 @@ function StudyVisa() {
               <span className="w-4 h-4 lg:w-5 lg:h-5 flex items-center bg-white text-black text-sm lg:text-base  font-black rounded-full group-hover:translate-x-2">
                 <FaArrowRight />
               </span>
-              <span className="absolute -bottom-2 left-0 w-[58%] md:w-[30%] xl:w-[23%] h-0.5 bg-gradient-to-r from-red-500 to-orange-500 transition-all ease-in-out duration-500 group-hover:w-0 "></span>
             </div>
           </div>
         </div>

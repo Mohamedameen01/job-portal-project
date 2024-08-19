@@ -21,11 +21,11 @@ function StudyHomeBanner() {
           </span>
         </h1>
 
-        <div className="">
+        <div>
           <img
             src="https://evisa-react.xpressbuddy.com/static/media/img_01.2698d56da81dec8fa473.png"
             alt="banner-img"
-            className=" w-4/5 mx-auto drop-shadow-2xl z-10"
+            className="w-4/5 mx-auto z-10 drop-shadow-2xl transition-all ease-in-out duration-500"
           />
         </div>
 
@@ -45,14 +45,15 @@ function StudyHomeBanner() {
             student
           </h1>
 
-          <h1 className="absolute top-10  text-white b font-black text-4xl md:text-5xl lg:text-6xl xl:text-7xl  uppercase tracking-wide z-20 drop-shadow-2xl ">
+          <h1 className="absolute top-10 text-white b font-black text-3xl md:text-5xl lg:text-6xl xl:text-7xl  uppercase tracking-wide z-20 drop-shadow-2xl ">
             visa help
           </h1>
 
           <div
-            className={`px-3 lg:px-4 py-2 lg:py-3 absolute ${
-              render ? "top-24 md:top-48" : "top-60"
-            } md:flex items-center gap-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-orange-500 hover:to-red-500 rounded-full z-20 cursor-pointer transition-all ease-in-out duration-300`}
+            className={`w-fit  px-4 py-3 absolute ${
+              render ? "top-24 md:top-48" : "top-28 md:top-56"
+            }
+            flex items-center gap-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-orange-500 hover:to-red-500 rounded-full z-20 cursor-pointer transition-all duration-500 ease-in-out`}
           >
             <button className="text-nowrap text-white text-sm lg:text-lg font-semibold tracking-wide">
               Book Appointment Today

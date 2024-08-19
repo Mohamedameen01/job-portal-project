@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 
@@ -23,7 +23,7 @@ function StudyAppRates() {
 
   return (
     <div className="bg-white py-5">
-      <div className="max-w-[1480px] mx-auto px-5 grid md:grid-cols-3">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px] grid md:grid-cols-3">
         {rates.map((r, ind) => (
           <div
             key={ind}

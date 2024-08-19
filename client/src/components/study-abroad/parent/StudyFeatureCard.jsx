@@ -1,12 +1,12 @@
 import React from "react";
 
-import { studyFeaturesCard } from "../../utils/StudyFeatursData";
-import StudyHead from "./StudyHead";
+import { studyFeaturesCard } from "../../../utils/StudyFeatursData";
+import StudyHead from "../child/StudyHead";
 
 function StudyFeatureCard() {
   return (
     <div className="bg-customBgColor py-5">
-      <div className="max-w-[1480px] mx-auto px-5 grid justify-center gap-4">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px] grid justify-center gap-4">
         <StudyHead text={"How we help client"} position={"center"} />
 
         <h1 className="max-w-4xl mx-auto text-center text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black">

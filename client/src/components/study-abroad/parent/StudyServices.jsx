@@ -1,13 +1,14 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoMdPlay } from "react-icons/io";
-import { studyServicesCard } from "../../utils/studyServicesData";
-import StudyHead from "./StudyHead";
+
+import StudyHead from "../child/StudyHead";
+import { studyServicesCard } from "../../../utils/studyServicesData";
 
 function StudyServices() {
   return (
     <div className="bg-black text-white py-5">
-      <div className="max-w-[1480px] mx-auto px-5 grid gap-4">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px] grid gap-4">
         <StudyHead text={"Services"} color={"white"} />
 
         <div className="grid gap-4 md:flex items-center justify-between">

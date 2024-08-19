@@ -1,7 +1,8 @@
 import React from "react";
-import StudyHead from "./StudyHead";
-import BlogLeftSection from "./BlogLeftSection";
-import BlogRightSection from "./BlogRightSection";
+
+import StudyHead from "../child/StudyHead";
+import BlogLeftSection from "../child/BlogLeftSection";
+import BlogRightSection from "../child/BlogRightSection";
 
 function StudyBlog() {
   const articles = [
@@ -21,7 +22,7 @@ function StudyBlog() {
 
   return (
     <div className="bg-white py-5">
-      <div className="max-w-[1480px] mx-auto px-5">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px]">
         <div className="my-3 grid items-center gap-4">
           <StudyHead text={"latest news"} position={"center"} />
           <h1 className="text-center text-3xl lg:text-4xl xl:text-5xl font-black tracking-wide">

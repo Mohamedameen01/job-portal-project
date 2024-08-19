@@ -1,12 +1,13 @@
 import React from "react";
-import StudyHead from "./StudyHead";
-import FeedbackBox from "./FeedbackBox";
-import { feedbackData } from "../../utils/studyFeedback";
+
+import StudyHead from "../child/StudyHead";
+import FeedbackBox from "../child/FeedbackBox";
+import { feedbackData } from "../../../utils/studyFeedback";
 
 function StudyFeedback() {
   return (
     <div className="bg-black py-5">
-      <div className="max-w-[1480px] mx-auto px-5 ">
+      <div className="max-w-[1480px] mx-auto px-[10px] sm:px-[40px] md:px-[50px] ">
         <div className="grid gap-4 lg:flex justify-between">
           <div className="grid gap-3">
             <StudyHead text={"Popular"} color={"white"} />

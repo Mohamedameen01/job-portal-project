@@ -1,12 +1,14 @@
 import React from "react";
-import { IoIosStar } from "react-icons/io";
+import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
-import StudyHead from "./StudyHead";
+import StudyHead from "../child/StudyHead";
 
 function StudyAboutUs() {
+  const headData = {title: "About Visa", currentPage: "About"};
+
   return (
     <div className="bg-white py-5 ">
-      <div className="max-w-[1480px] px-5 mx-auto grid gap-4">
+      <div className="max-w-[1480px] px-[10px] sm:px-[40px] md:px-[50px] mx-auto grid gap-4">
         <StudyHead text={"About us"} />
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-wide">
           Since 1998 - Unparalleled Comprehensive <br /> Student Visa Guide
@@ -17,10 +19,13 @@ function StudyAboutUs() {
           success Simplified Steps, Proven Strategies, Unwavering Support!"
         </p>
         <div className="w-full mt-3 grid items-center lg:grid-cols-4 gap-3">
-          <div className="w-fit h-fit px-3 py-2 lg:px-5 lg:py-3 flex items-center gap-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-orange-500 hover:to-red-500 rounded-full z-20 cursor-pointer">
-            <button className="text-white text-sm lg:text-lg font-semibold tracking-wide">
+          <div className="w-fit h-fit px-4 py-3 flex items-center gap-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-orange-500 hover:to-red-500 transition-all duration-500 ease-in-out rounded-full z-20 cursor-pointer">
+            <Link
+              to="/study-abroad/about-visa" state= {headData} 
+              className="text-white text-sm lg:text-lg font-semibold tracking-wide"
+            >
               E.Visa History
-            </button>
+            </Link>
             <span className="w-5 h-5 lg:w-6 lg:h-6 flex items-center bg-white text-amber-600 text-lg rounded-full">
               <BsArrowRight />
             </span>

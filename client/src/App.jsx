@@ -44,7 +44,7 @@ import { isExpireToken } from "./utils/privateFuncs";
 import { PrivateRoutes } from "./components";
 import DashboardLayout from "./pages/job-portal/employer/DashboardLayout";
 import StudyAbroadLayout from "./pages/study-abroad/StudyAbroadLayout";
-import { HomePage } from "./pages/study-abroad/pages";
+import { CountriesPage, HomePage, SingleCountryPage, VisaPage } from "./pages/study-abroad/pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -143,6 +143,9 @@ function App() {
         {/* Study Abroad Start  */}
         <Route path="study-abroad" element={<StudyAbroadLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="about-visa" element={<VisaPage />} />
+          <Route path="single-country" element={<SingleCountryPage />} />
+          <Route path="country" element={<CountriesPage />} /> 
         </Route>
         {/* Study Abroad End  */}
       </Routes>
