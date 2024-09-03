@@ -6,7 +6,7 @@ import { MdOutlineMessage } from "react-icons/md";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 
-import StatusBox from "./StatusBox";
+
 import ViewsGraph from "./ViewsGraph";
 import CandidateCards from "../CandidateCards";
 
@@ -16,6 +16,7 @@ import femaleprofile from "/assets/images/femaleprofile.jpg";
 import { userData } from "../../../../../utils/table-datas";
 import { viewsStatusData } from "../../../../../utils/graph-data";
 import { notifyData } from "../../../../../utils/jobs-data";
+import StatusBox from "../../../StatusBox";
 
 function HomeDashboard() {
   return (

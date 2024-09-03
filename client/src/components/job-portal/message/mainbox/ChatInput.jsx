@@ -3,8 +3,9 @@ import { IoMdSend } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-import { setSendChat } from "../../../../../../redux/chatSlice";
+
 import messagePop from "/assets/sounds/message-pop-alert.mp3";
+import { setSendChat } from "../../../../redux/chatSlice";
 
 function ChatInput({ receiverId }) {
   const [chatValue, setChatValue] = useState("");

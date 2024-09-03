@@ -1,4 +1,5 @@
 import Employer from "../../../models/employer.schema.js";
+import Job from "../../../models/job.schema.js";
 
 // This Fuction For Getting Employer Information:
 export const getAllInfos = async (req, res) => {
@@ -41,7 +42,7 @@ export const setBasicInfos = async (req, res) => {
         .json({ message: "Information values are not fullfilled" });
     }
 
-    let employer = await Employer.findOne({ employerId: user?._id });
+    let employer = await Employer.findOne({ employerId: user._id });
 
     if (!employer) {
       employer = new Employer({
@@ -84,6 +85,8 @@ export const setProfileInofos = async (req, res) => {
       companyTeamSize,
       aboutCompany,
     } = req.body;
+    console.log(companyLogo);
+    
     const user = req.user;
 
     if (
@@ -212,7 +215,92 @@ export const setContactInfos = async (req, res) => {
       message: "Successfully Updated contact informations",
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// This Function For Uploading New Job Post Infos:
+export const postNewJob = async (req, res) => {
+  try {
+    const user = req.user._id;
+    const {
+      title,
+      description,
+      email,
+      specialism,
+      industry,
+      jobType,
+      employmentType,
+      experience,
+      qualification,
+      gender,
+      location,
+      offeredSalary,
+      jobPlace,
+      deadline,
+    } = req.body; 
+    
+    if (
+      !title ||
+      !description ||
+      !email ||
+      !specialism ||
+      !industry ||
+      !jobType ||
+      !employmentType ||
+      !experience ||
+      !qualification ||
+      !gender ||
+      !location ||
+      !offeredSalary ||
+      !jobPlace ||
+      !deadline
+    ) {
+      return res.status(400).json({ message: "Please fill field" });
+    }
+    let employer = await Employer.findOne({ employerId: user });
+    
+    const newJob = new Job({
+      owner: employer._id,
+      title,
+      description,
+      email,
+      specialism,
+      industry,
+      jobType,
+      employmentType,
+      experience,
+      qualification,
+      gender,
+      location,
+      offeredSalary,
+      jobPlace,
+      deadline,
+    });
+    await newJob.save();
+    
+    employer.totalJobs.push(newJob._id);
+  
+    await employer.save();
+    
+    res.status(200).json({info: newJob, message: "Job Infos Posted Successfully"})
+  } catch (error) {
+    console.log(error);
+    
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function For Fetching All Posted Jobs:
+export const getAllPostedJobs = async (req, res) => {
+  try {
+    const user = req.user._id;
+    const jobs = await Job.find({owner: user});
+    if (!jobs) {
+      return res.status(400).json({message: "User haven't posted jobs yet."})
+    }
+    res.status(200).json({infos: jobs});
+  } catch (error) {
+    res.status(500).json({message: "Server error"})
+  }
+}

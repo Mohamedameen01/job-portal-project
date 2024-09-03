@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaRegUser } from "react-icons/fa6";
+import { useSocketContext } from "../../../../context/SocketContext";
+import useListenMessage from "../../../../hooks/useListenMessage";
+import { setSelectedUser } from "../../../../redux/chatSlice";
 
-import { useSocketContext } from "../../../../../../context/SocketContext";
-import { setSelectedUser } from "../../../../../../redux/chatSlice";
-import useListenMessage from "../../../../../../hooks/useListenMessage";
+
 
 function UsersList({ user }) {
   const [unreadCount, setUnreadCount] = useState(null);
   const { selectedUser, messages } = useSelector((state) => state.chat);
+  const dispatch = useDispatch();
+
   const { onlineUsers, setSelected, findEachUserUnreadMessages } =
     useSocketContext();
+
   const isUserOnline = onlineUsers.includes(user._id);
+
   useListenMessage();
-  const dispatch = useDispatch();
 
   const handleSelectedUser = () => {
     dispatch(setSelectedUser(user));

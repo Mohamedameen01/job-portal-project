@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useJobSearchContext } from "../../../../context/JobSearchContext";
 
 function RadioSearch({ title, contents }) {
+  const [radioValue, setRadioValue] = useState("");
+  const { clearSearch, setSearchRadio } = useJobSearchContext();
+
+  const handleRadioValue = (e) => {
+    setRadioValue(e.target.value);
+  };
+
+  useEffect(() => {
+    setSearchRadio({ posted: radioValue });
+  }, [radioValue, setRadioValue]);
+
+  useEffect(() => {
+    if (clearSearch) {
+      setRadioValue("");
+    }
+  }, [clearSearch, setRadioValue]);
   return (
     <div>
       <h1 className="font-semibold text-lg">{title}</h1>
@@ -12,7 +29,9 @@ function RadioSearch({ title, contents }) {
                 type="radio"
                 name="postedDate"
                 value={item}
+                checked={radioValue === item}
                 className="w-4 h-4"
+                onChange={handleRadioValue}
               />
               <span className="text-sm">{item}</span>
             </label>

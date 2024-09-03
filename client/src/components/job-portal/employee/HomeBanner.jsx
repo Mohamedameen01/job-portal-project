@@ -5,6 +5,7 @@ import LargeSearchInput from "./LargeSearchInput";
 import NormalSearchInput from "./NormalSearchInput";
 
 function HomeBanner() {
+  
   return (
     <div
       className="w-full h-screen bg-cover bg-center"

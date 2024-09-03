@@ -20,7 +20,7 @@ function NormalHeader({ value, setValue }) {
           } `}
         >
           <div className="antialiased tracking-wide text-[#673ab7] text-xl font-semibold">
-            <Link to={"/employer"}>JOB PORTAL</Link>
+            <Link to={"/job-portal/employer"}>JOB PORTAL</Link>
           </div>
           <div className="flex gap-2">
             <MessageNotification />
@@ -41,7 +41,7 @@ function NormalHeader({ value, setValue }) {
 
         <SideBar value={value} setValue={setValue} />
       </header>
-      {dropMenu && <ProfileMenu drop={dropMenu} setDrop={setDropMenu} />}
+      {dropMenu && <ProfileMenu drop={dropMenu} setDrop={setDropMenu} from={"employer"} />}
     </div>
   );
 }

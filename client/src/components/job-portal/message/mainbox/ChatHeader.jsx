@@ -2,12 +2,12 @@ import React from "react";
 
 import { CiMenuKebab } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
-
-import { useSocketContext } from "../../../../../../context/SocketContext";
+import { useSocketContext } from "../../../../context/SocketContext";
 
 function ChatHeader({ user }) {
   const { onlineUsers } = useSocketContext();
   const isUserOnline = onlineUsers.includes(user._id);
+  
   return (
     <div className="mt-3 h-20 bg-customBgColor grid grid-cols-2 shadow-md shadow-gray-300 rounded-md">
       <div className="ms-3 flex items-center gap-3">

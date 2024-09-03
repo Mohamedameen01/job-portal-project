@@ -49,6 +49,7 @@ export const jobTypesOption = [
 ];
 
 export const employmentTypesOptions = [
+  "Freelancer",
   "Full-time",
   "Part-time",
   "Internship",

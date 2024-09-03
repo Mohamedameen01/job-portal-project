@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdClose } from "react-icons/md";
@@ -7,12 +7,11 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 import Loader from "../Loader.jsx";
-import { mobileVerification } from "../../redux/authSlice.js";
+import { mobileSignin, mobileVerification, resetAuthSuccess, setUserAuthLocal} from "../../redux/authSlice.js";
 
 function SmsForm() {
   const [value, setValue] = useState("");
   const [valueError, setValueError] = useState(null);
-
   const [inputOtp, setInputOtp] = useState("");
   const [inputOtpError, setInputOtpError] = useState(null);
 
@@ -22,8 +21,7 @@ function SmsForm() {
   const navigate = useNavigate();
 
   const { from } = useLocation().state;
-
-  const auth = useSelector((state) => state.userAuth);
+  const {loading, otpLoading, success} = useSelector((state) => state.userAuth);
 
   // Handle to Send Message to Phone Number for Verification.
   const handleSendButton = () => {
@@ -41,7 +39,7 @@ function SmsForm() {
       return setInputOtpError("Please enter your otp");
     }
 
-    dispatch(mobileSigninn({ phone: value, inputOtp }));
+    dispatch(mobileSignin({ phone: value, inputOtp }));
   };
 
   // Handle Close Button and Navigate to previous page
@@ -52,6 +50,19 @@ function SmsForm() {
       navigate("/auth/signin");
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      dispatch(setUserAuthLocal());
+      const timer = setTimeout(() => {
+        dispatch(resetAuthSuccess());
+        setValue("");
+        setInputOtp("")
+        navigate("/auth/role-selection");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [success])
 
   return (
     <div className="w-full h-screen flex justify-center items-center p-3">
@@ -72,7 +83,7 @@ function SmsForm() {
           onChange={setValue}
         />
         {valueError && <small className="text-red-600">{valueError}</small>}
-        {auth.loading ? (
+        {otpLoading ? (
           <Loader />
         ) : (
           <button
@@ -95,7 +106,7 @@ function SmsForm() {
             {inputOtpError && (
               <small className="text-red-600">{inputOtpError}</small>
             )}
-            {auth.loading ? (
+            {loading ? (
               <Loader />
             ) : (
               <button

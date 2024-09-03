@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import ChatHeader from "./ChatHeader";
 import ChatBox from "./ChatBox";
 import ChatInput from "./ChatInput";
+import useListenMessage from "../../../../hooks/useListenMessage";
+import { getChats } from "../../../../redux/chatSlice";
 
-import { getChats } from "../../../../../../redux/chatSlice";
-import useListenMessage from "../../../../../../hooks/useListenMessage";
+
 
 function MainBox() {
   const [userId, setUserId] = useState(null);

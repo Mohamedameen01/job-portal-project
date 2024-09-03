@@ -27,11 +27,10 @@ export const setUserInfo = createAsyncThunk(
 
 export const setUserRole = createAsyncThunk(
   "user/setUserRole",
-  async (data, { rejectWithValue }) => {
-    try {
-      const response = await api.post("user/role", data);
-      toast.success(response.data.message);
-      return response.data;
+  async (info, { rejectWithValue }) => {
+    try {  
+      const {data} = await api.post("user/role", info);  
+      return data;
     } catch (error) {
       const msgError = error.response.data.message;
       toast.error(msgError);
@@ -81,7 +80,7 @@ const userSlice = createSlice({
       .addCase(setUserRole.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.role = action.payload;
+        state.role = action.payload.role;
       })
       .addCase(setUserRole.rejected, (state, action) => {
         state.loading = false;

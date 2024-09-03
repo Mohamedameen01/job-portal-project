@@ -25,12 +25,12 @@ function StatisticsStatus() {
       {obj.map((item) => (
         <div
           key={item.title}
-          className="flex flex-col items-center bg-[#8B93FF] text-[#FFF7FC] px-5 py-3 rounded-lg hover:scale-105"
+          className="flex flex-col items-center bg-blue-100 px-5 py-3 rounded-lg hover:scale-105"
         >
-          <div className="text-sm bg-blue-600 w-fit rounded-md p-2">
+          <div className="text-lg font-bold tracking-wider text-blue-500">{item.title}</div>
+          <div className="text-base font-black text-blue-500 w-fit rounded-md p-2">
             {item.count}
           </div>
-          <div className="text-lg">{item.title}</div>
         </div>
       ))}
     </div>

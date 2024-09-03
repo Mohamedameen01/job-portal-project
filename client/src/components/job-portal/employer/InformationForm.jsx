@@ -67,7 +67,7 @@ function InformationForm() {
     }
 
     dispatch(setEmployerBasicInfo(infoValues));
-    navigate("/employer");
+    navigate("/job-portal/employer");
   };
 
   return (

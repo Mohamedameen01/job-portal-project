@@ -5,6 +5,7 @@ import authReducer from "./authSlice.js";
 import employeeInfoReducer from "./employeeInfoSlice.js";
 import chatReducer from "./chatSlice.js";
 import employerReducer from "./employerSlice.js";
+import employeeReducer from "./employeeSlice.js";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     employeeInfo: employeeInfoReducer,
     chat: chatReducer,
     employer: employerReducer,
+    employee: employeeReducer
   },
 });
 

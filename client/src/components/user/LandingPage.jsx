@@ -6,8 +6,19 @@ function LandingPage() {
   const navigate = useNavigate();
 
   const handleNavigation = (item) => {
-    navigate("/auth/signin", { state: { title: item.title, landValue: true } });
+    if (item?.title) {
+      const isExistingApp = localStorage.getItem("USER_LOCAL");
+      if (isExistingApp) {
+        localStorage.removeItem("USER_LOCAL")
+      }
+      localStorage.setItem(
+        "USER_LOCAL",
+        JSON.stringify({ app: item.title })
+      );
+      navigate("/auth/signin", { state: { title: item.title, landValue: true } });
+    }
   };
+  
   return (
     <div className="h-screen pt-5 mx-2 flex flex-col justify-center items-center gap-5 bg-[#f7f7f8]">
       <h1 className="antialiased text-3xl text-center font-bold">

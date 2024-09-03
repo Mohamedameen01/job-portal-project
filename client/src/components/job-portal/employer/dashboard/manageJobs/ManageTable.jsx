@@ -6,8 +6,8 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 
 import CommentButtons from "../CommentButtons";
 
-import companylog from "/assets/images/upworklogo.png";
-import { manageJobTableData } from "../../../../../utils/table-datas";
+import companylogo from "/assets/images/upworklogo.png";
+import { useSelector } from "react-redux";
 
 function ManageTable() {
   const tableHead = [
@@ -18,6 +18,8 @@ function ManageTable() {
     "Status",
     "Action",
   ];
+  const { postedJobs, employerInfo} = useSelector((state) => state.employer);
+  
   return (
     <table className="w-max lg:w-full capitalize ">
       <thead>
@@ -32,27 +34,27 @@ function ManageTable() {
           ))}
         </tr>
       </thead>
-      <tbody>
-        {manageJobTableData.map((item) => (
-          <tr key={item.id} className="text-sm text-center">
+      <tbody className="overflow-x-auto custom-scrollbar">
+        {postedJobs?.map((job, index) => (
+          <tr key={index} className="text-sm text-center">
             <td className="ps-3 py-3 flex gap-2">
-              <img width={45} height={45} src={companylog} alt="company-logo" />
-              <p className="mt-1 font-semibold">{item.job}</p>
+              <img width={45} height={45} src={employerInfo.companylogo ? employerInfo.companylogo : companylogo} alt="company-logo" />
+              <p className="mt-1 font-semibold">{job.title}</p>
             </td>
             <td className="py-3 text-blue-600 font-semibold underline cursor-pointer">
-              {item.applicants} Applied
+              {job.applicants} Applied
             </td>
-            <td>{item.selected}</td>
+            <td>{job.selected}</td>
             <td className="py-3">
-              <p>{item.createdAt}</p>
-              <p>{item.expiredAt}</p>
+              <p>{job.createdAt}</p>
+              <p>{job.expiredAt}</p>
             </td>
             <td
               className={`py-3 font-semibold ${
-                item.status === "active" ? "text-green-500" : "text-red-500"
+                job.status ? "text-green-500" : "text-red-500"
               }`}
             >
-              {item.status}
+              {job.status}
             </td>
             <td className="pr-2 py-3 flex justify-center gap-2">
               <CommentButtons

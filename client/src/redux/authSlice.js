@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   token: null,
   role: null,
   loading: false,
+  otpLoading:false,
   success: false,
   error: null,
 };
@@ -81,7 +82,9 @@ export const mobileSignin = createAsyncThunk(
   "auth/mobileSignin",
   async (credentials, { rejectWithValue }) => {
     try {
+      console.log(credentials);
       const response = await api.post("/auth/mobile-signin", credentials);
+      
       toast.success(response.data.message);
       return response.data;
     } catch (error) {
@@ -100,18 +103,23 @@ const authSlice = createSlice({
       state.success = false;
     },
     setUserAuthLocal: (state) => {
-      if (state.role) {
-        localStorage.removeItem("USER_LOCAL");
+      if (state.token) {
+        const existingData = JSON.parse(localStorage.getItem("USER_LOCAL") || "{}");
+        let updatedData = {
+          ...existingData,
+          token: state.token
+        }
+
+        if (state.role) {
+          updatedData = {...updatedData, role: state.role};
+        }
+        
         localStorage.setItem(
           "USER_LOCAL",
-          JSON.stringify({ token: state.token, role: state.role })
+          JSON.stringify(updatedData)
         );
       }
-    },
-    setUserLocalLogout: (state) => {
-      localStorage.removeItem("USER_LOCAL");
-      return { ...state, token: null, user: null };
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -168,15 +176,15 @@ const authSlice = createSlice({
 
       // Handle Mobile Verification
       .addCase(mobileVerification.pending, (state) => {
-        state.loading = true;
+        state.otpLoading = true;
         state.error = null;
       })
-      .addCase(mobileVerification.fulfilled, (state, action) => {
-        state.loading = false;
+      .addCase(mobileVerification.fulfilled, (state) => {
+        state.otpLoading = false;
         state.error = null;
       })
       .addCase(mobileVerification.rejected, (state, action) => {
-        state.loading = false;
+        state.otpLoading = false;
         state.success = false;
         state.error = action.payload;
       })

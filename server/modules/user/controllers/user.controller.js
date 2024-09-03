@@ -1,3 +1,5 @@
+import Employee from "../../../models/employee.schema.js";
+import Employer from "../../../models/employer.schema.js";
 import User from "../../../models/user.schema.js";
 
 export const setUserInfoForm = async (req, res) => {
@@ -43,18 +45,46 @@ export const setUserInfoForm = async (req, res) => {
 export const setUserRoleSelection = async (req, res) => {
   try {
     const userId = req.user._id;
+    const { role } = req.body;
+
+    if (!["Employer", "Employee"].includes(role)) {
+      return res.status(400).json({ message: "Invalid role selected" });
+    }
 
     const user = await User.findById(userId);
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
-    user.role = req.body.role;
+    user.role = role;
     await user.save();
 
-    res.status(200).json(user.role);
+    if (role === "Employer") {
+      const isExisted = await Employer.findOne({ employerId: userId });
+
+      if (!isExisted) {
+        const employer = new Employer({
+          employerId: userId,
+        });
+        await employer.save();
+      }
+    } else if (role === "Employee") {
+      const isExisted = await Employee.findOne({
+        employeeId: userId,
+      });
+
+      if (!isExisted) {
+        const employee = new Employee({
+          employeeId: userId,
+        });
+        await employee.save();
+      }
+    }
+
+    res.status(200).json({ message: "Completed", role: user.role });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+
     res.status(500).json({ message: "Server Error" });
   }
 };
@@ -62,14 +92,11 @@ export const setUserRoleSelection = async (req, res) => {
 export const getOtherUsers = async (req, res) => {
   try {
     const userId = req.user._id;
-
     const otherUsers = await User.find({ _id: { $ne: userId } }).select(
       "-password"
     );
-
     return res.status(200).json(otherUsers);
   } catch (error) {
-    console.log("Error On Fetching Other Users", error.message);
     res.status(500).json({ message: "Server Error" });
   }
 };

@@ -6,6 +6,7 @@ import EmployeeLayout from "./pages/job-portal/employee/EmplyeeLayout";
 import EmployerLayout from "./pages/job-portal/employer/EmployerLayout";
 import AdminLayout from "./pages/admin/AdminLayout";
 import { Signin, Signup, SmsForm } from "./components/auth";
+
 import {
   Home,
   FindJobs,
@@ -13,7 +14,10 @@ import {
   Saved,
   Notifications,
   MultiInfoForm,
+  SingleJob,
+  SingleCompany,
 } from "./pages/job-portal/employee/pages";
+
 import {
   Companies,
   Jobs,
@@ -25,6 +29,7 @@ import {
   Statistics,
   Users,
 } from "./pages/admin/pages";
+
 import {
   AllApplicants,
   CompanyProfile,
@@ -37,6 +42,7 @@ import {
   PostJobs,
   ShortListed,
 } from "./pages/job-portal/employer/pages";
+
 import { AuthForm } from "./pages/user";
 
 import { InfoForm, LandingPage, RoleSelection } from "./components/user";
@@ -45,6 +51,8 @@ import { PrivateRoutes } from "./components";
 import DashboardLayout from "./pages/job-portal/employer/DashboardLayout";
 import StudyAbroadLayout from "./pages/study-abroad/StudyAbroadLayout";
 import { CountriesPage, HomePage, SingleCountryPage, VisaPage } from "./pages/study-abroad/pages";
+import EmployeeDashboardLayout from "./pages/job-portal/employee/EmployeeDashboardLayout";
+import { EmployeeApplied, EmployeeBookMarked, EmployeeDashboard, EmployeeMessages, EmployeeProfile, EmployeeResume } from "./pages/job-portal/employee/pages/dashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -104,21 +112,41 @@ function App() {
         {/* Job Portal App Start */}
 
         {/* This Router for Job Portal Employee */}
+
         <Route path="/job-portal/employee" element={<EmployeeLayout />}>
           <Route index element={<Home />} />
-          <Route path="find-jobs" element={<FindJobs />} />
+          <Route path="jobs" element={<FindJobs />} />
           <Route path="companies" element={<HomeCompanies />} />
           <Route path="saved-jobs" element={<Saved />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="information-form" element={<MultiInfoForm />} />
+          <Route path="job/:id" element={<SingleJob />} />
+          <Route path="company/:id" element={<SingleCompany />} />
         </Route>
+
         {/* Job Portal Employee Router End */}
 
+
+        {/* This Router for Job Portal Employee Dashboard  */}
+          <Route path="/job-portal/employee/dashboard" element={<EmployeeDashboardLayout />}>
+            <Route index element={<EmployeeDashboard />} />
+            <Route path="profile" element={<EmployeeProfile />} />
+            <Route path="applied-jobs" element={<EmployeeApplied />} />
+            <Route path="bookmarked-jobs" element={<EmployeeBookMarked />} />
+            <Route path="resume" element={<EmployeeResume />} />
+            <Route path="messages" element={<EmployeeMessages />} />
+          </Route>
+
+        {/* Job Portal Employee Dashboard End */}
+
         {/* This Router for Job Portal Employer */}
+
         <Route path="/job-portal/employer" element={<EmployerLayout />}>
           <Route index element={<EmployerHome />} />
           <Route path="information-form" element={<EmployerInformation />} />
         </Route>
+
+        {/* Job Portal Employer Router End */}
 
         {/* Router for Job Portal Employer Dashboard */}
         <Route
@@ -134,9 +162,8 @@ function App() {
           <Route path="messages" element={<Messages />} />
           <Route path="notifications" element={<Notification />} />
         </Route>
-        {/* Job Portal Employer Dashboard End */}
 
-        {/* Job Portal Employer Router End */}
+        {/* Job Portal Employer Dashboard End */}
 
         {/* Job Portal App End */}
 

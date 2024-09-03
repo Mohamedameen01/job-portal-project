@@ -1,96 +1,75 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CiLocationOn } from "react-icons/ci";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { GoClock } from "react-icons/go";
 import { IoBookmarkOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
-import upworklogo from "/assets/images/upworklogo.png";
+import { setJobBookMarked } from "../../../../redux/employeeSlice";
 
 function JobListedSection() {
-  const jobs = [
-    {
-      id: 1,
-      title: "Software Engineer (Android), Libraries",
-      company: "segment",
-      location: "calicut",
-      posted: "11 hours ago",
-      salary: "35-40k",
-      jobtype: ["fulltime", "Private", "Urgent"],
-    },
-    {
-      id: 2,
-      title: "Software Engineer (Android), Libraries",
-      company: "segment",
-      location: "calicut",
-      posted: "11 hours ago",
-      salary: "35-40k",
-      jobtype: ["fulltime", "Private", "Urgent"],
-    },
-    {
-      id: 3,
-      title: "Recruiting Cordinator",
-      company: "figma",
-      location: "kochi",
-      posted: "2 days ago",
-      salary: "25-30k",
-      jobtype: ["fulltime", "Urgent"],
-    },
-    {
-      id: 4,
-      title: "Recruiting Cordinator",
-      company: "figma",
-      location: "kochi",
-      posted: "2 days ago",
-      salary: "25-30k",
-      jobtype: ["fulltime", "Urgent"],
-    },
-  ];
+  const { jobs } = useSelector((state) => state.employee);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleBookMark = (id) => {
+    dispatch(setJobBookMarked(id));
+  };
+
   return (
     <div className="grid lg:grid-cols-2 gap-3 my-5">
-      {jobs.map((item) => (
+      {jobs?.map((item) => (
         <div
-          key={item.id}
+          key={item._id}
           className="grid grid-cols-7 gap-3 p-4 bg-white outline outline-1 outline-[#673ab7] rounded-lg"
         >
-          <div className="mt-1 mx-auto">
-            <img src={upworklogo} alt={item.company} width={40} />
+          <div className="mt-1 ">
+            <img
+              src={item.owner?.companyLogo}
+              alt={item.company}
+              className="w-12 h-12 object-cover rounded-lg"
+            />
           </div>
           <div className="col-span-5 flex flex-col  gap-2">
-            <h2 className="text-md md:text-lg font-medium">{item.title}</h2>
+            <h2
+              className="text-md md:text-lg font-medium hover:text-blue-500 cursor-pointer"
+              onClick={() => navigate(`/job-portal/employee/job/${item._id}`)}
+            >
+              {item.title}
+            </h2>
             <div className="md:flex lg:grid xl:grid-cols-4 gap-2  ">
               <div className="text-sm capitalize text-slate-500 flex items-center gap-2">
                 <IoBagHandleOutline />
-                <p>{item.company}</p>
+                <p>{item.owner?.companyName}</p>
               </div>
 
               <div className="text-sm capitalize text-slate-500 flex items-center gap-2">
                 <CiLocationOn />
-                <p>{item.location}</p>
+                <p>{item.jobPlace}</p>
               </div>
 
               <div className="hidden md:flex items-center gap-2 xl:col-span-2 text-sm text-slate-500 ">
                 <GoClock />
-                <p>{item.posted}</p>
+                <p>{new Date(item.deadline).toLocaleDateString()}</p>
               </div>
 
               <div className="hidden md:flex items-center text-sm capitalize text-slate-500  gap-2">
                 <FaMoneyBill1Wave />
-                <p>{item.salary}</p>
+                <p>{item.offeredSalary}</p>
               </div>
             </div>
             <div className="w-fit grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 items-center gap-2 xl:gap-4 mt-2">
-              {item?.jobtype?.map((type, index) => (
-                <p
-                  key={index}
-                  className="antialiased capitalize text-xs md:text-sm bg-white outline outline-1 outline-blue-500 px-2 py-[2px] rounded-lg"
-                >
-                  {type}
-                </p>
-              ))}
+              <p className="antialiased capitalize text-xs md:text-sm bg-white outline outline-1 outline-blue-500 px-2 py-[2px] rounded-lg">
+                {item.employmentType}
+              </p>
             </div>
           </div>
-          <div className="mt-1 mx-auto text-lg hover:text-blue-500 cursor-pointer">
+          <div
+            className="mt-1 mx-auto text-lg hover:text-blue-500 cursor-pointer"
+            onClick={() => handleBookMark(item._id)}
+          >
             <IoBookmarkOutline />
           </div>
         </div>
@@ -99,4 +78,4 @@ function JobListedSection() {
   );
 }
 
-export default JobListedSection;
+export default React.memo(JobListedSection);

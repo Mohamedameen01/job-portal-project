@@ -6,9 +6,10 @@ import SearchBar from "./sidebar/SearchBar";
 import UsersList from "./sidebar/UsersList";
 import DefaultChatBox from "./DefaultChatBox";
 import SkeltonList from "./sidebar/SkeltonList";
+import { useSocketContext } from "../../../context/SocketContext";
+import { getOtherUsers } from "../../../redux/chatSlice";
 
-import { getOtherUsers } from "../../../../../redux/chatSlice";
-import { useSocketContext } from "../../../../../context/SocketContext";
+
 
 function MessageBox() {
   const dispatch = useDispatch();

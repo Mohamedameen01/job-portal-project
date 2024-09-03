@@ -1,10 +1,39 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
-import { LiaFileUploadSolid } from "react-icons/lia";
+import {
+  getHomeFindJobs,
+  resetEmployeeSuccess,
+} from "../../../redux/employeeSlice";
+import Loader from "../../Loader";
 
 function LargeSearchInput() {
+  const [inputValue, setInputValue] = useState({
+    title: "",
+    jobPlace: "",
+  });
+  const { success, loading } = useSelector((state) => state.employee);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+  };
+
+  const handleFindBtn = (e) => {
+    e.preventDefault();
+    dispatch(getHomeFindJobs([inputValue]));
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/job-portal/employee/jobs", {state: true});
+      resetEmployeeSuccess();
+    }
+  }, [success]);
+
   return (
     <div className="hidden lg:block">
       <form
@@ -19,7 +48,10 @@ function LargeSearchInput() {
           <input
             className="outline-none"
             type="text"
-            placeholder="job title or company"
+            placeholder="job title"
+            name="title"
+            value={inputValue.title}
+            onChange={handleChange}
           />
         </div>
         <div className="flex items-center gap-2 text-slate-950">
@@ -29,19 +61,23 @@ function LargeSearchInput() {
           <input
             className="outline-none"
             type="text"
-            placeholder="City or postcode"
+            placeholder="Location"
+            name="jobPlace"
+            value={inputValue.jobPlace}
+            onChange={handleChange}
           />
         </div>
-        <button className="outline-none bg-[#673ab7] text-white px-5 py-3 rounded-md">
-          Find Jobs
-        </button>
+        {loading ? (
+          <Loader />
+        ) : (
+          <button
+            onClick={handleFindBtn}
+            className="outline-none bg-[#673ab7] text-white px-5 py-3 rounded-md"
+          >
+            Find Jobs
+          </button>
+        )}
       </form>
-      <div className="mt-3 ms-2 w-fit flex items-center gap-2 px-3 py-2 text-violet-700 outline outline-2 outline-violet-600 hover:outline-cyan-500 hover:text-blue-500 rounded-lg cursor-pointer ">
-        <div className="text-2xl ">
-          <LiaFileUploadSolid />
-        </div>
-        <p className="antialiased font-medium">Upload your CV</p>
-      </div>
     </div>
   );
 }

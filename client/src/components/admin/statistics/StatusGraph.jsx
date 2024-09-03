@@ -32,7 +32,7 @@ function StatusGraph({ data }) {
         <Legend />
         <Bar
           dataKey="total"
-          fill="#8884d8"
+          fill="#dbeafe"
           activeBar={<Rectangle fill="#8B93FF" stroke="blue" />}
         />
       </BarChart>

@@ -2,7 +2,7 @@ import { FaRegChartBar } from "react-icons/fa";
 import { GrOrganization } from "react-icons/gr";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
-import { TbReportSearch } from "react-icons/tb";
+import { TbReportSearch, TbBadge } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoBookmarkOutline } from "react-icons/io5";
@@ -12,6 +12,7 @@ import { PiBuildingOffice } from "react-icons/pi";
 import { FaRegFileArchive } from "react-icons/fa";
 import { CiPaperplane } from "react-icons/ci";
 import { RiMessage2Line } from "react-icons/ri";
+import { BsSuitcaseLg } from "react-icons/bs";
 
 import datingApp from "/assets/images/datingapp.jpg";
 import matrimonyApp from "/assets/images/matrimony.jpg";
@@ -60,37 +61,37 @@ export const adminNavLinks = [
 
 export const employeeLinks = [
   {
-    path: "/employee",
+    path: "/job-portal/employee",
     text: "home",
     icon: <AiOutlineHome />,
     url: "",
   },
   {
-    path: "/employer",
+    path: "/job-portal/employer",
     text: "employer",
     icon: <PiBuildingOffice />,
     url: "employer",
   },
   {
-    path: "/employee/find-jobs",
+    path: "/job-portal/employee/jobs",
     text: "find jobs",
     icon: <MdOutlineWorkOutline />,
-    url: "employee/findjobs",
+    url: "employee/jobs",
   },
   {
-    path: "/employee/companies",
+    path: "/job-portal/employee/companies",
     text: "companies",
     icon: <GrOrganization />,
     url: "employee/companies",
   },
   {
-    path: "/employee/saved-jobs",
+    path: "/job-portal/employee/saved-jobs",
     text: "saved",
     icon: <IoBookmarkOutline />,
     url: "employee/saved",
   },
   {
-    path: "/employee/notifications",
+    path: "/job-portal/employee/notifications",
     text: "notifications",
     icon: <IoMdNotificationsOutline />,
     url: "employee/notifications",
@@ -196,12 +197,50 @@ export const employerDashboardLinks = [
   //   icon: <IoBookmarkOutline />,
   // },
   {
-    path: "/job-poral/employer/dashboard/messages",
+    path: "/job-portal/employer/dashboard/messages",
     text: "messages",
     icon: <RiMessage2Line />,
   },
   // {
   //   path: "/employer/dashboard/notifications",
+  //   text: "notifications",
+  //   icon: <IoMdNotificationsOutline />,
+  // },
+];
+
+export const employeeDashboardLinks = [
+  {
+    path: "/job-portal/employee/dashboard",
+    text: "dashboard",
+    icon: <AiOutlineHome />,
+  },
+  {
+    path: "/job-portal/employee/dashboard/profile",
+    text: "profile",
+    icon: <FiUsers />,
+  },
+  {
+    path: "/job-portal/employee/dashboard/resume",
+    text: "resume",
+    icon: <FaRegFileArchive />,
+  },
+  {
+    path: "/job-portal/employee/dashboard/applied-jobs",
+    text: "applied jobs",
+    icon: <BsSuitcaseLg />,
+  },
+  {
+    path: "/job-portal/employee/dashboard/bookmarked-jobs",
+    text: "bookmarked jobs",
+    icon: <IoBookmarkOutline />,
+  },
+  {
+    path: "/job-portal/employee/dashboard/messages",
+    text: "messages",
+    icon: <RiMessage2Line />,
+  },
+  // {
+  //   path: "/job-portal/employee/dashboard/notifications",
   //   text: "notifications",
   //   icon: <IoMdNotificationsOutline />,
   // },

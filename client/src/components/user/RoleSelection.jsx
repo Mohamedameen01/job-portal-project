@@ -10,7 +10,7 @@ function RoleSelection() {
   const navigate = useNavigate();
   const { success, role } = useSelector((state) => state.user);
 
-  const handleUserRole = (role) => {
+  const handleUserRole = (role) => { 
     dispatch(setUserRole(role));
   };
 
@@ -18,9 +18,9 @@ function RoleSelection() {
     if (success) {
       dispatch(setUserRoleLocal());
       if (role === "Employer") {
-        navigate("/employer/information-form");
+        navigate("/job-portal/employer/information-form");
       } else if (role === "Employee") {
-        navigate("/employee/information-form");
+        navigate("/job-portal/employee/information-form");
       }
     }
   }, [success, role, dispatch]);

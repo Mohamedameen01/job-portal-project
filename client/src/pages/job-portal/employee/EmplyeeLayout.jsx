@@ -4,17 +4,24 @@ import {
   LargeHeader,
   NormalHeader,
 } from "../../../components/job-portal/employee";
+import { useDispatch } from "react-redux";
+import { getBookMarkedJobs } from "../../../redux/employeeSlice";
 
 function EmployeeLayout() {
   const [toggleSideBar, setToggleSideBar] = useState(true);
   const [hide, setHide] = useState(true);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (pathname === "/employee/information-form") {
       setHide(false);
     }
-  }, []);
+  }, [pathname, setHide]);
+
+  useEffect(() => {
+    dispatch(getBookMarkedJobs());
+  }, [dispatch])
 
   return (
     <div className=" bg-[#f7f7f8] antialiased">
@@ -26,7 +33,7 @@ function EmployeeLayout() {
       )}
 
       <div
-        className={` ${hide ? " relative mt-[60px] " : ""} ${
+        className={` ${hide ? "relative mt-[60px] " : ""} ${
           toggleSideBar ? "" : "blur-md"
         }`}
       >

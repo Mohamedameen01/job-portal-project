@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   loading: false,
   success: false,
   employerInfo: null,
+  postedJobs: null,
   error: null,
 };
 
@@ -30,7 +31,7 @@ export const setEmployerBasicInfo = createAsyncThunk(
   async (infos, { rejectWithValue }) => {
     try {
       const { data } = await api.post("employer/basic-infos", infos);
-      toast.success(data.message);
+      toast.success(data?.message);
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -83,6 +84,39 @@ export const setContactInformation = createAsyncThunk(
     }
   }
 );
+
+//This Function For Uploading New Job Post:
+export const postNewJobInfos = createAsyncThunk(
+  "employer/postNewJobInfos",
+  async (infos, {rejectWithValue}) => {
+    try {
+      const {data} = await api.post("employer/new-job-post", infos);
+      console.log(infos);
+      
+      toast.success(data.message || "Posted Successfully")
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// This Function For Fetching All Posted Jobs:
+export const getPostedJobs = createAsyncThunk(
+  "employer/getPostedJobs",
+  async (_, {rejectWithValue}) => {
+    try {
+      const {data} = await api.get('employer/get-posted-jobs');
+      console.log("data");
+      return data.infos;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+)
 
 const employerSlice = createSlice({
   name: "employer",
@@ -157,7 +191,25 @@ const employerSlice = createSlice({
         state.loading = false;
         state.success = false;
         state.error = action.payload;
-      });
+      })
+
+      // Handle Posted Jobs:
+      .addCase(getPostedJobs.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null
+      })
+      .addCase(getPostedJobs.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.postedJobs = action.payload;
+        state.error = null
+      })
+      .addCase(getPostedJobs.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload
+      })
   },
 });
 

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { IoPersonOutline } from "react-icons/io5";
 import { CiMenuFries } from "react-icons/ci";
 
 import SideBar from "./SideBar";
+import ProfileMenu from "../../ProfileMenu";
 
 function NormalHeader({ value, setValue }) {
+  const [dropMenu, setDropMenu] = useState(false);
   return (
+    <div className="relative">
     <header className="lg:hidden bg-white shadow-sm">
       <nav
         className={`h-20 mx-3  ${
@@ -15,7 +18,7 @@ function NormalHeader({ value, setValue }) {
         } `}
       >
         <div className="antialiased tracking-wide text-[#673ab7] text-xl font-semibold">
-          <Link to={"/employee"}>JOB PORTAL</Link>
+          <Link to={"/job-portal/employee"}>JOB PORTAL</Link>
         </div>
         <div className="flex gap-2">
           <NavLink
@@ -35,6 +38,8 @@ function NormalHeader({ value, setValue }) {
 
       <SideBar value={value} setValue={setValue} />
     </header>
+     {dropMenu && <ProfileMenu drop={dropMenu} setDrop={setDropMenu} from={"employee"} />}
+    </div>
   );
 }
 

@@ -17,11 +17,11 @@ import {
 function JobSideSection() {
   return (
     <div className="my-5 hidden lg:grid gap-4 ">
-      <TextSearch firsttitle={"Search by keywords"} secondtitle={"Location"} />
-      <OptionSearch title={"Category"} contents={categoryData} />
-      <SwitchSearch title={"Job Type"} contents={jobTypeData} />
-      <RadioSearch title={"Date Posted"} contents={postedDateData} />
-      <SwitchSearch title={"Experience"} contents={experienceData} />
+      <TextSearch firsttitle={"Search by keywords"} secondtitle={"Location"}  />
+      <OptionSearch title={"Category"} contents={categoryData}  />
+      <SwitchSearch title={"Job Type"} contents={jobTypeData}  />
+      <RadioSearch title={"Date Posted"} contents={postedDateData}  />
+      <SwitchSearch title={"Experience"} contents={experienceData}  />
     </div>
   );
 }

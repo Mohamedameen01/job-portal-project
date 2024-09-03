@@ -1,8 +1,8 @@
 import React from "react";
 
 import StudyHead from "../child/StudyHead";
-import { countriesList } from "../../../utils/studyContriesData.jsx";
 import { useNavigate } from "react-router-dom";
+import { countriesList } from "../../../utils/studyContriesData.js";
 
 function StudyCountries() {
   const navigate = useNavigate();

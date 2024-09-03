@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
 import { FaRegUser } from "react-icons/fa6";
 
-import { markUserMessagesAsRead } from "../../../../../../redux/chatSlice";
-import { extractTime } from "../../../../../../utils/converTime";
+import { extractTime } from "../../../../utils/converTime";
+import { markUserMessagesAsRead } from "../../../../redux/chatSlice";
 
 function ChatBox({ userImg, userId, chat, receiver }) {
   const fromMe = chat.senderId === userId;

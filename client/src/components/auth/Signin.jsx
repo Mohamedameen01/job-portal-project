@@ -15,10 +15,8 @@ import { TitleRendering } from "../user";
 import {
   resetAuthSuccess,
   setUserAuthLocal,
-  setUserLocalLogout,
   signin,
 } from "../../redux/authSlice.js";
-import { useAuthContext } from "../../context/AuthContext.jsx";
 
 function Signin() {
   const [emailFocused, setEmailFocused] = useState(false);
@@ -27,9 +25,9 @@ function Signin() {
   const [diffPage, setDiffPage] = useState(false);
   const [titleRender, setTitleRender] = useState(false);
 
-  const auth = useSelector((state) => state.userAuth);
-  const { userLocal } = useAuthContext();
-  const location = useLocation().state;
+  const { success, loading } = useSelector((state) => state.userAuth);
+
+  const location = useLocation().state; 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -49,10 +47,7 @@ function Signin() {
   };
 
   useEffect(() => {
-    if (userLocal) {
-      dispatch(setUserLocalLogout());
-    }
-    if (auth.success) {
+    if (success) {
       dispatch(setUserAuthLocal());
       const timer = setTimeout(() => {
         dispatch(resetAuthSuccess());
@@ -60,7 +55,7 @@ function Signin() {
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [auth, navigate]);
+  }, [success]);
 
   useEffect(() => {
     if (location?.landValue) {
@@ -68,7 +63,7 @@ function Signin() {
 
       const timeout = setTimeout(() => {
         setTitleRender(false);
-      }, 12000);
+      }, 4000);
       return () => clearTimeout(timeout);
     }
   }, [location?.landValue]);
@@ -180,7 +175,7 @@ function Signin() {
             forgot password?
           </p>
 
-          {auth.loading ? (
+          {loading ? (
             <Loader />
           ) : (
             <button

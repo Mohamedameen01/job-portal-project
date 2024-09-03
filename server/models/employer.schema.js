@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 
 const employerSchema = new Schema(
   {
-    employerId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    employerId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     companyLogo: { type: String },
     companyCoverImg: { type: String },
     companyName: { type: String },
@@ -17,7 +17,7 @@ const employerSchema = new Schema(
     },
     completeAddress: { type: String },
     companyWebSite: { type: String },
-    founded: { type: Date },
+    founded: { type: String },
     companyTeamSize: { type: String },
     aboutCompany: { type: String },
     industryType: [String],
@@ -39,12 +39,16 @@ const employerSchema = new Schema(
         default: "",
       },
     },
-    totalJobs: { type: Number },
+    totalJobs: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Job",
+      default: [],
+    },
     activeJobs: { type: Number },
     shortlistedJobs: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        // ref: "Job",
+        ref: "Job",
       },
     ],
   },

@@ -2,9 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { FaRegUser } from "react-icons/fa6";
+import { useSocketContext } from "../../../../context/SocketContext";
+import { setSelectedUser } from "../../../../redux/chatSlice";
 
-import { useSocketContext } from "../../../../../../context/SocketContext";
-import { setSelectedUser } from "../../../../../../redux/chatSlice";
+
 
 function SearchedUser({ user, setValue }) {
   const { setSelected } = useSocketContext();

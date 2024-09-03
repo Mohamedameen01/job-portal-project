@@ -16,10 +16,11 @@ import {
 } from "../../../../utils/job-search.js";
 
 function JobSideBarSection({ toggleValue, setToggleValue }) {
+  
   return (
     <div
       className={`bg-white h-screen py-5 absolute grid gap-5 ps-6 pr-2 transition-all ease-in-out duration-300 z-10 overflow-y-auto scroll-smooth ${
-        toggleValue ? "left-0" : "-left-[85%]"
+        toggleValue ? "left-0" : "-left-[95%]"
       }`}
     >
       <div className="relative flex ">
@@ -35,9 +36,15 @@ function JobSideBarSection({ toggleValue, setToggleValue }) {
         </div>
       </div>
       <OptionSearch title={"Category"} contents={categoryData} />
-      <SwitchSearch title={"Job Type"} contents={jobTypeData} />
+      <SwitchSearch
+        title={"Job Type"}
+        contents={jobTypeData}
+      />
       <RadioSearch title={"Date Posted"} contents={postedDateData} />
-      <SwitchSearch title={"Experience"} contents={experienceData} />
+      <SwitchSearch
+        title={"Experience"}
+        contents={experienceData}
+      />
     </div>
   );
 }

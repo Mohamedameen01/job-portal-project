@@ -30,7 +30,6 @@ export const getChats = createAsyncThunk(
   "chat/getChats",
   async (id, { rejectWithValue }) => {
     try {
-      console.log("Called Get Chats");
       const { data } = await api.get(`/user/message/${id}`);
       return data;
     } catch (error) {
