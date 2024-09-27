@@ -8,8 +8,6 @@ import ChatInput from "./ChatInput";
 import useListenMessage from "../../../../hooks/useListenMessage";
 import { getChats } from "../../../../redux/chatSlice";
 
-
-
 function MainBox() {
   const [userId, setUserId] = useState(null);
   const { loading, selectedUser, chats } = useSelector((state) => state.chat);
@@ -40,10 +38,10 @@ function MainBox() {
   }, [chats]);
 
   return (
-    <div className="relative w-full bg-white px-4 grid gap-3 rounded-md shadow">
+    <div className="relative w-full h-full bg-white px-4 pb-3 grid gap-3 rounded-md shadow">
       <ChatHeader user={selectedUser} />
-      <div className="w-full relative h-[394px] py-2 bg-customBgColor shadow-md shadow-gray-300 rounded-md overflow-hidden">
-        <div className="w-full h-[310px] pt-3 flex flex-col gap-3 overflow-y-auto custom-scrollbar">
+      <div className="w-full relative  py-2 bg-customBgColor shadow-md shadow-gray-300 rounded-md overflow-hidden">
+        <div className="w-full h-[90%] pt-3 flex flex-col gap-3 overflow-y-auto custom-scrollbar">
           {chats?.map((chat, index) => (
             <div key={index} ref={lastChat}>
               <ChatBox
@@ -55,13 +53,14 @@ function MainBox() {
             </div>
           ))}
           {!loading && chats?.length === 0 && (
-            <p className="text-center  font-semibold text-customViolet">
+            <p className="text-center font-semibold text-customViolet">
               Send a message to start the chat
             </p>
           )}
         </div>
-
-        <ChatInput receiverId={selectedUser._id} />
+        <div className="">
+          <ChatInput receiverId={selectedUser._id} />
+        </div>
       </div>
     </div>
   );

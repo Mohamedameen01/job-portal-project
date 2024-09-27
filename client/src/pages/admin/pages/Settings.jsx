@@ -10,7 +10,7 @@ function Settings() {
   ];
 
   return (
-    <div className="mx-3">
+    <div className="mx-3 p-4 bg-customBgColor">
       <h1 className="text-xl">Settings</h1>
       {options.map((item) => (
         <SettingsOption key={item} title={item} />

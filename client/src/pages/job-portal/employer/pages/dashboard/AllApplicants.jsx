@@ -1,5 +1,5 @@
 import React from "react";
-import { Applicants } from "../../../../components/job-portal/employer/dashboard";
+import { Applicants } from "../../../../../components/job-portal/employer/dashboard";
 
 function AllApplicants() {
   return (

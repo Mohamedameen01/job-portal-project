@@ -1,5 +1,5 @@
 import React from "react";
-import { JobPosting } from "../../../../components/job-portal/employer/dashboard";
+import { JobPosting } from "../../../../../components/job-portal/employer/dashboard";
 
 function PostJobs() {
   return (

@@ -1,23 +1,15 @@
 import EmployerHome from "./EmployerHome";
 import EmployerInformation from "./EmployerInformation";
-import EmployerDashboard from "./EmployerDashboard";
-import CompanyProfile from "./CompanyProfile";
-import AllApplicants from "./AllApplicants";
-import ManageJobs from "./ManageJobs";
-import Messages from "./Messages";
-import Notification from "./Notification";
-import PostJobs from "./PostJobs";
-import ShortListed from "./ShortListed";
+import Candidates from "./Candidates";
+import EmployerCompanies from "./EmployerCompanies";
+import SingleCandidate from "./SingleCandidate";
+import SingleEmployerCompany from "./SingleEmployerCompany";
 
 export {
   EmployerHome,
   EmployerInformation,
-  EmployerDashboard,
-  CompanyProfile,
-  AllApplicants,
-  ManageJobs,
-  Messages,
-  Notification,
-  PostJobs,
-  ShortListed,
+  Candidates, 
+  EmployerCompanies,
+  SingleCandidate,
+  SingleEmployerCompany
 };

@@ -7,6 +7,11 @@ const INITIAL_STATE = {
   success: false,
   employerInfo: null,
   postedJobs: null,
+  candidates: null,
+  candidate: null,
+  companies: null,
+  company: null,
+  bookmarked: null,
   error: null,
 };
 
@@ -88,12 +93,12 @@ export const setContactInformation = createAsyncThunk(
 //This Function For Uploading New Job Post:
 export const postNewJobInfos = createAsyncThunk(
   "employer/postNewJobInfos",
-  async (infos, {rejectWithValue}) => {
+  async (infos, { rejectWithValue }) => {
     try {
-      const {data} = await api.post("employer/new-job-post", infos);
+      const { data } = await api.post("employer/new-job-post", infos);
       console.log(infos);
-      
-      toast.success(data.message || "Posted Successfully")
+
+      toast.success(data.message || "Posted Successfully");
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -105,18 +110,85 @@ export const postNewJobInfos = createAsyncThunk(
 // This Function For Fetching All Posted Jobs:
 export const getPostedJobs = createAsyncThunk(
   "employer/getPostedJobs",
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const {data} = await api.get('employer/get-posted-jobs');
-      console.log("data");
-      return data.infos;
+      const { data } = await api.get("employer/get-posted-jobs");
+      return data?.infos;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
       return rejectWithValue(msgError);
     }
   }
-)
+);
+
+// This Function For Fetching All Candidates:
+export const getAllCandidates = createAsyncThunk(
+  "employer/getAllCandidates",
+  async (_, { rejectWithValue }) => {
+    try {
+      console.log("Called");
+      
+      const { data } = await api.get("employer/all-candidates");
+      console.log(data?.candidates);
+      return data?.candidates;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// This Function For Fetching Selected Candidates:
+export const getSelectedCandidate = createAsyncThunk(
+  "employer/getSelectedCompany",
+  async (id, { rejectWithValue }) => {
+    try {
+      console.log("ID:", id);
+      
+      const { data } = await api.get(`employer/selected-candidate/${id}`);
+      console.log(data?.candidate);
+      return data?.candidate;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// This Function For Fetching All Companies:
+export const getOtherCompanies = createAsyncThunk(
+  "employer/getOtherCompanies",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employer/other-companies");
+      console.log(data?.companies);
+      return data?.companies;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// This Function For Fetching Selected Company:
+export const getSelectedCompany = createAsyncThunk(
+  "employer/getSelectedCompany",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(`employer/selcted-company/${id}`);
+      console.log(data?.company);
+      return data?.company;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
 
 const employerSlice = createSlice({
   name: "employer",
@@ -197,19 +269,91 @@ const employerSlice = createSlice({
       .addCase(getPostedJobs.pending, (state) => {
         state.loading = true;
         state.success = false;
-        state.error = null
+        state.error = null;
       })
       .addCase(getPostedJobs.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
         state.postedJobs = action.payload;
-        state.error = null
+        state.error = null;
       })
       .addCase(getPostedJobs.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
-        state.error = action.payload
+        state.error = action.payload;
       })
+
+      //  // Handle All Candidates:
+      .addCase(getAllCandidates.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(getAllCandidates.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.candidates = action.payload;
+        state.error = null;
+      })
+      .addCase(getAllCandidates.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload;
+      })
+
+       // Handle Candidate:
+       .addCase(getSelectedCandidate.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(getSelectedCandidate.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.candidate = action.payload;
+        state.error = null;
+      })
+      .addCase(getSelectedCandidate.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload;
+      })
+
+       // Handle Companies:
+       .addCase(getOtherCompanies.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(getOtherCompanies.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.companies = action.payload;
+        state.error = null;
+      })
+      .addCase(getOtherCompanies.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload;
+      })
+
+      //  // Handle Company:
+      //  .addCase(getSelectedCompany.pending, (state) => {
+      //   state.loading = true;
+      //   state.success = false;
+      //   state.error = null;
+      // })
+      // .addCase(getSelectedCompany.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.success = true;
+      //   state.company = action.payload;
+      //   state.error = null;
+      // })
+      // .addCase(getSelectedCompany.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.success = false;
+      //   state.error = action.payload;
+      // })
   },
 });
 

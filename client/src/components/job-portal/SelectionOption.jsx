@@ -1,6 +1,6 @@
 import React from "react";
 
-function SelectionOption({ label, choice, name, handleChildValue }) {
+function SelectionOption({ label, choice, name, value, handleChildValue }) {
   const handleSelection = (e) => {
     const newValue = e.target.value;
     handleChildValue(name, newValue)
@@ -13,7 +13,7 @@ function SelectionOption({ label, choice, name, handleChildValue }) {
     >
       <option className="text-md font-medium">{label}</option>
       {choice.map((text, index) => (
-        <option className="capitalize" key={index} value={text}>
+        <option className="capitalize" key={index} value={text === "yes" ? true : false}>
           {text}
         </option>
       ))}

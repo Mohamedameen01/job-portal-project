@@ -1,10 +1,9 @@
 import React from "react";
 import {
-  Bar,
-  BarChart,
   CartesianGrid,
   Legend,
-  Rectangle,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -13,16 +12,16 @@ import {
 
 function StatusGraph({ data }) {
   return (
-    <ResponsiveContainer width={"80%"} height={500}>
-      <BarChart
-        width={30}
-        height={100}
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart
+        width={500}
+        height={300}
         data={data}
         margin={{
-          top: 35,
-          right: 50,
-          left: 50,
-          bottom: 35,
+          top: 5,
+          right: 30,
+          left: 5,
+          bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -30,12 +29,13 @@ function StatusGraph({ data }) {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar
+        <Line
+          type="monotone"
           dataKey="total"
-          fill="#dbeafe"
-          activeBar={<Rectangle fill="#8B93FF" stroke="blue" />}
+          stroke="#8884d8"
+          activeDot={{ r: 8 }}
         />
-      </BarChart>
+      </LineChart>
     </ResponsiveContainer>
   );
 }

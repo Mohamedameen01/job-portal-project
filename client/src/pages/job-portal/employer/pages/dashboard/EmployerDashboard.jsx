@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { HomeDashboard } from "../../../../components/job-portal/employer/dashboard";
+import { HomeDashboard } from "../../../../../components/job-portal/employer/dashboard";
 
 function EmployerDashboard() {
   return (

@@ -9,8 +9,6 @@ import SkeltonList from "./sidebar/SkeltonList";
 import { useSocketContext } from "../../../context/SocketContext";
 import { getOtherUsers } from "../../../redux/chatSlice";
 
-
-
 function MessageBox() {
   const dispatch = useDispatch();
   const { userLists } = useSelector((state) => state.chat);
@@ -21,10 +19,10 @@ function MessageBox() {
   }, [dispatch]);
 
   return (
-    <div className="w-full md:flex gap-2">
-      <div className="w-full lg:w-[35%] h-[508px] bg-white px-3 lg:px-5 py-3 grid gap-4 rounded-md shadow">
+    <div className="w-full h-[90%] md:flex gap-2">
+      <div className="w-full lg:w-[35%]  bg-white px-3 lg:px-5 pt-3 grid gap-4 rounded-md shadow">
         <SearchBar />
-        <div className=" grid gap-4 overflow-y-auto custom-scrollbar">
+        <div className=" grid gap-4 mb-4 overflow-y-auto custom-scrollbar">
           {!userLists ? (
             <SkeltonList />
           ) : (
@@ -32,7 +30,7 @@ function MessageBox() {
           )}
         </div>
       </div>
-      <div className="w-full lg:w-[70%]">
+      <div className="w-full lg:w-[70%]  ">
         {selected ? <MainBox /> : <DefaultChatBox />}
       </div>
     </div>

@@ -3,16 +3,16 @@ import { GrOrganization } from "react-icons/gr";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { TbReportSearch, TbBadge } from "react-icons/tb";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline, IoBookmarkOutline } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
-import { IoBookmarkOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { PiBuildingOffice } from "react-icons/pi";
 import { FaRegFileArchive } from "react-icons/fa";
 import { CiPaperplane } from "react-icons/ci";
-import { RiMessage2Line } from "react-icons/ri";
+import { RiMessage2Line, RiDeleteBin6Line, RiLogoutCircleRLine } from "react-icons/ri";
 import { BsSuitcaseLg } from "react-icons/bs";
+import { HiOutlineLockClosed } from "react-icons/hi2";
 
 import datingApp from "/assets/images/datingapp.jpg";
 import matrimonyApp from "/assets/images/matrimony.jpg";
@@ -67,12 +67,6 @@ export const employeeLinks = [
     url: "",
   },
   {
-    path: "/job-portal/employer",
-    text: "employer",
-    icon: <PiBuildingOffice />,
-    url: "employer",
-  },
-  {
     path: "/job-portal/employee/jobs",
     text: "find jobs",
     icon: <MdOutlineWorkOutline />,
@@ -85,17 +79,23 @@ export const employeeLinks = [
     url: "employee/companies",
   },
   {
-    path: "/job-portal/employee/saved-jobs",
-    text: "saved",
+    path: "/job-portal/employee/dashboard/bookmarked-jobs",
+    text: "bookmarked jobs",
     icon: <IoBookmarkOutline />,
     url: "employee/saved",
   },
   {
-    path: "/job-portal/employee/notifications",
-    text: "notifications",
-    icon: <IoMdNotificationsOutline />,
-    url: "employee/notifications",
+    path: "/job-portal/employee/dashboard/messages",
+    text: "messages",
+    icon: <RiMessage2Line />,
+    url: "employee/dashboard/messages",
   },
+  // {
+  //   path: "/job-portal/employee/notifications",
+  //   text: "notifications",
+  //   icon: <IoMdNotificationsOutline />,
+  //   url: "employee/notifications",
+  // },
 ];
 
 export const apps = [
@@ -134,12 +134,6 @@ export const employerSideBarLinks = [
     url: "",
   },
   {
-    path: "/job-portal/employee",
-    text: "employee",
-    icon: <BsPersonWorkspace />,
-    url: "job-portal/employee",
-  },
-  {
     path: "/job-portal/employer/candidates",
     text: "candidates",
     icon: <FiUsers />,
@@ -158,11 +152,17 @@ export const employerSideBarLinks = [
     url: "job-portal/employer/saved",
   },
   {
-    path: "/job-portal/employer/notifications",
-    text: "notifications",
-    icon: <IoMdNotificationsOutline />,
-    url: "job-portal/employer/notifications",
+    path: "/job-portal/employer/dashboard/messages",
+    text: "messages",
+    icon: <RiMessage2Line />,
+    url: "job-portal/employer/messages"
   },
+  // {
+  //   path: "/job-portal/employer/notifications",
+  //   text: "notifications",
+  //   icon: <IoMdNotificationsOutline />,
+  //   url: "job-portal/employer/notifications",
+  // },
 ];
 
 export const employerDashboardLinks = [
@@ -239,9 +239,14 @@ export const employeeDashboardLinks = [
     text: "messages",
     icon: <RiMessage2Line />,
   },
-  // {
-  //   path: "/job-portal/employee/dashboard/notifications",
-  //   text: "notifications",
-  //   icon: <IoMdNotificationsOutline />,
-  // },
+  {
+    path: "/job-portal/employee/dashboard/notification",
+    text: "notifications",
+    icon: <IoMdNotificationsOutline />,
+  },
+  {
+    path: "/job-portal/employee/dashboard/change-password",
+    text: "change password",
+    icon: <HiOutlineLockClosed />,
+  },
 ];

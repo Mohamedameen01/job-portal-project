@@ -4,11 +4,20 @@ import {
   NormalHeader,
 } from "../../../components/job-portal/employer";
 import { Outlet, useLocation } from "react-router-dom";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { getUnreadUserMessages } from "../../../redux/chatSlice";
 
 function EmployerLayout() {
   const [toggleSideBar, setToggleSideBar] = useState(true);
   const [hide, setHide] = useState(true);
   const { pathname } = useLocation();
+  const { userId } = useAuthContext();
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUnreadUserMessages(userId));
+  }, [dispatch, userId]);
 
   useEffect(() => {
     if (pathname === "/employer/information-form") {

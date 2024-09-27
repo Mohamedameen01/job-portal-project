@@ -25,14 +25,14 @@ function TextSearch({ firsttitle, secondtitle }) {
   }, [clearSearch, setInputValue]);
 
   return (
-    <div className="h-fit grid gap-4">
+    <div className=" h-fit grid gap-4">
       <h1 className="font-semibold text-lg">{firsttitle}</h1>
       <div className="w-fit px-3 py-3 flex justify-between items-center gap-2 border-1 border-[#ecedf2] text-slate-950 bg-white rounded-md">
         <div className="mt-1">
           <CiSearch />
         </div>
         <input
-          className="outline-none"
+          className="w-fit outline-none"
           type="text"
           placeholder="job title"
           name="title"

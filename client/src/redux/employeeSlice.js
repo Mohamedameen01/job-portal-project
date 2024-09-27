@@ -7,6 +7,12 @@ const INITIAL_STATE = {
   success: false,
   employeeInfo: null,
   jobs: null,
+  profile: null,
+  education: null,
+  certification: null,
+  experience: null,
+  project: null,
+  preference: null,
   selectedJob: null,
   relatedJobs: null,
   companies: null,
@@ -14,6 +20,7 @@ const INITIAL_STATE = {
   openJobs: null,
   bookMarkedJobs: null,
   appliedJobs: null,
+  recentApplied: null,
   error: null,
 };
 
@@ -38,7 +45,6 @@ export const uploadExperienceInfos = createAsyncThunk(
   "employer/uploadExperienceInfos",
   async (infos, { rejectWithValue }) => {
     try {
-      console.log("Infos: ", infos);
       const { data } = await api.post("employee/experience-infos", infos);
       toast.success(data?.message);
       return data;
@@ -71,8 +77,6 @@ export const uploadCertificateInfos = createAsyncThunk(
   "employer/uploadCertificateInfos",
   async (infos, { rejectWithValue }) => {
     try {
-      console.log("certi", infos);
-      
       const { data } = await api.post("employee/certificate-infos", infos);
       toast.success(data?.message);
       return data;
@@ -103,10 +107,10 @@ export const uploadPreferenceInfos = createAsyncThunk(
 // Action for Get All Jobs:
 export const getAllJobs = createAsyncThunk(
   "employee/getAllJobs",
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get("employee/all-jobs")
-      return data?.jobs
+      const { data } = await api.get("employee/all-jobs");
+      return data?.jobs;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -118,13 +122,11 @@ export const getAllJobs = createAsyncThunk(
 // Action to Get Filtered Jobs:
 export const getFilteredJobs = createAsyncThunk(
   "employee/getFilteredJobs",
-  async (searchParams, {rejectWithValue}) => {
+  async (searchParams, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("employee/filter-jobs", {searchParams});
+      const { data } = await api.post("employee/filter-jobs", { searchParams });
       return data?.jobs;
     } catch (error) {
-      console.log(error);
-      
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
       return rejectWithValue(msgError);
@@ -135,10 +137,10 @@ export const getFilteredJobs = createAsyncThunk(
 // Action to Get Selected Job:
 export const getSelectedJob = createAsyncThunk(
   "employee/getSelectedJob",
-  async (id, { rejectWithValue}) => {
-    try { 
+  async (id, { rejectWithValue }) => {
+    try {
       const { data } = await api.get(`employee/job/${id}`);
-      return data?.job
+      return data?.job;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -150,7 +152,7 @@ export const getSelectedJob = createAsyncThunk(
 // Action to Get Related Jobs:
 export const getRelatedJobs = createAsyncThunk(
   "employee/getRelatedJobs",
-  async (id, {rejectWithValue}) => {
+  async (id, { rejectWithValue }) => {
     try {
       const { data } = await api.get(`employee/related-jobs/${id}`);
       return data?.relatedJobs;
@@ -165,10 +167,10 @@ export const getRelatedJobs = createAsyncThunk(
 // Action to Get Companies:
 export const getAllCompanies = createAsyncThunk(
   "employee/getAllCompanies",
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await api.get("employee/all-companies");
-      return data?.companies
+      return data?.companies;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -180,9 +182,11 @@ export const getAllCompanies = createAsyncThunk(
 // Action to Get Filtered Compnaies:
 export const getFilteredCompanies = createAsyncThunk(
   "employee/getFilteredCompnaies",
-  async (searchParams, {rejectWithValue}) => {
+  async (searchParams, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("employee/filter-companies", {searchParams});
+      const { data } = await api.post("employee/filter-companies", {
+        searchParams,
+      });
       return data?.companies;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
@@ -195,10 +199,10 @@ export const getFilteredCompanies = createAsyncThunk(
 // Action to Get Selected Company:
 export const getSelectedCompany = createAsyncThunk(
   "employee/getSelectedCompany",
-  async (id, { rejectWithValue}) => {
-    try { 
+  async (id, { rejectWithValue }) => {
+    try {
       const { data } = await api.get(`employee/company/${id}`);
-      return data?.company
+      return data?.company;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -210,11 +214,10 @@ export const getSelectedCompany = createAsyncThunk(
 // Action to Get Company Open Jobs:
 export const getCompanyOpenJobs = createAsyncThunk(
   "employee/getCompanyOpenJobs",
-  async (id, { rejectWithValue}) => {
-    try { 
+  async (id, { rejectWithValue }) => {
+    try {
       const { data } = await api.get(`employee/company/open-jobs/${id}`);
-      
-      return data?.openJobs
+      return data?.openJobs;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -225,10 +228,10 @@ export const getCompanyOpenJobs = createAsyncThunk(
 
 export const getHomeFindJobs = createAsyncThunk(
   "employee/getHomeFindJobs",
-  async (searchParams, { rejectWithValue}) => {
-    try { 
+  async (searchParams, { rejectWithValue }) => {
+    try {
       const { data } = await api.post("employee/find-home-jobs", searchParams);
-      return data?.jobs
+      return data?.jobs;
     } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
@@ -240,7 +243,7 @@ export const getHomeFindJobs = createAsyncThunk(
 // Action to Set Job Bookmarked:
 export const setJobBookMarked = createAsyncThunk(
   "employee/setJobBookMarked",
-  async (id, {rejectWithValue}) => {
+  async (id, { rejectWithValue }) => {
     try {
       const { data } = await api.post(`employee/bookmark-job/${id}`);
       toast.success(data?.message);
@@ -257,13 +260,12 @@ export const setJobBookMarked = createAsyncThunk(
 // Action to Set Job Applied:
 export const setJobApplied = createAsyncThunk(
   "employee/setJobApplied",
-  async (id, {rejectWithValue}) => {
+  async (id, { rejectWithValue }) => {
     try {
       const { data } = await api.post(`employee/apply-job/${id}`);
       toast.success(data?.message);
       return;
     } catch (error) {
-      console.log(error);
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
       return rejectWithValue(msgError);
@@ -274,10 +276,9 @@ export const setJobApplied = createAsyncThunk(
 // Action to Get Applied Jobs:
 export const getAppliedJobs = createAsyncThunk(
   "employee/getAppliedJobs",
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await api.get("employee/applied-jobs");
-      console.log(data?.appliedJobs);
       return data?.appliedJobs;
     } catch (error) {
       console.log(error);
@@ -286,18 +287,246 @@ export const getAppliedJobs = createAsyncThunk(
       return rejectWithValue(msgError);
     }
   }
-)
+);
 
 // Action to Get BookMarked Jobs:
 export const getBookMarkedJobs = createAsyncThunk(
   "employee/getBookMarkedJobs",
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await api.get("employee/bookmarked-jobs");
-      console.log(Array.isArray(data?.bookMarkedJobs));
       return data?.bookMarkedJobs;
     } catch (error) {
       console.log(error);
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Get Recent Applied Jobs:
+export const getRecentApplied = createAsyncThunk(
+  "employee/getRecentApplied",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/recent-applied");
+      return data?.appliedJobs;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Get Profile Infos:
+export const getProfileInfos = createAsyncThunk(
+  "employee/getProfileInfos",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/profile-infos");
+      return data?.profile;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Get Education Infos:
+export const getEducationInfos = createAsyncThunk(
+  "employee/getEducationInfos",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/education-infos");
+      return data?.education;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Get Certificate Infos:
+export const getCertificateInfos = createAsyncThunk(
+  "employee/getCertificateInfos",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/certification-infos");
+      return data?.certification;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Get Experience Infos:
+export const getExperienceInfos = createAsyncThunk(
+  "employee/getExperienceInfos",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/experience-infos");
+      return data?.experience;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+// Action To Get Project Infos:
+export const getProjectInfos = createAsyncThunk(
+  "employee/getProjectInfos",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/project-infos");
+      return data?.project;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+// Action To Get Preference Infos:
+export const getPreferenceInfos = createAsyncThunk(
+  "employee/getPreferenceInfos",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get("employee/preference-infos");
+      return data?.preference;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Update Profile Infos:
+export const updateProfileInfos = createAsyncThunk(
+  "employee/updateProfileInfos",
+  async (infos, { rejectWithValue }) => {
+    try {
+      const { data } = await api.put("employee/profile-infos", infos);
+      toast.success(data?.message);
+      return data?.profile;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Update Education Infos:
+export const updateEducationInfos = createAsyncThunk(
+  "employee/updateEducationInfos",
+  async (values, { rejectWithValue }) => {
+    try {
+      const { id, infos } = values;
+      const { data } = await api.put(`employee/education-infos/${id}`, infos);
+
+      toast.success(data?.message);
+      return data?.education;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Update Certification Infos:
+export const updateCertificationInfos = createAsyncThunk(
+  "employee/updateCertificationInfos",
+  async (values, { rejectWithValue }) => {
+    try {
+      const { id, infos } = values;
+
+      const { data } = await api.put(
+        `employee/certification-infos/${id}`,
+        infos
+      );
+      toast.success(data?.message);
+
+      return data?.certification;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Update Experience Infos:
+export const updateExperienceInfos = createAsyncThunk(
+  "employee/updateExperienceInfos",
+  async (values, { rejectWithValue }) => {
+    try {
+      const { id, infos } = values;
+      const { data } = await api.put(`employee/experience-infos/${id}`, infos);
+
+      toast.success(data?.message);
+      return data?.experience;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Update Project Infos:
+export const updateProjectInfos = createAsyncThunk(
+  "employee/updateProjectInfos",
+  async (values, { rejectWithValue }) => {
+    try {
+      const { id, infos } = values;
+      const { data } = await api.put(`employee/project-infos/${id}`, infos);
+
+      toast.success(data?.message);
+      return data?.project;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Update Preference Infos:
+export const updatePreferenceInfos = createAsyncThunk(
+  "employee/updatePreferenceInfos",
+  async (values, { rejectWithValue }) => {
+    try {
+      const { id, infos } = values;
+      const { data } = await api.put(`employee/preference-infos/${id}`, infos);
+
+      toast.success(data?.message);
+      return data?.preference;
+    } catch (error) {
+      const msgError = error?.response?.data?.message || "Something went wrong";
+      toast.error(msgError);
+      return rejectWithValue(msgError);
+    }
+  }
+);
+
+// Action To Change Password:
+export const changePassword = createAsyncThunk(
+  "employee/changePassword",
+  async (infos, { rejectWithValue}) => {
+    try {
+      const { data } = await api.post("employee/change-password", infos);
+      toast.success(data?.message);
+      return;
+    } catch (error) {
       const msgError = error?.response?.data?.message || "Something went wrong";
       toast.error(msgError);
       return rejectWithValue(msgError);
@@ -310,7 +539,7 @@ const employeeSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     resetEmployeeSuccess: (state) => {
-      state.success = false;    
+      state.success = false;
     },
   },
   extraReducers: (builder) => {
@@ -404,7 +633,7 @@ const employeeSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.jobs = action.payload;
-        state.error = null
+        state.error = null;
       })
       .addCase(getAllJobs.rejected, (state, action) => {
         state.loading = false;
@@ -578,6 +807,201 @@ const employeeSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Handling Recent Applied:
+      .addCase(getRecentApplied.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getRecentApplied.fulfilled, (state, action) => {
+        state.loading = false;
+        state.recentApplied = action.payload;
+        state.error = null;
+      })
+      .addCase(getRecentApplied.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Profile Infos:
+      .addCase(getProfileInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProfileInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.profile = action.payload;
+        state.error = null;
+      })
+      .addCase(getProfileInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Education Infos:
+      .addCase(getEducationInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getEducationInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.education = action.payload;
+        state.error = null;
+      })
+      .addCase(getEducationInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Experience Infos:
+      .addCase(getExperienceInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getExperienceInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.experience = action.payload;
+        state.error = null;
+      })
+      .addCase(getExperienceInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Certification Infos:
+      .addCase(getCertificateInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getCertificateInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.certification = action.payload;
+        state.error = null;
+      })
+      .addCase(getCertificateInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Project Infos:
+      .addCase(getProjectInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProjectInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.project = action.payload;
+        state.error = null;
+      })
+      .addCase(getProjectInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Preference Infos:
+      .addCase(getPreferenceInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getPreferenceInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.preference = action.payload;
+        state.error = null;
+      })
+      .addCase(getPreferenceInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Updating Profile Infos:
+      .addCase(updateProfileInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProfileInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.profile = action.payload;
+        state.error = null;
+      })
+      .addCase(updateProfileInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Updating Education Infos:
+      .addCase(updateEducationInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateEducationInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.education = action.payload;
+        state.error = null;
+      })
+      .addCase(updateEducationInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Updating Experience Infos:
+      .addCase(updateExperienceInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateExperienceInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.experience = action.payload;
+        state.error = null;
+      })
+      .addCase(updateExperienceInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Updating Certification Infos:
+      .addCase(updateCertificationInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateCertificationInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.certification = action.payload;
+        state.error = null;
+      })
+      .addCase(updateCertificationInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Updating Project Infos:
+      .addCase(updateProjectInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProjectInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.project = action.payload;
+        state.error = null;
+      })
+      .addCase(updateProjectInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Handling Updating Preference Infos:
+      .addCase(updatePreferenceInfos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updatePreferenceInfos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.preference = action.payload;
+        state.error = null;
+      })
+      .addCase(updatePreferenceInfos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

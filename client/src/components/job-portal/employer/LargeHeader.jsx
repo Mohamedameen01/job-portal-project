@@ -21,13 +21,13 @@ function LargeHeader() {
             <div className="flex gap-3">
               <Link
                 className="hover:scale-105 hover:text-[#673ab7]"
-                to={"/job-portal/find-jobs"}
+                to={"/job-portal/employer/candidates"}
               >
                 Candidates
               </Link>
               <Link
                 className="hover:scale-105 hover:text-[#673ab7]"
-                to={"/job-portal/companies"}
+                to={"/job-portal/employer/companies"}
               >
                 Companies
               </Link>

@@ -1,10 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import { GrLocation } from "react-icons/gr";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoBookmarkOutline } from "react-icons/io5";
-
-import up from "/assets/images/upworklogo.png";
-import { useSelector } from "react-redux";
 
 function SingleCompanyHead() {
   const { selectedCompany} = useSelector((state) => state.employee);

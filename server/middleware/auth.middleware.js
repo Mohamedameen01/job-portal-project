@@ -8,7 +8,7 @@ export const authenticate = async (req, res, next) => {
     if (!authHeader) {
       return res
         .status(401)
-        .json({ message: "Authoriazation header not found" });
+        .json({ message: "Authoriazation header not foundddd" });
     }
 
     const token = authHeader.split(" ")[1];

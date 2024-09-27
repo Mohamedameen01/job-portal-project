@@ -7,7 +7,7 @@ import { UserTable } from "../../../components/admin/users";
 function Users() {
   const { showSideBar } = useOutletContext();
   return (
-    <div className="mr-2 px-5 py-3 bg-[#eef2f6]">
+    <div className="mx-3 p-4 bg-customBgColor">
       <AdminPagesHeader title={"all users"} />
       <UserTable />
       <Pagination />

@@ -6,12 +6,19 @@ import {
 } from "../../../components/job-portal/employee";
 import { useDispatch } from "react-redux";
 import { getBookMarkedJobs } from "../../../redux/employeeSlice";
+import { useAuthContext } from "../../../context/AuthContext";
+import { getUnreadUserMessages } from "../../../redux/chatSlice";
 
 function EmployeeLayout() {
   const [toggleSideBar, setToggleSideBar] = useState(true);
   const [hide, setHide] = useState(true);
   const { pathname } = useLocation();
+  const { userId } = useAuthContext();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUnreadUserMessages(userId));
+  }, [dispatch, userId]);
 
   useEffect(() => {
     if (pathname === "/employee/information-form") {

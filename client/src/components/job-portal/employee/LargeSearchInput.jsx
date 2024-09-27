@@ -7,14 +7,13 @@ import {
   getHomeFindJobs,
   resetEmployeeSuccess,
 } from "../../../redux/employeeSlice";
-import Loader from "../../Loader";
 
 function LargeSearchInput() {
   const [inputValue, setInputValue] = useState({
     title: "",
     jobPlace: "",
   });
-  const { success, loading } = useSelector((state) => state.employee);
+  const { success } = useSelector((state) => state.employee);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,16 +66,12 @@ function LargeSearchInput() {
             onChange={handleChange}
           />
         </div>
-        {loading ? (
-          <Loader />
-        ) : (
-          <button
-            onClick={handleFindBtn}
-            className="outline-none bg-[#673ab7] text-white px-5 py-3 rounded-md"
-          >
-            Find Jobs
-          </button>
-        )}
+        <button
+          onClick={handleFindBtn}
+          className="outline-none bg-[#673ab7] text-white px-5 py-3 rounded-md"
+        >
+          Find Jobs
+        </button>
       </form>
     </div>
   );

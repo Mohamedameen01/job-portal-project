@@ -12,7 +12,7 @@ export const isExpireToken = (token, dispatch) => {
 
     if (decodedToken.exp < currentTime) {
       dispatch(setUserLocalLogout());
-      toast.info("Token Expired, Sign in Again");
+      toast.info("Token expired, Sign in again");
     }
   } catch (error) {
     console.log(error);

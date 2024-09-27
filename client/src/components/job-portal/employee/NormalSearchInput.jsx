@@ -5,7 +5,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Loader";
-import { resetEmployeeSuccess } from "../../../redux/employeeSlice";
+import { getHomeFindJobs, resetEmployeeSuccess } from "../../../redux/employeeSlice";
 
 function NormalSearchInput() {
   const [inputValue, setInputValue] = useState({
@@ -27,10 +27,11 @@ function NormalSearchInput() {
 
   useEffect(() => {
     if (success) {
-      navigate("/job-portal/employee/jobs", {state: true});
+      navigate("/job-portal/employee/jobs", { state: true });
       resetEmployeeSuccess();
     }
   }, [success]);
+  
   return (
     <div className="w-full grid justify-center md:justify-start lg:hidden mt-4 px-4">
       <form noValidate autoComplete="off" className="grid gap-3">
@@ -60,16 +61,12 @@ function NormalSearchInput() {
             onChange={handleChange}
           />
         </div>
-        {loading ? (
-          <Loader />
-        ) : (
-          <button
-            onClick={handleFindBtn}
-            className="outline-none bg-[#673ab7] text-white px-5 py-3 rounded-md"
-          >
-            Find Jobs
-          </button>
-        )}
+        <button
+          onClick={handleFindBtn}
+          className="outline-none bg-[#673ab7] text-white px-5 py-3 rounded-md"
+        >
+          Find Jobs
+        </button>
       </form>
     </div>
   );

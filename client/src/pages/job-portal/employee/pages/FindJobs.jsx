@@ -12,7 +12,6 @@ function FindJobs() {
   const [toggleJobSection, setToggleJobSection] = useState(false);
   const dispatch = useDispatch();
   const { state } = useLocation();
-  console.log(state);
   
   useEffect(() => {
     if (!state) {

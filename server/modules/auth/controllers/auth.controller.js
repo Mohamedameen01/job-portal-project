@@ -33,7 +33,6 @@ export const register = async (req, res) => {
       .status(200)
       .json({ user: newUser, message: "Registration Completed" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -47,10 +46,10 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: "User does not exist" });
     }
-
-    const isMatch = bcrypt.compare(password, user.password);
+    
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid Credentials" });
+      return res.status(400).json({ message: "Password does not match" });
     }
 
     const token = jwt.sign(

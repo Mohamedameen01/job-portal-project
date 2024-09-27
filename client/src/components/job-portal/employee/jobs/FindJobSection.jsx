@@ -8,13 +8,10 @@ import { resetEmployeeSuccess } from "../../../../redux/employeeSlice";
 function FindJobSection({ toggleValue, setToggleValue }) {
   const { success } = useSelector((state) => state.employee);
   const dispatch = useDispatch();
-   
+
   useEffect(() => {
     if (success) {
-      const timer = setTimeout(() => {
-        dispatch(resetEmployeeSuccess())  
-      }, 5000);
-      return () => clearTimeout(timer);
+      dispatch(resetEmployeeSuccess());
     }
   }, [success]);
   return (

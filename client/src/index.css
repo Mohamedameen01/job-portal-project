@@ -13,10 +13,10 @@ body {
   scrollbar-color: #f7f7f8 #f7f7f8;
 }
 
-.message-box {
+/* .message-box {
   background-color: black;
   background-image: url("https://www.transparenttextures.com/patterns/diagmonds-light.png");
-}
+} */
 
 .render-para {
   font-family: "Playwrite AU QLD", sans-serif;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { IoMdClose } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
@@ -8,19 +8,28 @@ import { CiLogout } from "react-icons/ci";
 import { employerSideBarLinks } from "../../../utils/Links";
 
 function SideBar({ value, setValue }) {
+  const { logoutSuccess } = useSelector((state) => state.userAuth);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(setUserLocalLogout());
-    setValue(true);
-    navigate("/auth/signin");
   };
+
+  useEffect(() => {
+    if (logoutSuccess) {
+      const timer = setTimeout(() => {
+        setValue(true);
+        navigate("/auth/signin");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [logoutSuccess, navigate]);
 
   return (
     <div
-      className={`w-5/6 md:w-2/6 absolute top-3  transition-all ease-in-out duration-300 ${
+      className={`w-5/6 md:w-2/6 h-screen absolute top-3 bg-white  transition-all ease-in-out duration-500 ${
         value ? "-left-[85%]" : "left-5"
       }`}
     >

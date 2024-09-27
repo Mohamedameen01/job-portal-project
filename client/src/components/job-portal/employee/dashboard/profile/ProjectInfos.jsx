@@ -1,9 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputForms from "../../../InputForms";
 import FormButton from "../../../FormButton";
 import TextArea from "../../../TextArea";
+import { useDispatch, useSelector } from "react-redux";
+import ChoiceSelection from "../../../ChoiceSelection";
+import { formatDate } from "../../../../../utils/formatDate";
+import { updateProjectInfos } from "../../../../../redux/employeeSlice";
 
 function ProjectInfos() {
+  const { project } = useSelector((state) => state.employee);
+
+  const [projectInfos, setProjectInfos] = useState({
+    projectName: "",
+    startDate: "",
+    endDate: "",
+    isWorking: "",
+    skills: "",
+    description: "",
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setProjectInfos({
+      projectName: project?.projectName,
+      startDate: project?.startDate,
+      endDate: project?.endDate,
+      isWorking: project?.isWorking,
+      skills: project?.skills,
+      description: project?.description,
+    });
+  }, [project]);
+
+  const handleProjectInfos = (name, value) => {
+    setProjectInfos({ ...projectInfos, [name]: value });
+  };
+
+  const handleProjectSave = () => {
+    dispatch(updateProjectInfos({ id: project._id, infos: projectInfos }));
+    console.log("PROJECT: ", projectInfos);
+  };
+
   return (
     <div className="grid bg-white mx-2 p-4 rounded-md shadow">
       <h2 className="py-2 text-lg tracking-wide font-semibold">My Projects</h2>
@@ -13,55 +50,51 @@ function ProjectInfos() {
           type={"text"}
           placeText={"Job Portal"}
           name={"projectName"}
-          //   handleChildValue={handleProfileInfo}
-          //   value={employerInfo?.companyName}
+          handleChildValue={handleProjectInfos}
+          value={project?.projectName}
         />
         <InputForms
           title={"Start Date"}
           type={"date"}
           placeText={""}
           name={"startDate"}
-          //   handleChildValue={handleProfileInfo}
-          //   value={employerInfo?.companyName}
+          handleChildValue={handleProjectInfos}
+          value={formatDate(project?.startDate)}
         />
         <InputForms
           title={"End Date"}
           type={"date"}
           placeText={""}
           name={"endDate"}
-          //   handleChildValue={handleProfileInfo}
-          //   value={employerInfo?.companyName}
+          handleChildValue={handleProjectInfos}
+          value={formatDate(project?.endDate)}
         />
-        <div className="grid">
-          <label className="text-sm font-semibold">Currently Working</label>
-          <select className="ms-1 my-2 p-[21px] bg-gray-200 placeholder:text-slate-500 text-sm font-semibold tracking-wide rounded-md focus:bg-white focus:outline focus:outline-2 focus:outline-blue-500">
-            <option value="" className="capitalize">
-              currently working
-            </option>
-            <option value="" className="capitalize">
-              yes
-            </option>
-            <option value="" className="capitalize">
-              no
-            </option>
-          </select>
-        </div>
+
+        <ChoiceSelection
+          label={"Currently Working"}
+          option={"currently working"}
+          name={"isWorking"}
+          handleChildValue={handleProjectInfos}
+        />
 
         <InputForms
           title={"Used Technologies"}
           type={"text"}
           placeText={"React"}
           name={"skills"}
-          //   handleChildValue={handleProfileInfo}
-          //   value={employerInfo?.companyName}
+          handleChildValue={handleProjectInfos}
+          value={project?.skills}
         />
-        <TextArea label={"Description"} name={""} value={""} handleChildValue={""} placeText={"A detailed description of the certification or job."} />
+        <TextArea
+          label={"Description"}
+          name={"description"}
+          value={project?.description}
+          handleChildValue={handleProjectInfos}
+          placeText={"A detailed description of the certification or job."}
+        />
       </div>
-      
-      <FormButton   
-        text={"Save"}
-        // saveParentValue={handleProfileSave}
-      />
+
+      <FormButton text={"Save"} saveParentValue={handleProjectSave} />
     </div>
   );
 }

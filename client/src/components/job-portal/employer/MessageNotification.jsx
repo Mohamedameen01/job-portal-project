@@ -16,8 +16,10 @@ function MessageNotification() {
   const timeAgoRef = useRef();
   useListenMessage();
 
+  let sender;
+  
   const modifiedMessages = messages?.map((n) => {
-    const sender = userLists?.find((user) => user._id === n.senderId);
+    sender = userLists?.find((user) => user._id === n.senderId);
     return {
       ...n,
       senderName: sender?.username,
@@ -48,7 +50,7 @@ function MessageNotification() {
         )}
       </div>
       {isOpen ? (
-        <div className="w-max max-h-80 absolute top-10 -right-14 lg:-left-24 p-3 grid gap-2 bg-white rounded-md shadow overflow-y-auto custom-scrollbar">
+        <div className="w-max max-h-80 absolute top-10 -right-14 lg:-left-48 p-3 grid gap-2 bg-white rounded-md shadow overflow-y-auto custom-scrollbar">
           <div className="flex items-center gap-4 mb-2">
             <h1 className="font-semibold">Messages</h1>
             <p

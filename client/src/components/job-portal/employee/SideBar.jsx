@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { IoMdClose } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
@@ -9,20 +9,29 @@ import { employeeLinks } from "../../../utils/Links";
 import { setUserLocalLogout } from "../../../redux/authSlice";
 
 function SideBar({ value, setValue }) {
+  const { logoutSuccess } = useSelector((state) => state.userAuth);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(setUserLocalLogout());
-    setValue(true);
-    navigate("/auth/signin");
   };
+
+  useEffect(() => {
+    if (logoutSuccess) {
+      const timer = setTimeout(() => {
+        setValue(true);
+        navigate("/auth/signin");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [logoutSuccess, navigate])
 
   return (
     <div
-      className={`w-5/6 md:w-2/6 absolute top-3  transition-all ease-in-out duration-300 ${
-        value ? "-left-[85%]" : "left-5"
+      className={`w-5/6 md:w-2/6 h-screen absolute top-2  bg-white transition-all ease-in-out duration-500 z-50 ${
+        value ? "-left-[85%]" : "left-0 ps-5"
       }`}
     >
       <div className="flex flex-col gap-2">

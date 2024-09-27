@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GrView } from "react-icons/gr";
 import { GrLocation } from "react-icons/gr";
 import { MdOutlineEmail } from "react-icons/md";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { resetEmployeeSuccess } from "../../../../redux/employeeSlice";
 
 function CompanyBody() {
-  const { companies } = useSelector((state) => state.employee);
+  const { companies, success } = useSelector((state) => state.employee);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (success) {
+      dispatch(resetEmployeeSuccess());
+    }
+  }, [success]);
 
   return (
     <div className="grid gap-4 my-5">
@@ -40,7 +48,9 @@ function CompanyBody() {
                   <span className="text-lg font-semibold">
                     <GrLocation />
                   </span>
-                  <p className="text-sm sm:text-base capitalize">{company.companyAddress?.city}</p>
+                  <p className="text-sm sm:text-base capitalize">
+                    {company.companyAddress?.city}
+                  </p>
                 </div>
               </div>
 
@@ -57,8 +67,13 @@ function CompanyBody() {
             </div>
           </div>
 
-          <div className="transform -translate-y-2" >
-            <button onClick={() => navigate(`/job-portal/employee/company/${company._id}`)} className="w-10 h-10 flex justify-center items-center text-lg text-blue-500 hover:bg-slate-200 hover:animate-pulse rounded-full">
+          <div className="transform -translate-y-2">
+            <button
+              onClick={() =>
+                navigate(`/job-portal/employee/company/${company._id}`)
+              }
+              className="w-10 h-10 flex justify-center items-center text-lg text-blue-500 hover:bg-slate-200 hover:animate-pulse rounded-full"
+            >
               <GrView />
             </button>
           </div>

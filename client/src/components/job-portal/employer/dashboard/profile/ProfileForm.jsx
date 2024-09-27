@@ -32,8 +32,7 @@ function ProfileForm({infos}) {
 
   const handleProfileSave = (e) => {
     e.preventDefault();
-    console.log("PS", profileInfo);
-
+    
     dispatch(setProfileInfos(profileInfo));
   };
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { JobManaging } from "../../../../components/job-portal/employer/dashboard";
+import { JobManaging } from "../../../../../components/job-portal/employer/dashboard";
 import { useDispatch } from "react-redux";
-import { getAllInfos, getPostedJobs } from "../../../../redux/employerSlice";
+import { getAllInfos, getPostedJobs } from "../../../../../redux/employerSlice";
 
 function ManageJobs() {
   const dispatch = useDispatch();

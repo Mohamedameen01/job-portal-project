@@ -17,18 +17,12 @@ function AdminLayout() {
           showSideBar={showSideBar}
         />
       </div>
-      <div className="relative mt-16">
-        <div
-          className={`fixed h-full py-4  transition-all duration-300 ${
-            showSideBar ? "w-1/6 " : "w-1/12"
-          }`}
-        >
+      <div className="max-w-[1440px] mx-auto mt-16">
+        <div className={`${showSideBar ? "w-3/12" : "w-1/12"}`}>
           <AdminSideBar showSideBar={showSideBar} />
         </div>
         <div
-          className={`py-4 ml-auto transition-all duration-300 ${
-            showSideBar ? "w-5/6" : "w-11/12"
-          }`}
+          className={`py-4 ${showSideBar ? "w-9/12" : "w-11/12"} float-right`}
         >
           <Outlet context={{ showSideBar }} />
         </div>

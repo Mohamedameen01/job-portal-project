@@ -12,7 +12,7 @@ function GoogleSignin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const auth = useSelector((state) => state.userAuth);
+  const {success} = useSelector((state) => state.userAuth);
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
@@ -30,13 +30,15 @@ function GoogleSignin() {
   });
 
   useEffect(() => {
-    if (auth.success) {
+    if (success) {
       const timer = setTimeout(() => {
         dispatch(resetAuthSuccess());
         navigate("/auth/info-form");
       }, 2000);
+
+      return () => clearTimeout(timer);
     }
-  }, [auth, navigate]);
+  }, [success, navigate]);
 
   return (
     <div

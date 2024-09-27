@@ -11,10 +11,10 @@ function Statistics() {
   const { showSideBar } = useOutletContext();
 
   return (
-    <div className="mx-3">
+    <div className="mx-3 p-4 bg-customBgColor">
       <StatisticsStatus />
       <div className="my-3 mt-5">
-        <h1 className="font-medium text-lg mb-6">Job Staus Graph</h1>
+        <h1 className="font-semibold text-lg mb-6">Job Staus Graph</h1>
         <StatusGraph data={jobStatusData} />
       </div>
       <div className="mt-5">

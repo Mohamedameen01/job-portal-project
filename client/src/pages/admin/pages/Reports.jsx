@@ -10,7 +10,7 @@ function Reports() {
   ];
 
   return (
-    <div className="mx-3">
+    <div className="mx-3 p-4 bg-customBgColor">
       <h1 className="text-lg">Generate Reports</h1>
       {reportName.map((item) => (
         <ReportList key={item} title={item} />

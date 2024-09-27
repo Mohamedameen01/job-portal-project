@@ -58,7 +58,8 @@ function SmsForm() {
         dispatch(resetAuthSuccess());
         setValue("");
         setInputOtp("")
-        navigate("/auth/role-selection");
+        
+        navigate("/auth/info-form");
       }, 2000);
       return () => clearTimeout(timer);
     }

@@ -20,7 +20,7 @@ function Preference() {
     aboutYourSelf: "",
   });
   const [fileError, setFileError] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const fileRef = useRef(null);
   const maxSize = 5 * 1024 * 1024;
@@ -49,7 +49,13 @@ function Preference() {
     <div className="lg:w-4/12 h-[78%] mx-auto my-3 bg-white p-4 shadow-lg overflow-y-auto overscroll-contain">
       <h1 className="text-lg font-semibold my-1">Your Preference</h1>
       <div className="flex justify-between items-center mb-3">
-        <div className={`w-12 lg:w-14 h-12 lg:h-14 p-2 flex justify-center items-center text-2xl lg:text-3xl border-2 ${preferenceInfos?.resume ? "border-[#20c997] text-[#20c997]" : "border-[#673ab7] text-[#673ab7]" }  rounded-full`}>
+        <div
+          className={`w-12 lg:w-14 h-12 lg:h-14 p-2 flex justify-center items-center text-2xl lg:text-3xl border-2 ${
+            preferenceInfos?.resume
+              ? "border-[#20c997] text-[#20c997]"
+              : "border-[#673ab7] text-[#673ab7]"
+          }  rounded-full`}
+        >
           <FaRegFile />
         </div>
         <button

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DashboardSideBar } from "../../../../components/job-portal/employer/dashboard";
+import { DashboardSideBar } from "../../../../../components/job-portal/employer/dashboard";
 function ShortListed() {
   return (
     <div className="flex">

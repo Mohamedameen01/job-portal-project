@@ -23,7 +23,7 @@ function NormalHeader({ value, setValue }) {
         <div className="flex gap-2">
           <NavLink
             className="p-1 rounded-md text-xl font-bold "
-            to={"/auth/signin"}
+            onClick={() => setDropMenu(!dropMenu)}
           >
             <IoPersonOutline />
           </NavLink>
@@ -36,8 +36,8 @@ function NormalHeader({ value, setValue }) {
         </div>
       </nav>
 
-      <SideBar value={value} setValue={setValue} />
     </header>
+      <SideBar value={value} setValue={setValue} />
      {dropMenu && <ProfileMenu drop={dropMenu} setDrop={setDropMenu} from={"employee"} />}
     </div>
   );

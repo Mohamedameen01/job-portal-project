@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoBookmarkOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MessageNotification from "../employer/MessageNotification";
 import ProfileMenu from "../../ProfileMenu";
+import { getOtherUsers } from "../../../redux/chatSlice";
 
 function LargeHeader() {
   const [dropMenu, setDropMenu] = useState(false);
   const { bookMarkedJobs } = useSelector((state) => state.employee);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOtherUsers());
+  }, [dispatch])
 
   return (
     <div className="relative">
@@ -47,7 +53,9 @@ function LargeHeader() {
                 </span>
               )}
             </NavLink>
+
             <MessageNotification />
+            
             <NavLink
               to={"/job-portal/employee/notifications"}
               className="p-1 rounded-md text-2xl bg-[#ede7f6] text-[#673ab7] hover:bg-[#673ab7] hover:text-[#ffffff] hover:scale-105"

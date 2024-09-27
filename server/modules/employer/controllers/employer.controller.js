@@ -1,3 +1,4 @@
+import Employee from "../../../models/employee.schema.js";
 import Employer from "../../../models/employer.schema.js";
 import Job from "../../../models/job.schema.js";
 
@@ -86,7 +87,7 @@ export const setProfileInofos = async (req, res) => {
       aboutCompany,
     } = req.body;
     console.log(companyLogo);
-    
+
     const user = req.user;
 
     if (
@@ -238,8 +239,8 @@ export const postNewJob = async (req, res) => {
       offeredSalary,
       jobPlace,
       deadline,
-    } = req.body; 
-    
+    } = req.body;
+
     if (
       !title ||
       !description ||
@@ -259,7 +260,7 @@ export const postNewJob = async (req, res) => {
       return res.status(400).json({ message: "Please fill field" });
     }
     let employer = await Employer.findOne({ employerId: user });
-    
+
     const newJob = new Job({
       owner: employer._id,
       title,
@@ -278,15 +279,15 @@ export const postNewJob = async (req, res) => {
       deadline,
     });
     await newJob.save();
-    
+
     employer.totalJobs.push(newJob._id);
-  
+
     await employer.save();
-    
-    res.status(200).json({info: newJob, message: "Job Infos Posted Successfully"})
+
+    res
+      .status(200)
+      .json({ info: newJob, message: "Job Infos Posted Successfully" });
   } catch (error) {
-    console.log(error);
-    
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -295,12 +296,102 @@ export const postNewJob = async (req, res) => {
 export const getAllPostedJobs = async (req, res) => {
   try {
     const user = req.user._id;
-    const jobs = await Job.find({owner: user});
+    const jobs = await Job.find({ owner: user });
     if (!jobs) {
-      return res.status(400).json({message: "User haven't posted jobs yet."})
+      return res.status(400).json({ message: "User haven't posted jobs yet." });
     }
-    res.status(200).json({infos: jobs});
+    res.status(200).json({ infos: jobs });
   } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function For Fetching All Candidates:
+export const getAllCandidates = async (req, res) => {
+  try {
+    console.log("Calling:");
+    
+    const candidates = await Employee.find().populate("employeeId");
+    if (!candidates) {
+      return res.status(400).json({ message: "Can not access with database" });
+    }
+    console.log("Candidates:", candidates);
+    
+    res.status(200).json({ candidates});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function For Fetching Selected Candidate:
+export const getSelectedCandidate = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    if (!id) {
+      return res.status(400).json({ message: "Invalid params" });
+    }
+
+    const candidate = await Employee.findById(id).populate("employeeId");
+    if (!candidate) {
+      return res.status(400).json({ message: "Can't access with database" });
+    }
+
+    res.status(200).json({ candidate });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function For Fetching Comapnies:
+export const getOtherCompanies = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const companies = await Employer.find({
+      employerId: { $ne: userId },
+    }).populate("employerId");
+    if (!companies) {
+      return res.status(400).json({ message: "Can't access with database" });
+    };
+
+    res.status(200).json({companies});
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function For Fetching Selected Company:
+export const getSelectedCompany = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+
+    if (!userId ) {
+      return res.status(400).json({message: "User not found"});
+    };
+
+    if (!id ) {
+      return res.status(400).json({message: "Invalid params"})
+    };
+
+    const company = await Employer.findById(id).populate("employerId");
+    if (!company) {
+      return res.status(400).json({message: "Can't access with database"})
+    };
+
+    res.status(200).json({company});
+  } catch (error) {
+    console.log(error);
     res.status(500).json({message: "Server error"})
   }
 }

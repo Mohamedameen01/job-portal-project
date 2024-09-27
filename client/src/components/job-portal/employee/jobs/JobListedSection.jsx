@@ -13,7 +13,7 @@ function JobListedSection() {
   const { jobs } = useSelector((state) => state.employee);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const handleBookMark = (id) => {
     dispatch(setJobBookMarked(id));
   };
@@ -60,7 +60,7 @@ function JobListedSection() {
                 <p>{item.offeredSalary}</p>
               </div>
             </div>
-            <div className="w-fit grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 items-center gap-2 xl:gap-4 mt-2">
+            <div className="w-fit flex flex-wrap items-center gap-2 xl:gap-4 mt-2">
               <p className="antialiased capitalize text-xs md:text-sm bg-white outline outline-1 outline-blue-500 px-2 py-[2px] rounded-lg">
                 {item.employmentType}
               </p>

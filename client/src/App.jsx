@@ -31,16 +31,13 @@ import {
 } from "./pages/admin/pages";
 
 import {
-  AllApplicants,
-  CompanyProfile,
-  EmployerDashboard,
+  Candidates,
+  EmployerCompanies,
   EmployerHome,
   EmployerInformation,
-  ManageJobs,
-  Messages,
-  Notification,
-  PostJobs,
-  ShortListed,
+  SingleCandidate,
+  SingleEmployerCompany,
+  
 } from "./pages/job-portal/employer/pages";
 
 import { AuthForm } from "./pages/user";
@@ -50,9 +47,24 @@ import { isExpireToken } from "./utils/privateFuncs";
 import { PrivateRoutes } from "./components";
 import DashboardLayout from "./pages/job-portal/employer/DashboardLayout";
 import StudyAbroadLayout from "./pages/study-abroad/StudyAbroadLayout";
-import { CountriesPage, HomePage, SingleCountryPage, VisaPage } from "./pages/study-abroad/pages";
+import {
+  CountriesPage,
+  HomePage,
+  SingleCountryPage,
+  VisaPage,
+} from "./pages/study-abroad/pages";
 import EmployeeDashboardLayout from "./pages/job-portal/employee/EmployeeDashboardLayout";
-import { EmployeeApplied, EmployeeBookMarked, EmployeeDashboard, EmployeeMessages, EmployeeProfile, EmployeeResume } from "./pages/job-portal/employee/pages/dashboard";
+import {
+  EmployeeApplied,
+  EmployeeBookMarked,
+  EmployeeChangePassword,
+  EmployeeDashboard,
+  EmployeeMessages,
+  EmployeeNotification,
+  EmployeeProfile,
+  EmployeeResume,
+} from "./pages/job-portal/employee/pages/dashboard";
+import { AllApplicants, CompanyProfile, EmployerDashboard, ManageJobs, Messages, PostJobs, ShortListed } from "./pages/job-portal/employer/pages/dashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -126,16 +138,20 @@ function App() {
 
         {/* Job Portal Employee Router End */}
 
-
         {/* This Router for Job Portal Employee Dashboard  */}
-          <Route path="/job-portal/employee/dashboard" element={<EmployeeDashboardLayout />}>
-            <Route index element={<EmployeeDashboard />} />
-            <Route path="profile" element={<EmployeeProfile />} />
-            <Route path="applied-jobs" element={<EmployeeApplied />} />
-            <Route path="bookmarked-jobs" element={<EmployeeBookMarked />} />
-            <Route path="resume" element={<EmployeeResume />} />
-            <Route path="messages" element={<EmployeeMessages />} />
-          </Route>
+        <Route
+          path="/job-portal/employee/dashboard"
+          element={<EmployeeDashboardLayout />}
+        >
+          <Route index element={<EmployeeDashboard />} />
+          <Route path="profile" element={<EmployeeProfile />} />
+          <Route path="applied-jobs" element={<EmployeeApplied />} />
+          <Route path="bookmarked-jobs" element={<EmployeeBookMarked />} />
+          <Route path="resume" element={<EmployeeResume />} />
+          <Route path="messages" element={<EmployeeMessages />} />
+          <Route path="notification" element={<EmployeeNotification />} />
+          <Route path="change-password" element={<EmployeeChangePassword />} />
+        </Route>
 
         {/* Job Portal Employee Dashboard End */}
 
@@ -143,7 +159,11 @@ function App() {
 
         <Route path="/job-portal/employer" element={<EmployerLayout />}>
           <Route index element={<EmployerHome />} />
+          <Route path="candidates" element={<Candidates />} />
+          <Route path="companies" element={<EmployerCompanies /> } />
           <Route path="information-form" element={<EmployerInformation />} />
+          <Route path="candidate/:id" element={<SingleCandidate />} />
+          <Route path="company/:id" element={<SingleEmployerCompany />} />
         </Route>
 
         {/* Job Portal Employer Router End */}
@@ -172,7 +192,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="about-visa" element={<VisaPage />} />
           <Route path="single-country" element={<SingleCountryPage />} />
-          <Route path="country" element={<CountriesPage />} /> 
+          <Route path="country" element={<CountriesPage />} />
         </Route>
         {/* Study Abroad End  */}
       </Routes>

@@ -49,9 +49,11 @@ function Signin() {
   useEffect(() => {
     if (success) {
       dispatch(setUserAuthLocal());
+
       const timer = setTimeout(() => {
         dispatch(resetAuthSuccess());
-        navigate("/auth/role-selection");
+        
+        navigate("/auth/info-form");
       }, 2000);
       return () => clearTimeout(timer);
     }

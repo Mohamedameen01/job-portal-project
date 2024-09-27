@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   loading: false,
   otpLoading:false,
   success: false,
+  logoutSuccess: false,
   error: null,
 };
 
@@ -88,7 +89,7 @@ export const mobileSignin = createAsyncThunk(
       toast.success(response.data.message);
       return response.data;
     } catch (error) {
-      const msgError = error.message.data.message;
+      const msgError = error.response.data.message;
       toast.error(msgError);
       return rejectWithValue(msgError);
     }
@@ -119,6 +120,16 @@ const authSlice = createSlice({
           JSON.stringify(updatedData)
         );
       }
+    },
+    setUserLocalLogout: (state) => {
+      state.user = null;
+      state.role = null;
+      state.token = null;
+      state.logoutSuccess = true;
+
+      localStorage.removeItem("USER_LOCAL")
+
+      toast.info("User Logged Out")
     }
   },
   extraReducers: (builder) => {

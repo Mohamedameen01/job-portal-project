@@ -8,7 +8,7 @@ import { userData } from "../../../utils/table-datas";
 function UserTable() {
   console.log(userData);
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table className="bg-[#ffffff] w-full  rounded-lg">
         <thead className=" uppercase text-[#000000] border text-sm font-semibold">
           <tr>
@@ -49,7 +49,7 @@ function UserTable() {
               <td className="py-3 px-3">
                 <Link
                   to={`/administrator/users/${data.id}`}
-                  className="bg-[#8B93FF] text-[#FFF7FC] px-3 py-1 rounded-lg"
+                  className="bg-blue-600 text-white p-[4px] sm:px-3 sm:py-2 rounded-lg"
                 >
                   Details
                 </Link>

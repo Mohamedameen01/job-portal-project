@@ -1,9 +1,27 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { setUserLocalLogout } from "../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function  ProfileMenu({ drop, setDrop, from }) {
+  const { logoutSuccess } = useSelector((state) => state.userAuth)
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
+  const handleLogout = () => {
+    dispatch(setUserLocalLogout());
+  };
+
+  useEffect(() => {
+    if (logoutSuccess) {
+      const timer = setTimeout(() => {
+        navigate("/auth/signin");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [logoutSuccess, navigate])
+
   const handleDashboardBtn = () => {  
     if (from === "employer") {
       navigate("/job-portal/employer/dashboard");
@@ -21,12 +39,12 @@ function  ProfileMenu({ drop, setDrop, from }) {
       >
         Dashboard
       </button>
-      <Link
-        onClick={() => setDrop(!drop)}
+      <button
+        onClick={handleLogout}
         className="w-full tracking-wide text-[#673ab7] font-semibold border-1 p-2 rounded-lg hover:bg-[#ede7f6]"
       >
         Logout
-      </Link>
+      </button>
     </div>
   );
 }

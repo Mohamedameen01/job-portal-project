@@ -6,7 +6,6 @@ import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 function OpenJobs({ openJobs }) {
-  console.log("JOBS>>", openJobs);
   const navigate = useNavigate();
 
   return (

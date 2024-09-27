@@ -1,6 +1,8 @@
 import Employee from "../../../models/employee.schema.js";
 import Employer from "../../../models/employer.schema.js";
 import Job from "../../../models/job.schema.js";
+import User from "../../../models/user.schema.js";
+import bcrypt from "bcrypt"
 
 // This Fuction For Uploading Education Infos:
 export const setEducationInfos = async (req, res) => {
@@ -24,14 +26,6 @@ export const setEducationInfos = async (req, res) => {
       grade,
     };
 
-    Employee.collection.dropIndex("email_1", function (err, result) {
-      if (err) {
-        console.error("Error dropping index:", err);
-      } else {
-        console.log("Index dropped:", result);
-      }
-    });
-
     let employee = await Employee.findOne({ employeeId: user._id });
 
     if (!employee) {
@@ -51,8 +45,6 @@ export const setEducationInfos = async (req, res) => {
       .status(200)
       .json({ message: "Education Details Uploaded", info: employee });
   } catch (error) {
-    console.log(error);
-
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -96,8 +88,6 @@ export const setExperienceInfos = async (req, res) => {
 
     res.status(200).json({ message: "Work Experience Details Uploaded" });
   } catch (error) {
-    console.log(error);
-
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -109,7 +99,7 @@ export const setProjectInfos = async (req, res) => {
     const { projectName, startDate, endDate, isWorking, description, skills } =
       req.body;
 
-    if (!projectName) {
+    if (!projectName || !startDate) {
       return res
         .status(400)
         .json({ message: "Project Name is required field" });
@@ -136,8 +126,6 @@ export const setProjectInfos = async (req, res) => {
 
     res.status(200).json({ message: "Project Details Uploaded" });
   } catch (error) {
-    console.log(error);
-
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -154,11 +142,7 @@ export const setCertificateInfos = async (req, res) => {
       description,
     } = req.body;
 
-    console.log("BODY OF CERT:", req.body);
-    console.log("Certificate Name:", certificateName);
-    console.log("Issuing Organization:", issuedOrganization);
-
-    if (!certificateName || !issuedOrganization) {
+    if (!certificateName || !issuedOrganization || !startDate) {
       return res.status(400).json({
         message:
           "Certificate name and Issuing Organization are required fields.",
@@ -186,7 +170,6 @@ export const setCertificateInfos = async (req, res) => {
 
     res.status(200).json({ message: "Certification Details Uploaded" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -244,7 +227,6 @@ export const setPreferenceInfos = async (req, res) => {
 export const getFindHomeJobs = async (req, res) => {
   try {
     const searchParams = req.body;
-    console.log(req.body);
 
     const limit = 10;
 
@@ -263,7 +245,6 @@ export const getFindHomeJobs = async (req, res) => {
 
     res.status(200).json({ jobs });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
 };
@@ -400,7 +381,6 @@ export const getRelatedJobs = async (req, res) => {
 
     res.status(200).json({ relatedJobs });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -521,7 +501,6 @@ export const setJobBookMarked = async (req, res) => {
 
     res.status(200).json({ message: "Job is bookmarked successfully." });
   } catch (error) {
-    console.log("JBM", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -568,7 +547,6 @@ export const setJobApplied = async (req, res) => {
 
     res.status(200).json({ message: "Job is applied successfully. " });
   } catch (error) {
-    console.log("JA>>", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -582,24 +560,22 @@ export const getBookMarkedJobs = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    const employee = await Employee.findOne({ employeeId: userId })
-    .populate({
+    const employee = await Employee.findOne({ employeeId: userId }).populate({
       path: "bookMarkedJobs",
       populate: {
         path: "jobId",
         populate: {
           path: "owner",
-        }
-      }
+        },
+      },
     });
-    
+
     if (!employee) {
       return res.status(400).json({ message: "Employee not found" });
     }
 
     res.status(200).json({ bookMarkedJobs: employee.bookMarkedJobs });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -613,23 +589,540 @@ export const getAppliedJobs = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    const employee = await Employee.findOne({ employeeId: userId })
-    .populate({
+    const employee = await Employee.findOne({ employeeId: userId }).populate({
       path: "appliedJobs",
       populate: {
         path: "jobId",
         populate: {
           path: "owner",
-        }
-      }
-    })
+        },
+      },
+    });
     if (!employee) {
       return res.status(400).json({ message: "Employee not found" });
     }
 
     res.status(200).json({ appliedJobs: employee.appliedJobs });
   } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Recent Applied Job:
+export const getRecentAppliedJobs = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const limit = 6;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const employee = await Employee.findOne({ employeeId: userId })
+      .populate({
+        path: "appliedJobs",
+        populate: {
+          path: "jobId",
+          populate: {
+            path: "owner",
+          },
+        },
+      })
+      .sort({ createdAt: -1 })
+      .limit(limit);
+
+    if (!employee) {
+      return res.status(400).json({ message: "Employee not found" });
+    }
+
+    res.status(200).json({ appliedJobs: employee.appliedJobs });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Profile Infos:
+export const getProfileInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const profile = await User.findOne({ _id: userId }).select(
+      "username email phone picture dateOfBirth"
+    );
+
+    if (!profile) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ profile });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Education Infos:
+export const getEducationInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const employee = await Employee.findOne({ employeeId: userId }).select(
+      "education"
+    );
+    if (!employee) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const education = employee.education[0];
+    res.status(200).json({ education });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Certification Infos:
+export const getCertificationInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const employee = await Employee.findOne({ employeeId: userId }).select(
+      "certifications"
+    );
+    if (!employee) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const certification = employee.certifications[0];
+    res.status(200).json({ certification });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Experience Infos:
+export const getExperienceInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const employee = await Employee.findOne({ employeeId: userId }).select(
+      "workExperience"
+    );
+    if (!employee) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const experience = employee.workExperience[0];
+    res.status(200).json({ experience });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Project Infos:
+export const getProjectInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const employee = await Employee.findOne({ employeeId: userId }).select(
+      "projects"
+    );
+    if (!employee) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const project = employee.projects[0];
+    res.status(200).json({ project });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Get Preference Infos:
+export const getPreferenceInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const employee = await Employee.findOne({ employeeId: userId }).select(
+      "preference"
+    );
+    if (!employee) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ preference: employee.preference });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Update Profile Infos:
+export const putProfileInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { picture, username, email, phone, dateOfBirth } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!username || !email || !phone) {
+      return res.status(400).jsone({ message: "Please fill required fields" });
+    }
+
+    const profile = await User.findOne({ _id: userId }).select(
+      "username email picture phone dateOfBirth"
+    );
+
+    if (!profile) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    profile.username = username;
+    profile.email = email;
+    profile.phone = phone;
+    profile.dateOfBirth = dateOfBirth;
+    profile.picture = picture;
+
+    await profile.save();
+
+    res
+      .status(200)
+      .json({ message: "Profile info updated successfully", profile });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Update Education Infos:
+export const putEducationInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const { degree, institution, fieldOfStudy, startDate, endDate, grade } =
+      req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!id) {
+      return res.status(400).json({ message: "Invalid params" });
+    }
+
+    if (!degree || !institution) {
+      return res.status(400).json({ message: "Please fill required fields" });
+    }
+
+    const employee = await Employee.findOne({
+      employeeId: userId,
+    }).select("education");
+
+    if (!employee) {
+      return res
+        .status(400)
+        .json({ message: "Employee or education record not found" });
+    }
+
+    const education = employee.education.id(id);
+    if (!education) {
+      return res.status(400).json({ message: "Education record not found" });
+    }
+
+    education.degree = degree;
+    education.institution = institution;
+    education.fieldOfStudy = fieldOfStudy;
+    education.startDate = startDate;
+    education.endDate = endDate;
+    education.grade = grade;
+
+    await employee.save();
+
+    res
+      .status(200)
+      .json({ message: "Education info updated successfully", education });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Update Certification Infos:
+export const putCertificationInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const {
+      certificateName,
+      issuedOrganization,
+      startDate,
+      endDate,
+      description,
+    } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!id) {
+      return res.status(400).json({ message: "Invalid params" });
+    }
+
+    if (!certificateName || !issuedOrganization || !startDate) {
+      return res.status(400).json({ message: "Please fill required fields" });
+    }
+
+    const employee = await Employee.findOne({
+      employeeId: userId,
+    }).select("certifications");
+
+    if (!employee) {
+      return res
+        .status(400)
+        .json({ message: "Employee or certification record not found" });
+    }
+
+    const certification = employee.certifications.id(id);
+    if (!certification) {
+      return res
+        .status(400)
+        .json({ message: "Certification record not found" });
+    }
+
+    certification.certificateName = certificateName;
+    certification.issuedOrganization = issuedOrganization;
+    certification.startDate = startDate;
+    certification.endDate = endDate;
+    certification.description = description;
+
+    await employee.save();
+
+    res.status(200).json({
+      message: "certification info updated successfully",
+      certification,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Update Experience Infos:
+export const putExperienceInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const { jobTitle, company, startDate, endDate, isWorking, achievements } =
+      req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!id) {
+      return res.status(400).json({ message: "Invalid params" });
+    }
+
+    if (!jobTitle || !company || !startDate) {
+      return res.status(400).json({ message: "Please fill required fields" });
+    }
+
+    const employee = await Employee.findOne({
+      employeeId: userId,
+    }).select("workExperience");
+
+    if (!employee) {
+      return res
+        .status(400)
+        .json({ message: "Employee or experience record not found" });
+    }
+
+    const experience = employee.workExperience.id(id);
+    if (!experience) {
+      return res.status(400).json({ message: "Experience record not found" });
+    }
+
+    experience.jobTitle = jobTitle;
+    experience.company = company;
+    experience.startDate = startDate;
+    experience.endDate = endDate;
+    experience.isWorking = isWorking;
+    experience.achievements = achievements;
+
+    await employee.save();
+
+    res
+      .status(200)
+      .json({ message: "Experience info updated successfully", experience });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Update Project Infos:
+export const putProjectInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const { projectName, startDate, endDate, isWorking, description, skills } =
+      req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!id) {
+      return res.status(400).json({ message: "Invalid params" });
+    }
+
+    if (!projectName || !startDate) {
+      return res.status(400).json({ message: "Please fill required fields" });
+    }
+
+    const employee = await Employee.findOne({
+      employeeId: userId,
+    }).select("projects");
+
+    if (!employee) {
+      return res
+        .status(400)
+        .json({ message: "Employee or projects record not found" });
+    }
+
+    const project = employee.projects.id(id);
+    if (!project) {
+      return res.status(400).json({ message: "Project record not found" });
+    }
+
+    project.projectName = projectName;
+    project.startDate = startDate;
+    project.endDate = endDate;
+    project.isWorking = isWorking;
+    project.description = description;
+    project.skills = skills;
+
+    await employee.save();
+
+    res
+      .status(200)
+      .json({ message: "Experience info updated successfully", project });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// This Function To Update Preference Infos:
+export const putPreferenceInfos = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const {
+      resume,
+      currentCTC,
+      expectedCTC,
+      totalExperience,
+      prefferedLocation,
+      skills,
+      languages,
+      aboutYourSelf,
+    } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!id) {
+      return res.status(400).json({ message: "Invalid params" });
+    }
+
+    if (!req.body) {
+      return res.status(400).json({ message: "Please fill  fields" });
+    }
+
+    const employee = await Employee.findOne({
+      employeeId: userId,
+    }).select("preference");
+
+    if (!employee) {
+      return res
+        .status(400)
+        .json({ message: "Employee or preference record not found" });
+    }
+
+    const preference = employee.preference;
+    if (!preference) {
+      return res.status(400).json({ message: "Preference record not found" });
+    }
+
+    preference.resume = resume;
+    preference.currentCTC = currentCTC;
+    preference.expectedCTC = expectedCTC;
+    preference.totalExperience = totalExperience;
+    preference.prefferedLocation = prefferedLocation;
+    preference.languages = languages;
+    preference.skills = skills;
+    preference.aboutYourSelf = aboutYourSelf;
+
+    await employee.save();
+
+    res
+      .status(200)
+      .json({ message: "Preference info updated successfully", preference });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+    
+    if (!userId) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.status(400).json({ message: "Please fill required fields" });
+    };
+
+    const user = await User.findOne({_id: userId});
+    if (!user) {
+      return res.status(400).json({message: "User not found"});
+    };
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password)
+    if (!isMatch) {
+      return res.status(400).json({message: "Old password is incorrect"})
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({message: "Password does not match"})
+    };
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.status(200).json({message: "Password changed successfully"})
+  } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
+
+

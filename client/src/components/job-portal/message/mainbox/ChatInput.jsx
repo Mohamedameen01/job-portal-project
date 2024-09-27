@@ -3,7 +3,6 @@ import { IoMdSend } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-
 import messagePop from "/assets/sounds/message-pop-alert.mp3";
 import { setSendChat } from "../../../../redux/chatSlice";
 
@@ -18,7 +17,7 @@ function ChatInput({ receiverId }) {
   const handleSendBtn = async () => {
     if (!chatValue) return;
     try {
-      await dispatch(setSendChat({ id: receiverId, message: chatValue }));
+      dispatch(setSendChat({ id: receiverId, message: chatValue }));
       const audio = new Audio(messagePop);
       audio.play();
       setChatValue("");

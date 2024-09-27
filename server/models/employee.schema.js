@@ -12,7 +12,7 @@ const educationSchema = new Schema({
 const certificationSchema = new Schema({
   certificateName: { type: String, required: true },
   issuedOrganization: { type: String, required: true },
-  startDate: { type: Date },
+  startDate: { type: Date, required: true },
   endDate: { type: Date },
   description: { type: String, default: "" },
 });
@@ -28,7 +28,7 @@ const experienceSchema = new Schema({
 
 const projectSchema = new Schema({
   projectName: { type: String, required: true },
-  startDate: { type: Date },
+  startDate: { type: Date, required: true },
   endDate: { type: Date },
   isWorking: { type: Boolean, default: false },
   description: { type: String, default: "" },
